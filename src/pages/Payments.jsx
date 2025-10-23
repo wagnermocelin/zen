@@ -1,0 +1,643 @@
+import React, { useState } from 'react';
+import { useData } from '../contexts/DataContext';
+import Card from '../components/Card';
+import Modal from '../components/Modal';
+import { Plus, Search, DollarSign, Check, X, Clock, Repeat } from 'lucide-react';
+import { format } from 'date-fns';
+
+const Payments = () => {
+  const { students, payments, addPayment, updatePayment } = useData();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRecurringModalOpen, setIsRecurringModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    studentId: '',
+    amount: '',
+    dueDate: '',
+    status: 'pending',
+    method: 'Dinheiro',
+    notes: '',
+  });
+  const [recurringData, setRecurringData] = useState({
+    studentId: '',
+    amount: '',
+    startDate: '',
+    endDate: '',
+    frequency: 'monthly',
+    dayOfMonth: '5',
+    method: 'Dinheiro',
+    notes: '',
+  });
+
+  // Função para verificar e atualizar status de pagamentos atrasados
+  const checkOverduePayments = () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    payments.forEach(payment => {
+      if (payment.status === 'pending') {
+        const dueDate = new Date(payment.dueDate);
+        dueDate.setHours(0, 0, 0, 0);
+        
+        if (dueDate < today) {
+          updatePayment(payment.id, { status: 'overdue' });
+        }
+      }
+    });
+  };
+
+  // Verificar pagamentos atrasados ao carregar
+  React.useEffect(() => {
+    checkOverduePayments();
+  }, [payments.length]);
+
+  const filteredPayments = payments.filter(payment => {
+    const student = students.find(s => s.id === payment.studentId);
+    const matchesSearch = student?.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesStatus = filterStatus === 'all' || payment.status === filterStatus;
+    return matchesSearch && matchesStatus;
+  });
+
+  const handleOpenModal = () => {
+    setFormData({
+      studentId: '',
+      amount: '',
+      dueDate: '',
+      status: 'pending',
+      method: 'Dinheiro',
+      notes: '',
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // Verificar se a data de vencimento já passou
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const dueDate = new Date(formData.dueDate);
+    dueDate.setHours(0, 0, 0, 0);
+    
+    const paymentData = {
+      ...formData,
+      status: dueDate < today && formData.status === 'pending' ? 'overdue' : formData.status
+    };
+    
+    addPayment(paymentData);
+    setIsModalOpen(false);
+  };
+
+  const handleRecurringSubmit = (e) => {
+    e.preventDefault();
+    
+    const startDate = new Date(recurringData.startDate);
+    const endDate = new Date(recurringData.endDate);
+    const dayOfMonth = parseInt(recurringData.dayOfMonth);
+    
+    const paymentsToCreate = [];
+    
+    // Começar do mês/ano da data inicial
+    let currentYear = startDate.getFullYear();
+    let currentMonth = startDate.getMonth();
+    
+    // Criar uma data para o primeiro pagamento
+    let currentDate = new Date(currentYear, currentMonth, dayOfMonth);
+    
+    // Se o dia já passou no mês inicial, começar no próximo mês
+    if (currentDate < startDate) {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      currentDate = new Date(currentYear, currentMonth, dayOfMonth);
+    }
+    
+    // Gerar pagamentos até a data final
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    while (currentDate <= endDate) {
+      // Verificar se a data já passou para marcar como atrasado
+      const paymentDate = new Date(currentDate);
+      paymentDate.setHours(0, 0, 0, 0);
+      const status = paymentDate < today ? 'overdue' : 'pending';
+      
+      paymentsToCreate.push({
+        studentId: recurringData.studentId,
+        amount: recurringData.amount,
+        dueDate: currentDate.toISOString().split('T')[0],
+        status: status,
+        method: recurringData.method,
+        notes: (recurringData.notes ? recurringData.notes + ' ' : '') + '(Recorrente)',
+      });
+      
+      // Avançar para o próximo mês
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      currentDate = new Date(currentYear, currentMonth, dayOfMonth);
+    }
+    
+    // Adicionar todos os pagamentos
+    console.log('Criando pagamentos:', paymentsToCreate);
+    
+    if (paymentsToCreate.length === 0) {
+      alert('⚠️ Nenhum pagamento foi gerado. Verifique as datas.');
+      return;
+    }
+    
+    // Adicionar cada pagamento com um pequeno delay para garantir IDs únicos
+    let addedCount = 0;
+    paymentsToCreate.forEach((payment, index) => {
+      setTimeout(() => {
+        addPayment(payment);
+        addedCount++;
+        
+        // Mostrar alerta apenas no último
+        if (addedCount === paymentsToCreate.length) {
+          alert(`✅ ${paymentsToCreate.length} pagamentos recorrentes criados com sucesso!`);
+        }
+      }, index * 10); // 10ms de delay entre cada
+    });
+    
+    setIsRecurringModalOpen(false);
+  };
+
+  const handleOpenRecurringModal = () => {
+    const today = new Date();
+    const nextYear = new Date();
+    nextYear.setFullYear(nextYear.getFullYear() + 1);
+    
+    setRecurringData({
+      studentId: '',
+      amount: '',
+      startDate: today.toISOString().split('T')[0],
+      endDate: nextYear.toISOString().split('T')[0],
+      frequency: 'monthly',
+      dayOfMonth: '5',
+      method: 'Dinheiro',
+      notes: '',
+    });
+    setIsRecurringModalOpen(true);
+  };
+
+  const handleStatusChange = (paymentId, newStatus) => {
+    updatePayment(paymentId, { status: newStatus });
+  };
+
+  // Calcular estatísticas
+  const totalPaid = payments
+    .filter(p => p.status === 'paid')
+    .reduce((sum, p) => sum + parseFloat(p.amount), 0);
+
+  const totalPending = payments
+    .filter(p => p.status === 'pending')
+    .reduce((sum, p) => sum + parseFloat(p.amount), 0);
+
+  const totalOverdue = payments
+    .filter(p => p.status === 'overdue')
+    .reduce((sum, p) => sum + parseFloat(p.amount), 0);
+
+  return (
+    <div className="p-4 lg:p-8 space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Financeiro</h1>
+          <p className="text-gray-600 mt-1">Controle de mensalidades e pagamentos</p>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={handleOpenModal}
+            className="btn-primary flex items-center gap-2 justify-center"
+          >
+            <Plus size={20} />
+            Novo Pagamento
+          </button>
+          <button
+            onClick={handleOpenRecurringModal}
+            className="btn-secondary flex items-center gap-2 justify-center"
+          >
+            <Repeat size={20} />
+            Lançamentos Recorrentes
+          </button>
+        </div>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <Card>
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+              <Check className="text-green-600" size={24} />
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Recebido</p>
+              <p className="text-xl font-bold text-gray-900">R$ {totalPaid.toFixed(2)}</p>
+            </div>
+          </div>
+        </Card>
+
+        <Card>
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+              <Clock className="text-yellow-600" size={24} />
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Pendente</p>
+              <p className="text-xl font-bold text-gray-900">R$ {totalPending.toFixed(2)}</p>
+            </div>
+          </div>
+        </Card>
+
+        <Card>
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+              <X className="text-red-600" size={24} />
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Atrasado</p>
+              <p className="text-xl font-bold text-gray-900">R$ {totalOverdue.toFixed(2)}</p>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      {/* Filters */}
+      <Card>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+            <input
+              type="text"
+              placeholder="Buscar por aluno..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none"
+            />
+          </div>
+
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+            className="input-field"
+          >
+            <option value="all">Todos os Status</option>
+            <option value="paid">Pago</option>
+            <option value="pending">Pendente</option>
+            <option value="overdue">Atrasado</option>
+          </select>
+        </div>
+      </Card>
+
+      {/* Payments List */}
+      <Card>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-gray-200">
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Aluno</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Valor</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Vencimento</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Método</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Status</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredPayments.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="text-center py-8 text-gray-500">
+                    {searchTerm || filterStatus !== 'all' 
+                      ? 'Nenhum pagamento encontrado' 
+                      : 'Nenhum pagamento cadastrado ainda'}
+                  </td>
+                </tr>
+              ) : (
+                filteredPayments.map((payment) => {
+                  const student = students.find(s => s.id === payment.studentId);
+                  const statusConfig = {
+                    paid: { label: 'Pago', color: 'bg-green-100 text-green-700' },
+                    pending: { label: 'Pendente', color: 'bg-yellow-100 text-yellow-700' },
+                    overdue: { label: 'Atrasado', color: 'bg-red-100 text-red-700' },
+                  };
+                  const status = statusConfig[payment.status];
+
+                  return (
+                    <tr key={payment.id} className="border-b border-gray-100 hover:bg-gray-50">
+                      <td className="py-3 px-4">
+                        <p className="font-medium text-gray-900">{student?.name || 'N/A'}</p>
+                      </td>
+                      <td className="py-3 px-4">
+                        <p className="font-semibold text-gray-900">R$ {parseFloat(payment.amount).toFixed(2)}</p>
+                      </td>
+                      <td className="py-3 px-4">
+                        <p className="text-gray-600">{format(new Date(payment.dueDate), 'dd/MM/yyyy')}</p>
+                      </td>
+                      <td className="py-3 px-4">
+                        <p className="text-gray-600">{payment.method}</p>
+                      </td>
+                      <td className="py-3 px-4">
+                        <span className={`px-2 py-1 text-xs rounded-full ${status.color}`}>
+                          {status.label}
+                        </span>
+                      </td>
+                      <td className="py-3 px-4">
+                        {payment.status !== 'paid' && (
+                          <button
+                            onClick={() => handleStatusChange(payment.id, 'paid')}
+                            className="text-sm text-green-600 hover:text-green-700 font-medium"
+                          >
+                            Marcar como Pago
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+
+      {/* Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Novo Pagamento"
+      >
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Aluno *
+            </label>
+            <select
+              value={formData.studentId}
+              onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
+              className="input-field"
+              required
+            >
+              <option value="">Selecione um aluno</option>
+              {students.map((student) => (
+                <option key={student.id} value={student.id}>
+                  {student.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Valor (R$) *
+              </label>
+              <input
+                type="number"
+                step="0.01"
+                value={formData.amount}
+                onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+                className="input-field"
+                placeholder="150.00"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Data de Vencimento *
+              </label>
+              <input
+                type="date"
+                value={formData.dueDate}
+                onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
+                className="input-field"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Método de Pagamento
+              </label>
+              <select
+                value={formData.method}
+                onChange={(e) => setFormData({ ...formData, method: e.target.value })}
+                className="input-field"
+              >
+                <option value="Dinheiro">Dinheiro</option>
+                <option value="PIX">PIX</option>
+                <option value="Cartão de Crédito">Cartão de Crédito</option>
+                <option value="Cartão de Débito">Cartão de Débito</option>
+                <option value="Transferência">Transferência</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Status
+              </label>
+              <select
+                value={formData.status}
+                onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                className="input-field"
+              >
+                <option value="pending">Pendente</option>
+                <option value="paid">Pago</option>
+                <option value="overdue">Atrasado</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Observações
+            </label>
+            <textarea
+              value={formData.notes}
+              onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+              className="input-field"
+              rows="3"
+              placeholder="Observações adicionais..."
+            />
+          </div>
+
+          <div className="flex gap-3 pt-4">
+            <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 btn-secondary">
+              Cancelar
+            </button>
+            <button type="submit" className="flex-1 btn-primary">
+              Cadastrar Pagamento
+            </button>
+          </div>
+        </form>
+      </Modal>
+
+      {/* Modal de Lançamentos Recorrentes */}
+      <Modal
+        isOpen={isRecurringModalOpen}
+        onClose={() => setIsRecurringModalOpen(false)}
+        title="Criar Lançamentos Recorrentes"
+        size="lg"
+      >
+        <form onSubmit={handleRecurringSubmit} className="space-y-4">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+            <div className="flex items-start gap-2">
+              <Repeat className="text-blue-600 mt-0.5" size={20} />
+              <div>
+                <p className="text-sm font-medium text-blue-900">Lançamentos Recorrentes</p>
+                <p className="text-xs text-blue-700 mt-1">
+                  Crie múltiplos pagamentos automaticamente para um período. Ideal para mensalidades.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Aluno *
+            </label>
+            <select
+              value={recurringData.studentId}
+              onChange={(e) => setRecurringData({ ...recurringData, studentId: e.target.value })}
+              className="input-field"
+              required
+            >
+              <option value="">Selecione um aluno</option>
+              {students.map((student) => (
+                <option key={student.id} value={student.id}>
+                  {student.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Valor Mensal (R$) *
+              </label>
+              <input
+                type="number"
+                step="0.01"
+                value={recurringData.amount}
+                onChange={(e) => setRecurringData({ ...recurringData, amount: e.target.value })}
+                className="input-field"
+                placeholder="150.00"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Dia do Vencimento *
+              </label>
+              <select
+                value={recurringData.dayOfMonth}
+                onChange={(e) => setRecurringData({ ...recurringData, dayOfMonth: e.target.value })}
+                className="input-field"
+                required
+              >
+                {Array.from({ length: 28 }, (_, i) => i + 1).map(day => (
+                  <option key={day} value={day}>Dia {day}</option>
+                ))}
+              </select>
+              <p className="text-xs text-gray-500 mt-1">Escolha até o dia 28 para evitar problemas em fevereiro</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Data Inicial *
+              </label>
+              <input
+                type="date"
+                value={recurringData.startDate}
+                onChange={(e) => setRecurringData({ ...recurringData, startDate: e.target.value })}
+                className="input-field"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Data Final *
+              </label>
+              <input
+                type="date"
+                value={recurringData.endDate}
+                onChange={(e) => setRecurringData({ ...recurringData, endDate: e.target.value })}
+                className="input-field"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Método de Pagamento
+            </label>
+            <select
+              value={recurringData.method}
+              onChange={(e) => setRecurringData({ ...recurringData, method: e.target.value })}
+              className="input-field"
+            >
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="PIX">PIX</option>
+              <option value="Cartão de Crédito">Cartão de Crédito</option>
+              <option value="Cartão de Débito">Cartão de Débito</option>
+              <option value="Transferência">Transferência</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Observações
+            </label>
+            <textarea
+              value={recurringData.notes}
+              onChange={(e) => setRecurringData({ ...recurringData, notes: e.target.value })}
+              className="input-field"
+              rows="2"
+              placeholder="Ex: Mensalidade 2024"
+            />
+          </div>
+
+          {recurringData.startDate && recurringData.endDate && recurringData.dayOfMonth && (
+            <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+              <p className="text-sm text-green-800">
+                <strong>Preview:</strong> Serão criados aproximadamente{' '}
+                <strong>
+                  {Math.ceil(
+                    (new Date(recurringData.endDate) - new Date(recurringData.startDate)) / 
+                    (1000 * 60 * 60 * 24 * 30)
+                  )}
+                </strong>{' '}
+                pagamentos mensais, todo dia <strong>{recurringData.dayOfMonth}</strong> de cada mês.
+              </p>
+            </div>
+          )}
+
+          <div className="flex gap-3 pt-4">
+            <button type="button" onClick={() => setIsRecurringModalOpen(false)} className="flex-1 btn-secondary">
+              Cancelar
+            </button>
+            <button type="submit" className="flex-1 btn-primary">
+              Criar Lançamentos
+            </button>
+          </div>
+        </form>
+      </Modal>
+    </div>
+  );
+};
+
+export default Payments;
