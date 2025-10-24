@@ -1,5 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import User from '../models/User.js';
 import Student from '../models/Student.js';
 
@@ -171,8 +172,11 @@ router.post('/register', async (req, res) => {
 // @access  Public
 router.post('/create-first-user', async (req, res) => {
   try {
+    console.log('🔧 Tentando criar primeiro usuário...');
+    
     const existingUser = await User.findOne({ email: 'juliana@zem.com' });
     if (existingUser) {
+      console.log('⚠️ Usuário já existe');
       return res.json({ 
         success: true,
         message: 'Usuário já existe',
@@ -180,28 +184,30 @@ router.post('/create-first-user', async (req, res) => {
       });
     }
 
-    const bcrypt = await import('bcryptjs');
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash('senha123', salt);
-
+    console.log('💾 Criando usuário no banco...');
+    // O modelo User já tem um pre-save hook que criptografa a senha automaticamente
     const user = await User.create({
       name: 'Juliana Dolinski',
       email: 'juliana@zem.com',
-      password: hashedPassword,
+      password: 'senha123', // Será criptografada automaticamente pelo modelo
       role: 'professional'
     });
 
+    console.log('✅ Usuário criado:', user._id);
     res.json({ 
       success: true, 
       message: 'Usuário criado com sucesso!',
       email: 'juliana@zem.com',
       senha: 'senha123',
-      role: 'professional'
+      role: 'professional',
+      id: user._id
     });
   } catch (error) {
+    console.error('❌ Erro ao criar usuário:', error);
     res.status(500).json({ 
       success: false,
-      error: error.message 
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 });
