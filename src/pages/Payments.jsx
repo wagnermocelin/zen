@@ -61,8 +61,9 @@ const Payments = () => {
   });
 
   const handleOpenModal = (payment = null) => {
-    if (payment) {
+    if (payment && (payment._id || payment.id)) {
       // Editar pagamento existente
+      console.log('✏️ Editando pagamento:', payment._id || payment.id);
       setEditingPayment(payment);
       setFormData({
         studentId: payment.student?._id || payment.student || payment.studentId || '',
@@ -74,6 +75,7 @@ const Payments = () => {
       });
     } else {
       // Novo pagamento
+      console.log('➕ Criando novo pagamento');
       setEditingPayment(null);
       setFormData({
         studentId: '',

@@ -285,12 +285,21 @@ export const DataProvider = ({ children }) => {
 
   const updatePayment = async (id, updatedData) => {
     try {
+      console.log('💰 DataContextAPI - Atualizando pagamento');
+      console.log('- ID recebido:', id, 'tipo:', typeof id);
+      console.log('- Dados:', updatedData);
+      
+      if (!id || id === 'undefined' || id === undefined) {
+        throw new Error('ID do pagamento inválido');
+      }
+      
       const response = await paymentsService.update(id, updatedData);
       const updatedPayment = response.data || response;
       setPayments(payments.map(p => p._id === id || p.id === id ? updatedPayment : p));
       return updatedPayment;
     } catch (err) {
-      console.error('Erro ao atualizar pagamento:', err);
+      console.error('❌ Erro ao atualizar pagamento:', err);
+      console.error('❌ Detalhes:', err.response?.data);
       throw err;
     }
   };
