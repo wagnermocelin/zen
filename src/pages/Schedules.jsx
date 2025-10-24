@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useData } from '../contexts/DataContext';
+import { useData } from '../contexts/DataContextAPI';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import { Plus, Search, Edit, Trash2, Calendar } from 'lucide-react';
@@ -32,7 +32,25 @@ const Schedules = () => {
   const handleOpenModal = (schedule = null) => {
     if (schedule) {
       setEditingSchedule(schedule);
-      setFormData(schedule);
+      
+      // Converter weekSchedule (objeto) para schedule (array)
+      const scheduleArray = schedule.weekSchedule ? [
+        { workoutId: schedule.weekSchedule.sunday || '', notes: '' },
+        { workoutId: schedule.weekSchedule.monday || '', notes: '' },
+        { workoutId: schedule.weekSchedule.tuesday || '', notes: '' },
+        { workoutId: schedule.weekSchedule.wednesday || '', notes: '' },
+        { workoutId: schedule.weekSchedule.thursday || '', notes: '' },
+        { workoutId: schedule.weekSchedule.friday || '', notes: '' },
+        { workoutId: schedule.weekSchedule.saturday || '', notes: '' },
+      ] : DAYS_OF_WEEK.map(() => ({ workoutId: '', notes: '' }));
+      
+      setFormData({
+        studentId: schedule.student?._id || schedule.student || schedule.studentId || '',
+        name: schedule.name || '',
+        startDate: schedule.startDate || '',
+        endDate: schedule.endDate || '',
+        schedule: scheduleArray,
+      });
     } else {
       setEditingSchedule(null);
       setFormData({
@@ -51,33 +69,73 @@ const Schedules = () => {
     setEditingSchedule(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (editingSchedule) {
-      updateSchedule(editingSchedule.id, formData);
-    } else {
-      addSchedule(formData);
+    try {
+      const { studentId, schedule, ...rest } = formData;
+      
+      // Converter array schedule para objeto weekSchedule
+      console.log('📅 Schedule array completo:', JSON.stringify(schedule, null, 2));
+      
+      const weekSchedule = {
+        sunday: schedule[0]?.workoutId && schedule[0].workoutId !== '' ? schedule[0].workoutId : null,
+        monday: schedule[1]?.workoutId && schedule[1].workoutId !== '' ? schedule[1].workoutId : null,
+        tuesday: schedule[2]?.workoutId && schedule[2].workoutId !== '' ? schedule[2].workoutId : null,
+        wednesday: schedule[3]?.workoutId && schedule[3].workoutId !== '' ? schedule[3].workoutId : null,
+        thursday: schedule[4]?.workoutId && schedule[4].workoutId !== '' ? schedule[4].workoutId : null,
+        friday: schedule[5]?.workoutId && schedule[5].workoutId !== '' ? schedule[5].workoutId : null,
+        saturday: schedule[6]?.workoutId && schedule[6].workoutId !== '' ? schedule[6].workoutId : null,
+      };
+      
+      console.log('📅 weekSchedule convertido:', JSON.stringify(weekSchedule, null, 2));
+      
+      const dataToSave = {
+        ...rest,
+        student: studentId, // Renomear studentId para student
+        weekSchedule // Usar weekSchedule em vez de schedule
+      };
+      
+      console.log('📅 Dados da ficha a serem salvos:', dataToSave);
+      
+      if (editingSchedule) {
+        const result = await updateSchedule(editingSchedule._id || editingSchedule.id, dataToSave);
+        console.log('✅ Ficha atualizada:', result);
+        alert('Ficha atualizada com sucesso!');
+      } else {
+        const result = await addSchedule(dataToSave);
+        console.log('✅ Ficha criada:', result);
+        alert('Ficha criada com sucesso!');
+      }
+      handleCloseModal();
+    } catch (error) {
+      console.error('Erro ao salvar ficha:', error);
+      alert('Erro ao salvar ficha: ' + (error.message || 'Erro desconhecido'));
     }
-    
-    handleCloseModal();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Tem certeza que deseja excluir esta ficha?')) {
-      deleteSchedule(id);
+      try {
+        await deleteSchedule(id);
+      } catch (error) {
+        console.error('Erro ao deletar ficha:', error);
+        alert('Erro ao deletar ficha');
+      }
     }
   };
 
   const updateDaySchedule = (dayIndex, field, value) => {
+    console.log(`📅 Atualizando dia ${dayIndex}, campo ${field}, valor:`, value);
     const newSchedule = [...formData.schedule];
     newSchedule[dayIndex][field] = value;
+    console.log('📅 Schedule atualizado:', newSchedule);
     setFormData({ ...formData, schedule: newSchedule });
   };
 
-  const studentWorkouts = formData.studentId
-    ? workouts.filter(w => w.studentId === formData.studentId)
-    : [];
+  // Treinos são genéricos (não pertencem a um aluno específico)
+  // Mostrar todos os treinos disponíveis
+  const studentWorkouts = workouts;
 
   return (
     <div className="p-4 lg:p-8 space-y-6">
@@ -120,9 +178,27 @@ const Schedules = () => {
           </Card>
         ) : (
           filteredSchedules.map((schedule) => {
-            const student = students.find(s => s.id === schedule.studentId);
+            const student = students.find(s => (s._id || s.id) === (schedule.student?._id || schedule.student || schedule.studentId));
+            
+            console.log('📅 Exibindo ficha:', schedule.name);
+            console.log('- weekSchedule do banco:', schedule.weekSchedule);
+            console.log('- schedule (antigo):', schedule.schedule);
+            
+            // Converter weekSchedule para array para exibição
+            const scheduleArray = schedule.weekSchedule ? [
+              schedule.weekSchedule.sunday,
+              schedule.weekSchedule.monday,
+              schedule.weekSchedule.tuesday,
+              schedule.weekSchedule.wednesday,
+              schedule.weekSchedule.thursday,
+              schedule.weekSchedule.friday,
+              schedule.weekSchedule.saturday,
+            ] : (schedule.schedule || []);
+            
+            console.log('- scheduleArray convertido:', scheduleArray);
+            
             return (
-              <Card key={schedule.id} className="hover:shadow-md transition-shadow">
+              <Card key={schedule._id || schedule.id} className="hover:shadow-md transition-shadow">
                 <div className="space-y-4">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
@@ -142,7 +218,7 @@ const Schedules = () => {
                         <Edit size={18} />
                       </button>
                       <button
-                        onClick={() => handleDelete(schedule.id)}
+                        onClick={() => handleDelete(schedule._id || schedule.id)}
                         className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
                       >
                         <Trash2 size={18} />
@@ -152,8 +228,8 @@ const Schedules = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-2">
                     {DAYS_OF_WEEK.map((day, index) => {
-                      const daySchedule = schedule.schedule[index];
-                      const workout = workouts.find(w => w.id === daySchedule?.workoutId);
+                      const workoutId = scheduleArray[index];
+                      const workout = workouts.find(w => (w._id || w.id) === workoutId);
                       return (
                         <div
                           key={day}
@@ -205,7 +281,7 @@ const Schedules = () => {
               >
                 <option value="">Selecione um aluno</option>
                 {students.map((student) => (
-                  <option key={student.id} value={student.id}>
+                  <option key={student._id || student.id} value={student._id || student.id}>
                     {student.name}
                   </option>
                 ))}
@@ -269,7 +345,7 @@ const Schedules = () => {
                     >
                       <option value="">Descanso</option>
                       {studentWorkouts.map((workout) => (
-                        <option key={workout.id} value={workout.id}>
+                        <option key={workout._id || workout.id} value={workout._id || workout.id}>
                           {workout.name}
                         </option>
                       ))}

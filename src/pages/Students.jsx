@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { useData } from '../contexts/DataContext';
+import { useData } from '../contexts/DataContextAPI';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
-import { Plus, Search, Edit, Trash2, Mail, Phone, Calendar } from 'lucide-react';
+import { Plus, Search, Edit, Trash2, Mail, Phone, Calendar, Lock, Unlock, AlertCircle } from 'lucide-react';
 import { format } from 'date-fns';
+import { studentsService } from '../services/api';
 
 const Students = () => {
-  const { students, addStudent, updateStudent, deleteStudent } = useData();
+  const { students, addStudent, updateStudent, deleteStudent, refreshData } = useData();
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingStudent, setEditingStudent] = useState(null);
@@ -54,21 +55,65 @@ const Students = () => {
     setEditingStudent(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (editingStudent) {
-      updateStudent(editingStudent.id, formData);
-    } else {
-      addStudent(formData);
+    try {
+      if (editingStudent) {
+        await updateStudent(editingStudent._id || editingStudent.id, formData);
+      } else {
+        await addStudent(formData);
+      }
+      handleCloseModal();
+    } catch (error) {
+      console.error('Erro ao salvar aluno:', error);
+      alert('Erro ao salvar aluno: ' + (error.message || 'Erro desconhecido'));
     }
-    
-    handleCloseModal();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Tem certeza que deseja excluir este aluno?')) {
-      deleteStudent(id);
+      try {
+        await deleteStudent(id);
+      } catch (error) {
+        console.error('Erro ao deletar aluno:', error);
+        alert('Erro ao deletar aluno');
+      }
+    }
+  };
+
+  const handleUnblock = async (id) => {
+    try {
+      await studentsService.unblock(id);
+      await refreshData();
+      alert('Aluno desbloqueado com sucesso!');
+    } catch (error) {
+      console.error('Erro ao desbloquear aluno:', error);
+      alert('Erro ao desbloquear aluno');
+    }
+  };
+
+  const handleBlock = async (id) => {
+    if (window.confirm('Tem certeza que deseja bloquear este aluno?')) {
+      try {
+        await studentsService.block(id);
+        await refreshData();
+        alert('Aluno bloqueado com sucesso!');
+      } catch (error) {
+        console.error('Erro ao bloquear aluno:', error);
+        alert('Erro ao bloquear aluno');
+      }
+    }
+  };
+
+  const handleCheckOverdue = async () => {
+    try {
+      const response = await studentsService.checkOverdue();
+      await refreshData();
+      alert(response.message || 'Verificação concluída!');
+    } catch (error) {
+      console.error('Erro ao verificar inadimplência:', error);
+      alert('Erro ao verificar inadimplência');
     }
   };
 
@@ -80,13 +125,23 @@ const Students = () => {
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">Alunos</h1>
           <p className="text-gray-600 mt-1">Gerencie seus alunos cadastrados</p>
         </div>
-        <button
-          onClick={() => handleOpenModal()}
-          className="btn-primary flex items-center gap-2 justify-center"
-        >
-          <Plus size={20} />
-          Novo Aluno
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={handleCheckOverdue}
+            className="btn-secondary flex items-center gap-2 justify-center"
+            title="Verificar inadimplência"
+          >
+            <AlertCircle size={20} />
+            Verificar Inadimplência
+          </button>
+          <button
+            onClick={() => handleOpenModal()}
+            className="btn-primary flex items-center gap-2 justify-center"
+          >
+            <Plus size={20} />
+            Novo Aluno
+          </button>
+        </div>
       </div>
 
       {/* Search */}
@@ -127,13 +182,21 @@ const Students = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">{student.name}</h3>
-                      <span className={`inline-block px-2 py-1 text-xs rounded-full ${
-                        student.status === 'active' 
-                          ? 'bg-green-100 text-green-700' 
-                          : 'bg-gray-100 text-gray-700'
-                      }`}>
-                        {student.status === 'active' ? 'Ativo' : 'Inativo'}
-                      </span>
+                      <div className="flex gap-2 mt-1">
+                        <span className={`inline-block px-2 py-1 text-xs rounded-full ${
+                          student.status === 'active' 
+                            ? 'bg-green-100 text-green-700' 
+                            : 'bg-gray-100 text-gray-700'
+                        }`}>
+                          {student.status === 'active' ? 'Ativo' : 'Inativo'}
+                        </span>
+                        {student.blocked && (
+                          <span className="inline-block px-2 py-1 text-xs rounded-full bg-red-100 text-red-700 flex items-center gap-1">
+                            <Lock size={12} />
+                            {student.blockReason === 'payment_overdue' ? 'Inadimplente' : 'Bloqueado'}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -163,9 +226,27 @@ const Students = () => {
                     <Edit size={16} />
                     Editar
                   </button>
+                  {student.blocked ? (
+                    <button
+                      onClick={() => handleUnblock(student._id || student.id)}
+                      className="px-4 py-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+                      title="Desbloquear"
+                    >
+                      <Unlock size={16} />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleBlock(student._id || student.id)}
+                      className="px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-lg transition-colors"
+                      title="Bloquear"
+                    >
+                      <Lock size={16} />
+                    </button>
+                  )}
                   <button
-                    onClick={() => handleDelete(student.id)}
+                    onClick={() => handleDelete(student._id || student.id)}
                     className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    title="Excluir"
                   >
                     <Trash2 size={16} />
                   </button>

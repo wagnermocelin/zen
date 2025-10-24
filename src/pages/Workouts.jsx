@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useData } from '../contexts/DataContext';
+import { useData } from '../contexts/DataContextAPI';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import { Plus, Search, Edit, Trash2, Dumbbell } from 'lucide-react';
@@ -10,17 +10,15 @@ const Workouts = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingWorkout, setEditingWorkout] = useState(null);
   const [formData, setFormData] = useState({
-    studentId: '',
     name: '',
-    type: 'Musculação',
+    description: '',
     exercises: [{ name: '', sets: '', reps: '', rest: '', notes: '' }],
   });
 
   const filteredWorkouts = workouts.filter(workout => {
-    const student = students.find(s => s.id === workout.studentId);
     return (
       workout.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student?.name.toLowerCase().includes(searchTerm.toLowerCase())
+      (workout.description && workout.description.toLowerCase().includes(searchTerm.toLowerCase()))
     );
   });
 
@@ -31,9 +29,8 @@ const Workouts = () => {
     } else {
       setEditingWorkout(null);
       setFormData({
-        studentId: '',
         name: '',
-        type: 'Musculação',
+        description: '',
         exercises: [{ name: '', sets: '', reps: '', rest: '', notes: '' }],
       });
     }
@@ -45,21 +42,30 @@ const Workouts = () => {
     setEditingWorkout(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (editingWorkout) {
-      updateWorkout(editingWorkout.id, formData);
-    } else {
-      addWorkout(formData);
+    try {
+      if (editingWorkout) {
+        await updateWorkout(editingWorkout._id || editingWorkout.id, formData);
+      } else {
+        await addWorkout(formData);
+      }
+      handleCloseModal();
+    } catch (error) {
+      console.error('Erro ao salvar treino:', error);
+      alert('Erro ao salvar treino: ' + (error.message || 'Erro desconhecido'));
     }
-    
-    handleCloseModal();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Tem certeza que deseja excluir este treino?')) {
-      deleteWorkout(id);
+      try {
+        await deleteWorkout(id);
+      } catch (error) {
+        console.error('Erro ao deletar treino:', error);
+        alert('Erro ao deletar treino');
+      }
     }
   };
 
@@ -126,9 +132,8 @@ const Workouts = () => {
           </div>
         ) : (
           filteredWorkouts.map((workout) => {
-            const student = students.find(s => s.id === workout.studentId);
             return (
-              <Card key={workout.id} className="hover:shadow-md transition-shadow">
+              <Card key={workout._id || workout.id} className="hover:shadow-md transition-shadow">
                 <div className="space-y-4">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
@@ -137,12 +142,9 @@ const Workouts = () => {
                       </div>
                       <div>
                         <h3 className="font-semibold text-gray-900">{workout.name}</h3>
-                        <p className="text-sm text-gray-600">{student?.name || 'Aluno não encontrado'}</p>
+                        <p className="text-sm text-gray-600">{workout.description || 'Sem descrição'}</p>
                       </div>
                     </div>
-                    <span className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full">
-                      {workout.type}
-                    </span>
                   </div>
 
                   <div className="space-y-2">
@@ -171,7 +173,7 @@ const Workouts = () => {
                       Editar
                     </button>
                     <button
-                      onClick={() => handleDelete(workout.id)}
+                      onClick={() => handleDelete(workout._id || workout.id)}
                       className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                     >
                       <Trash2 size={16} />
@@ -192,56 +194,31 @@ const Workouts = () => {
         size="lg"
       >
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Aluno *
-              </label>
-              <select
-                value={formData.studentId}
-                onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
-                className="input-field"
-                required
-              >
-                <option value="">Selecione um aluno</option>
-                {students.map((student) => (
-                  <option key={student.id} value={student.id}>
-                    {student.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Nome do Treino *
-              </label>
-              <input
-                type="text"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="input-field"
-                placeholder="Ex: Treino A - Peito e Tríceps"
-                required
-              />
-            </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Nome do Treino *
+            </label>
+            <input
+              type="text"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              className="input-field"
+              placeholder="Ex: Treino A - Peito e Tríceps"
+              required
+            />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Tipo de Treino
+              Descrição
             </label>
-            <select
-              value={formData.type}
-              onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+            <textarea
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               className="input-field"
-            >
-              <option value="Musculação">Musculação</option>
-              <option value="Cardio">Cardio</option>
-              <option value="Funcional">Funcional</option>
-              <option value="HIIT">HIIT</option>
-              <option value="Outro">Outro</option>
-            </select>
+              placeholder="Descreva o objetivo deste treino..."
+              rows="2"
+            />
           </div>
 
           <div>

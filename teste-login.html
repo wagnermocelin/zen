@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste Login - Zen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            background: #4F46E5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #4338CA;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste de Login - Zen API</h1>
+    
+    <h2>1. Testar Conexão com Backend</h2>
+    <button onclick="testarBackend()">Testar Backend</button>
+    <pre id="resultado-backend"></pre>
+
+    <h2>2. Testar Login</h2>
+    <button onclick="testarLogin()">Fazer Login</button>
+    <pre id="resultado-login"></pre>
+
+    <h2>3. Informações</h2>
+    <p><strong>Backend URL:</strong> http://localhost:5000</p>
+    <p><strong>Email:</strong> wagner@zen.com</p>
+    <p><strong>Senha:</strong> senha123</p>
+
+    <script>
+        async function testarBackend() {
+            const resultado = document.getElementById('resultado-backend');
+            resultado.textContent = '⏳ Testando conexão...';
+            
+            try {
+                const response = await fetch('http://localhost:5000');
+                const data = await response.json();
+                resultado.className = 'success';
+                resultado.textContent = '✅ Backend Online!\n\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultado.className = 'error';
+                resultado.textContent = '❌ Erro: ' + error.message + '\n\n' + error.stack;
+            }
+        }
+
+        async function testarLogin() {
+            const resultado = document.getElementById('resultado-login');
+            resultado.textContent = '⏳ Fazendo login...';
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'wagner@zen.com',
+                        password: 'senha123'
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultado.className = 'success';
+                    resultado.textContent = '✅ Login Bem-Sucedido!\n\n' + 
+                        'Token: ' + data.token.substring(0, 50) + '...\n\n' +
+                        'Usuário:\n' + JSON.stringify(data.user, null, 2);
+                    
+                    // Salvar no localStorage
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    
+                    console.log('✅ Token salvo no localStorage');
+                } else {
+                    resultado.className = 'error';
+                    resultado.textContent = '❌ Login Falhou:\n\n' + JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                resultado.className = 'error';
+                resultado.textContent = '❌ Erro: ' + error.message + '\n\n' + error.stack;
+                console.error('Erro completo:', error);
+            }
+        }
+
+        // Testar automaticamente ao carregar
+        window.onload = function() {
+            console.log('🔍 Verificando configuração...');
+            console.log('Origin:', window.location.origin);
+            console.log('Backend:', 'http://localhost:5000');
+        };
+    </script>
+</body>
+</html>

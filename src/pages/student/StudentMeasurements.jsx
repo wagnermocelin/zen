@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { useData } from '../../contexts/DataContext';
+import { useData } from '../../contexts/DataContextAPI';
 import Card from '../../components/Card';
 import { Ruler, TrendingUp, TrendingDown } from 'lucide-react';
 import { format } from 'date-fns';
@@ -11,7 +11,10 @@ const StudentMeasurements = () => {
   const { measurements } = useData();
 
   const myMeasurements = measurements
-    .filter(m => m.studentId === user.id)
+    .filter(m => {
+      const studentId = m.student?._id || m.student || m.studentId;
+      return studentId === (user._id || user.id);
+    })
     .sort((a, b) => new Date(b.date) - new Date(a.date));
 
   const latestMeasurement = myMeasurements[0];
@@ -192,7 +195,7 @@ const StudentMeasurements = () => {
           <Card title="Histórico Completo de Medições">
             <div className="space-y-4">
               {myMeasurements.map((measurement) => (
-                <div key={measurement.id} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div key={measurement._id || measurement.id} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
                   <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-300">
                     <p className="font-semibold text-gray-900 text-lg">
                       📅 {format(new Date(measurement.date), 'dd/MM/yyyy')}

@@ -1,14 +1,25 @@
 import React from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { useData } from '../../contexts/DataContext';
+import { useData } from '../../contexts/DataContextAPI';
 import Card from '../../components/Card';
 import { Dumbbell } from 'lucide-react';
 
 const StudentWorkouts = () => {
   const { user } = useAuth();
-  const { workouts } = useData();
+  const { workouts, schedules } = useData();
 
-  const myWorkouts = workouts.filter(w => w.studentId === user.id);
+  // Buscar a ficha ativa do aluno
+  const mySchedule = schedules.find(s => 
+    (s.student?._id || s.student || s.studentId) === (user._id || user.id)
+  );
+
+  // Buscar treinos da ficha do aluno
+  const myWorkoutIds = mySchedule?.weekSchedule ? 
+    Object.values(mySchedule.weekSchedule).filter(id => id) : [];
+  
+  const myWorkouts = workouts.filter(w => 
+    myWorkoutIds.includes(w._id || w.id)
+  );
 
   return (
     <div className="p-4 lg:p-8 space-y-6">

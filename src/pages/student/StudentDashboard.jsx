@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { useData } from '../../contexts/DataContext';
+import { useData } from '../../contexts/DataContextAPI';
 import Card from '../../components/Card';
 import StatCard from '../../components/StatCard';
 import { Dumbbell, Ruler, Calendar, DollarSign, TrendingDown } from 'lucide-react';
@@ -11,11 +11,41 @@ const StudentDashboard = () => {
   const { workouts, measurements, schedules, diets, payments } = useData();
 
   // Filtrar dados do aluno
-  const myWorkouts = workouts.filter(w => w.studentId === user.id);
-  const myMeasurements = measurements.filter(m => m.studentId === user.id).sort((a, b) => new Date(b.date) - new Date(a.date));
-  const mySchedule = schedules.find(s => s.studentId === user.id);
-  const myDiet = diets.find(d => d.studentId === user.id);
-  const myPayments = payments.filter(p => p.studentId === user.id);
+  const myMeasurements = measurements
+    .filter(m => {
+      const studentId = m.student?._id || m.student || m.studentId;
+      return studentId === (user._id || user.id);
+    })
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+    
+  const mySchedule = schedules.find(s => {
+    const studentId = s.student?._id || s.student || s.studentId;
+    return studentId === (user._id || user.id);
+  });
+  
+  const myDiet = diets.find(d => {
+    const studentId = d.student?._id || d.student || d.studentId;
+    return studentId === (user._id || user.id);
+  });
+  
+  const myPayments = payments.filter(p => {
+    const studentId = p.student?._id || p.student || p.studentId;
+    return studentId === (user._id || user.id);
+  });
+
+  // Buscar treinos da ficha do aluno
+  const scheduleArray = mySchedule?.weekSchedule ? [
+    mySchedule.weekSchedule.sunday,
+    mySchedule.weekSchedule.monday,
+    mySchedule.weekSchedule.tuesday,
+    mySchedule.weekSchedule.wednesday,
+    mySchedule.weekSchedule.thursday,
+    mySchedule.weekSchedule.friday,
+    mySchedule.weekSchedule.saturday,
+  ] : [];
+  
+  const myWorkoutIds = scheduleArray.filter(id => id);
+  const myWorkouts = workouts.filter(w => myWorkoutIds.includes(w._id || w.id));
 
   const latestMeasurement = myMeasurements[0];
   const paidPayments = myPayments.filter(p => p.status === 'paid').length;
@@ -23,8 +53,9 @@ const StudentDashboard = () => {
 
   // Treino de hoje
   const today = new Date().getDay();
-  const todayWorkout = mySchedule?.schedule[today]?.workoutId 
-    ? workouts.find(w => w.id === mySchedule.schedule[today].workoutId)
+  const todayWorkoutId = scheduleArray[today];
+  const todayWorkout = todayWorkoutId 
+    ? workouts.find(w => (w._id || w.id) === todayWorkoutId)
     : null;
 
   return (
@@ -230,7 +261,7 @@ const StudentDashboard = () => {
               <p className="text-sm text-gray-600 mb-2">Últimos Pagamentos</p>
               <div className="space-y-2">
                 {myPayments.slice(0, 3).map((payment) => (
-                  <div key={payment.id} className="flex items-center justify-between text-sm">
+                  <div key={payment._id || payment.id} className="flex items-center justify-between text-sm">
                     <span className="text-gray-600">
                       {format(new Date(payment.dueDate), 'dd/MM/yyyy')}
                     </span>

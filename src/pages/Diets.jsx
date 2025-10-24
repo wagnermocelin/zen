@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useData } from '../contexts/DataContext';
+import { useData } from '../contexts/DataContextAPI';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import { Plus, Search, Edit, Trash2, Salad } from 'lucide-react';
@@ -21,7 +21,7 @@ const Diets = () => {
   });
 
   const filteredDiets = diets.filter(diet => {
-    const student = students.find(s => s.id === diet.studentId);
+    const student = students.find(s => (s._id || s.id) === (diet.student?._id || diet.student || diet.studentId));
     return (
       diet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       student?.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -53,21 +53,36 @@ const Diets = () => {
     setEditingDiet(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (editingDiet) {
-      updateDiet(editingDiet.id, formData);
-    } else {
-      addDiet(formData);
+    try {
+      const { studentId, ...rest } = formData;
+      const dataToSave = {
+        ...rest,
+        student: studentId // Renomear studentId para student
+      };
+      
+      if (editingDiet) {
+        await updateDiet(editingDiet._id || editingDiet.id, dataToSave);
+      } else {
+        await addDiet(dataToSave);
+      }
+      handleCloseModal();
+    } catch (error) {
+      console.error('Erro ao salvar dieta:', error);
+      alert('Erro ao salvar dieta: ' + (error.message || 'Erro desconhecido'));
     }
-    
-    handleCloseModal();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Tem certeza que deseja excluir esta dieta?')) {
-      deleteDiet(id);
+      try {
+        await deleteDiet(id);
+      } catch (error) {
+        console.error('Erro ao deletar dieta:', error);
+        alert('Erro ao deletar dieta');
+      }
     }
   };
 
@@ -134,9 +149,9 @@ const Diets = () => {
           </div>
         ) : (
           filteredDiets.map((diet) => {
-            const student = students.find(s => s.id === diet.studentId);
+            const student = students.find(s => (s._id || s.id) === (diet.student?._id || diet.student || diet.studentId));
             return (
-              <Card key={diet.id} className="hover:shadow-md transition-shadow">
+              <Card key={diet._id || diet.id} className="hover:shadow-md transition-shadow">
                 <div className="space-y-4">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
@@ -197,7 +212,7 @@ const Diets = () => {
                       Editar
                     </button>
                     <button
-                      onClick={() => handleDelete(diet.id)}
+                      onClick={() => handleDelete(diet._id || diet.id)}
                       className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                     >
                       <Trash2 size={16} />
@@ -231,7 +246,7 @@ const Diets = () => {
               >
                 <option value="">Selecione um aluno</option>
                 {students.map((student) => (
-                  <option key={student.id} value={student.id}>
+                  <option key={student._id || student.id} value={student._id || student.id}>
                     {student.name}
                   </option>
                 ))}

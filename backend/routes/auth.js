@@ -71,6 +71,18 @@ router.post('/login', async (req, res) => {
         });
       }
 
+      if (user.blocked) {
+        const reason = user.blockReason === 'payment_overdue' 
+          ? 'Seu acesso foi bloqueado por inadimplência. Entre em contato com seu personal trainer.'
+          : 'Seu acesso foi bloqueado. Entre em contato com seu personal trainer.';
+        
+        return res.status(403).json({
+          success: false,
+          message: reason,
+          blocked: true
+        });
+      }
+
       const isMatch = await user.matchPassword(password);
       
       if (!isMatch) {

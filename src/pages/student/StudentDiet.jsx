@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { useData } from '../../contexts/DataContext';
+import { useData } from '../../contexts/DataContextAPI';
 import Card from '../../components/Card';
 import { Salad } from 'lucide-react';
 
@@ -8,7 +8,10 @@ const StudentDiet = () => {
   const { user } = useAuth();
   const { diets } = useData();
 
-  const myDiet = diets.find(d => d.studentId === user.id);
+  const myDiet = diets.find(d => {
+    const studentId = d.student?._id || d.student || d.studentId;
+    return studentId === (user._id || user.id);
+  });
 
   return (
     <div className="p-4 lg:p-8 space-y-6">

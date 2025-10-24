@@ -40,6 +40,15 @@ const studentSchema = new mongoose.Schema({
     enum: ['active', 'inactive'],
     default: 'active'
   },
+  blocked: {
+    type: Boolean,
+    default: false
+  },
+  blockReason: {
+    type: String,
+    enum: ['payment_overdue', 'manual', null],
+    default: null
+  },
   photo: {
     type: String
   },

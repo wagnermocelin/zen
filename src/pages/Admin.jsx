@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import { Plus, Edit2, Trash2, Upload, Settings, Users, Shield, Image } from 'lucide-react';
+import { usersService, configService } from '../services/api';
 
 const Admin = () => {
   const [professionals, setProfessionals] = useState([]);
@@ -17,32 +18,31 @@ const Admin = () => {
     status: 'active',
   });
 
-  // Carregar dados do localStorage
+  // Carregar dados da API
   useEffect(() => {
-    const storedProfessionals = localStorage.getItem('professionals');
-    if (storedProfessionals) {
-      setProfessionals(JSON.parse(storedProfessionals));
-    } else {
-      // Usuário admin padrão
-      const defaultAdmin = [{
-        id: 'trainer-1',
-        name: 'Personal Trainer',
-        email: 'trainer@zen.com',
-        password: 'trainer123',
-        role: 'trainer',
-        status: 'active',
-        createdAt: new Date().toISOString(),
-      }];
-      setProfessionals(defaultAdmin);
-      localStorage.setItem('professionals', JSON.stringify(defaultAdmin));
-    }
-
-    const storedLogo = localStorage.getItem('gymLogo');
-    if (storedLogo) setLogo(storedLogo);
-
-    const storedGymName = localStorage.getItem('gymName');
-    if (storedGymName) setGymName(storedGymName);
+    loadUsers();
+    loadConfig();
   }, []);
+
+  const loadUsers = async () => {
+    try {
+      const response = await usersService.getAll();
+      setProfessionals(response.data || response);
+    } catch (error) {
+      console.error('Erro ao carregar usuários:', error);
+    }
+  };
+
+  const loadConfig = async () => {
+    try {
+      const response = await configService.get();
+      const config = response.data || response;
+      if (config.gymName) setGymName(config.gymName);
+      if (config.logo) setLogo(config.logo);
+    } catch (error) {
+      console.error('Erro ao carregar configurações:', error);
+    }
+  };
 
   const handleOpenModal = (user = null) => {
     if (user) {
@@ -67,69 +67,89 @@ const Admin = () => {
     setIsModalOpen(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (editingUser) {
-      // Editar usuário existente
-      const updatedProfessionals = professionals.map(p => 
-        p.id === editingUser.id 
-          ? { 
-              ...p, 
-              name: formData.name, 
-              email: formData.email,
-              ...(formData.password && { password: formData.password }),
-              role: formData.role,
-              status: formData.status,
-            }
-          : p
-      );
-      setProfessionals(updatedProfessionals);
-      localStorage.setItem('professionals', JSON.stringify(updatedProfessionals));
-    } else {
-      // Criar novo usuário
-      const newUser = {
-        id: `user-${Date.now()}`,
-        ...formData,
-        createdAt: new Date().toISOString(),
-      };
-      const updatedProfessionals = [...professionals, newUser];
-      setProfessionals(updatedProfessionals);
-      localStorage.setItem('professionals', JSON.stringify(updatedProfessionals));
+    try {
+      if (editingUser) {
+        // Editar usuário existente
+        const updateData = {
+          name: formData.name,
+          email: formData.email,
+          role: formData.role,
+          status: formData.status,
+        };
+        
+        // Só incluir senha se foi preenchida
+        if (formData.password) {
+          updateData.password = formData.password;
+        }
+        
+        await usersService.update(editingUser._id || editingUser.id, updateData);
+      } else {
+        // Criar novo usuário
+        await usersService.create(formData);
+      }
+      
+      // Recarregar lista de usuários
+      await loadUsers();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Erro ao salvar usuário:', error);
+      alert('Erro ao salvar usuário: ' + (error.message || 'Erro desconhecido'));
     }
-    
-    setIsModalOpen(false);
   };
 
-  const handleDelete = (userId) => {
+  const handleDelete = async (userId) => {
     if (window.confirm('Tem certeza que deseja excluir este usuário?')) {
-      const updatedProfessionals = professionals.filter(p => p.id !== userId);
-      setProfessionals(updatedProfessionals);
-      localStorage.setItem('professionals', JSON.stringify(updatedProfessionals));
+      try {
+        await usersService.delete(userId);
+        await loadUsers();
+      } catch (error) {
+        console.error('Erro ao deletar usuário:', error);
+        alert('Erro ao deletar usuário: ' + (error.message || 'Erro desconhecido'));
+      }
     }
   };
 
-  const handleLogoUpload = (e) => {
+  const handleLogoUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onloadend = async () => {
         const base64String = reader.result;
         setLogo(base64String);
-        localStorage.setItem('gymLogo', base64String);
+        try {
+          await configService.update({ logo: base64String, gymName });
+          alert('Logo salvo com sucesso!');
+        } catch (error) {
+          console.error('Erro ao salvar logo:', error);
+          alert('Erro ao salvar logo');
+        }
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleSaveGymName = () => {
-    localStorage.setItem('gymName', gymName);
-    alert('Nome da academia salvo com sucesso!');
+  const handleSaveGymName = async () => {
+    try {
+      await configService.update({ gymName, logo });
+      alert('Nome da academia salvo com sucesso!');
+    } catch (error) {
+      console.error('Erro ao salvar nome:', error);
+      alert('Erro ao salvar nome da academia');
+    }
   };
 
-  const handleRemoveLogo = () => {
+  const handleRemoveLogo = async () => {
     setLogo('');
-    localStorage.removeItem('gymLogo');
+    try {
+      await configService.update({ logo: '', gymName });
+      alert('Logo removido com sucesso!');
+    } catch (error) {
+      console.error('Erro ao remover logo:', error);
+      alert('Erro ao remover logo');
+    }
   };
 
   return (
@@ -222,7 +242,7 @@ const Admin = () => {
         <div className="space-y-3">
           {professionals.map((user) => (
             <div
-              key={user.id}
+              key={user._id || user.id}
               className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
             >
               <div className="flex items-center gap-4">
@@ -262,7 +282,7 @@ const Admin = () => {
                   <Edit2 size={20} />
                 </button>
                 <button
-                  onClick={() => handleDelete(user.id)}
+                  onClick={() => handleDelete(user._id || user.id)}
                   className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   title="Excluir"
                 >

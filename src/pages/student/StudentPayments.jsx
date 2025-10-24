@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { useData } from '../../contexts/DataContext';
+import { useData } from '../../contexts/DataContextAPI';
 import Card from '../../components/Card';
 import { DollarSign, Check, Clock, X } from 'lucide-react';
 import { format } from 'date-fns';
@@ -9,7 +9,12 @@ const StudentPayments = () => {
   const { user } = useAuth();
   const { payments } = useData();
 
-  const myPayments = payments.filter(p => p.studentId === user.id).sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate));
+  const myPayments = payments
+    .filter(p => {
+      const studentId = p.student?._id || p.student || p.studentId;
+      return studentId === (user._id || user.id);
+    })
+    .sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate));
 
   const totalPaid = myPayments.filter(p => p.status === 'paid').reduce((sum, p) => sum + parseFloat(p.amount), 0);
   const totalPending = myPayments.filter(p => p.status === 'pending' || p.status === 'overdue').reduce((sum, p) => sum + parseFloat(p.amount), 0);
@@ -65,7 +70,7 @@ const StudentPayments = () => {
               const StatusIcon = status.icon;
 
               return (
-                <div key={payment.id} className="p-4 bg-gray-50 rounded-lg">
+                <div key={payment._id || payment.id} className="p-4 bg-gray-50 rounded-lg">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${status.color}`}>

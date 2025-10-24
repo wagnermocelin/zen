@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
-import { useData } from '../contexts/DataContext';
+import { useData } from '../contexts/DataContextAPI';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
-import { Plus, Search, TrendingUp, TrendingDown } from 'lucide-react';
+import { Plus, Search, TrendingUp, TrendingDown, Trash2, Edit } from 'lucide-react';
 import { format } from 'date-fns';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const Measurements = () => {
-  const { students, measurements, addMeasurement } = useData();
+  const { students, measurements, addMeasurement, updateMeasurement, deleteMeasurement } = useData();
   const [selectedStudent, setSelectedStudent] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingMeasurement, setEditingMeasurement] = useState(null);
   const [formData, setFormData] = useState({
     studentId: '',
+    date: new Date().toISOString().split('T')[0],
     // Dados Básicos
     weight: '',
     height: '',
     // Calculados
     imc: '',
+    bodyFat: '',
     fatMass: '',
     leanMass: '',
     waistHipRatio: '',
@@ -51,7 +54,10 @@ const Measurements = () => {
   });
 
   const studentMeasurements = selectedStudent
-    ? measurements.filter(m => m.studentId === selectedStudent).sort((a, b) => new Date(b.date) - new Date(a.date))
+    ? measurements.filter(m => {
+        const studentId = m.student?._id || m.student || m.studentId;
+        return studentId === selectedStudent;
+      }).sort((a, b) => new Date(b.date) - new Date(a.date))
     : [];
 
   // Calcular IMC
@@ -65,32 +71,232 @@ const Measurements = () => {
 
   // Calcular soma de dobras
   const calculateSkinFoldSum = () => {
-    const folds = [formData.bicepsFold, formData.tricepsFold, formData.midAxillaryFold, formData.chestFold, formData.abdominalFold, formData.subscapularFold, formData.thighFold];
-    const sum = folds.reduce((acc, val) => acc + (parseFloat(val) || 0), 0);
-    return sum > 0 ? sum.toFixed(2) : '';
+    const folds = [
+      formData.bicepsFold, 
+      formData.tricepsFold, 
+      formData.midAxillaryFold, 
+      formData.chestFold, 
+      formData.abdominalFold, 
+      formData.subscapularFold, 
+      formData.thighFold
+    ];
+    
+    const sum = folds.reduce((acc, val) => {
+      const numVal = parseFloat(val);
+      return acc + (isNaN(numVal) ? 0 : numVal);
+    }, 0);
+    
+    console.log('🔢 Dobras:', folds);
+    console.log('🔢 Soma:', sum);
+    
+    return sum > 0 ? sum : 0;
   };
 
-  const handleOpenModal = () => {
-    setFormData({
-      studentId: selectedStudent || '',
-      weight: '', height: '', imc: '', fatMass: '', leanMass: '', waistHipRatio: '', bodyDensity: '', skinFoldSum: '', armMuscleArea: '', armFatArea: '',
-      shoulders: '', chest: '', waist: '', abdomen: '', hip: '', calfLeft: '', calfRight: '', thighLeft: '', thighRight: '', proximalThighLeft: '', proximalThighRight: '',
-      relaxedArmLeft: '', relaxedArmRight: '', contractedArmLeft: '', contractedArmRight: '',
-      bicepsFold: '', tricepsFold: '', midAxillaryFold: '', chestFold: '', abdominalFold: '', subscapularFold: '', thighFold: '',
-    });
+  // Calcular % de Gordura (Protocolo Jackson & Pollock - 7 dobras)
+  const calculateBodyFat = (skinFoldSum, age, gender = 'male') => {
+    const sum = parseFloat(skinFoldSum);
+    const ageNum = parseFloat(age);
+    
+    if (isNaN(sum) || sum <= 0 || isNaN(ageNum)) {
+      console.log('⚠️ Não foi possível calcular % gordura - Soma:', sum, 'Idade:', ageNum);
+      return '';
+    }
+    
+    // Fórmula de Jackson & Pollock
+    let bodyDensity;
+    if (gender === 'male') {
+      bodyDensity = 1.112 - (0.00043499 * sum) + (0.00000055 * sum * sum) - (0.00028826 * ageNum);
+    } else {
+      bodyDensity = 1.097 - (0.00046971 * sum) + (0.00000056 * sum * sum) - (0.00012828 * ageNum);
+    }
+    
+    // Fórmula de Siri para converter densidade em % gordura
+    const bodyFat = ((4.95 / bodyDensity) - 4.5) * 100;
+    
+    return bodyFat > 0 ? bodyFat.toFixed(2) : '';
+  };
+
+  // Calcular Massa Gorda e Massa Magra
+  const calculateMasses = (weight, bodyFat) => {
+    if (!weight || !bodyFat) return { fatMass: '', leanMass: '' };
+    
+    const w = parseFloat(weight);
+    const bf = parseFloat(bodyFat);
+    
+    const fatMass = (w * bf / 100).toFixed(2);
+    const leanMass = (w - fatMass).toFixed(2);
+    
+    return { fatMass, leanMass };
+  };
+
+  const handleOpenModal = (measurement = null) => {
+    if (measurement) {
+      // Editar medição existente
+      setEditingMeasurement(measurement);
+      setFormData({
+        studentId: measurement.student?._id || measurement.student || measurement.studentId || '',
+        date: measurement.date ? measurement.date.split('T')[0] : '',
+        weight: measurement.weight || '',
+        height: measurement.height || '',
+        imc: measurement.imc || '',
+        fatMass: measurement.fatMass || '',
+        leanMass: measurement.leanMass || '',
+        bodyFat: measurement.bodyFat || '',
+        waistHipRatio: measurement.waistHipRatio || '',
+        bodyDensity: measurement.bodyDensity || '',
+        skinFoldSum: measurement.skinFoldSum || '',
+        armMuscleArea: measurement.armMuscleArea || '',
+        armFatArea: measurement.armFatArea || '',
+        shoulders: measurement.shoulders || '',
+        chest: measurement.chest || '',
+        waist: measurement.waist || '',
+        abdomen: measurement.abdomen || '',
+        hip: measurement.hip || '',
+        calfLeft: measurement.calfLeft || '',
+        calfRight: measurement.calfRight || '',
+        thighLeft: measurement.thighLeft || '',
+        thighRight: measurement.thighRight || '',
+        proximalThighLeft: measurement.proximalThighLeft || '',
+        proximalThighRight: measurement.proximalThighRight || '',
+        relaxedArmLeft: measurement.relaxedArmLeft || '',
+        relaxedArmRight: measurement.relaxedArmRight || '',
+        contractedArmLeft: measurement.contractedArmLeft || '',
+        contractedArmRight: measurement.contractedArmRight || '',
+        bicepsFold: measurement.bicepsFold || '',
+        tricepsFold: measurement.tricepsFold || '',
+        midAxillaryFold: measurement.midAxillaryFold || '',
+        chestFold: measurement.chestFold || '',
+        abdominalFold: measurement.abdominalFold || '',
+        subscapularFold: measurement.subscapularFold || '',
+        thighFold: measurement.thighFold || '',
+      });
+    } else {
+      // Nova medição
+      setEditingMeasurement(null);
+      setFormData({
+        studentId: selectedStudent || '',
+        date: new Date().toISOString().split('T')[0],
+        weight: '', height: '', imc: '', fatMass: '', leanMass: '', bodyFat: '', waistHipRatio: '', bodyDensity: '', skinFoldSum: '', armMuscleArea: '', armFatArea: '',
+        shoulders: '', chest: '', waist: '', abdomen: '', hip: '', calfLeft: '', calfRight: '', thighLeft: '', thighRight: '', proximalThighLeft: '', proximalThighRight: '',
+        relaxedArmLeft: '', relaxedArmRight: '', contractedArmLeft: '', contractedArmRight: '',
+        bicepsFold: '', tricepsFold: '', midAxillaryFold: '', chestFold: '', abdominalFold: '', subscapularFold: '', thighFold: '',
+      });
+    }
     setIsModalOpen(true);
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const dataToSave = {
-      ...formData,
-      imc: calculateIMC(formData.weight, formData.height),
-      skinFoldSum: calculateSkinFoldSum(),
-      waistHipRatio: formData.waist && formData.hip ? (parseFloat(formData.waist) / parseFloat(formData.hip)).toFixed(2) : '',
-    };
-    addMeasurement(dataToSave);
+  
+  const handleCloseModal = () => {
     setIsModalOpen(false);
+    setEditingMeasurement(null);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { studentId, ...rest } = formData;
+      
+      // Buscar dados do aluno para cálculos
+      const student = students.find(s => (s._id || s.id) === studentId);
+      
+      // Calcular idade a partir da data de nascimento
+      let age = 25; // Idade padrão
+      if (student?.birthDate) {
+        const birthDate = new Date(student.birthDate);
+        const today = new Date();
+        age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+      }
+      
+      // Converter gênero para formato da fórmula
+      const gender = student?.gender === 'Feminino' ? 'female' : 'male';
+      
+      // Calcular valores
+      const imc = calculateIMC(formData.weight, formData.height);
+      const skinFoldSum = calculateSkinFoldSum();
+      const waistHipRatio = formData.waist && formData.hip ? (parseFloat(formData.waist) / parseFloat(formData.hip)).toFixed(2) : '';
+      
+      // Calcular % de gordura e massas
+      console.log('📊 Cálculo de % Gordura:');
+      console.log('- Soma dobras:', skinFoldSum);
+      console.log('- Idade:', age);
+      console.log('- Gênero:', gender);
+      
+      const bodyFat = calculateBodyFat(skinFoldSum, age, gender);
+      console.log('- % Gordura calculado:', bodyFat);
+      
+      const { fatMass, leanMass } = calculateMasses(formData.weight, bodyFat);
+      console.log('- Massa Gorda:', fatMass, 'kg');
+      console.log('- Massa Magra:', leanMass, 'kg');
+      
+      // Limpar campos vazios e converter strings para números
+      const cleanData = {};
+      Object.keys(rest).forEach(key => {
+        const value = rest[key];
+        if (value !== '' && value !== null && value !== undefined) {
+          // Converter para número se for um campo numérico
+          const numValue = parseFloat(value);
+          cleanData[key] = !isNaN(numValue) ? numValue : value;
+        }
+      });
+      
+      console.log('🔍 Verificando valores antes de salvar:');
+      console.log('- bodyFat:', bodyFat, 'tipo:', typeof bodyFat, 'isNaN:', isNaN(bodyFat));
+      console.log('- fatMass:', fatMass, 'tipo:', typeof fatMass);
+      console.log('- leanMass:', leanMass, 'tipo:', typeof leanMass);
+      
+      const dataToSave = {
+        ...cleanData,
+        student: studentId, // Renomear studentId para student
+        date: formData.date, // Incluir data
+        // Só incluir se não for vazio ou NaN
+        ...(imc && !isNaN(imc) && { imc: parseFloat(imc) }),
+        ...(skinFoldSum && skinFoldSum > 0 && !isNaN(skinFoldSum) && { skinFoldSum: parseFloat(skinFoldSum) }),
+        ...(waistHipRatio && !isNaN(waistHipRatio) && { waistHipRatio: parseFloat(waistHipRatio) }),
+        ...(bodyFat && bodyFat !== '' && !isNaN(parseFloat(bodyFat)) && { bodyFat: parseFloat(bodyFat) }),
+        ...(fatMass && fatMass !== '' && !isNaN(parseFloat(fatMass)) && { fatMass: parseFloat(fatMass) }),
+        ...(leanMass && leanMass !== '' && !isNaN(parseFloat(leanMass)) && { leanMass: parseFloat(leanMass) }),
+      };
+      
+      console.log('📋 Resumo dos cálculos:');
+      console.log('- IMC:', imc);
+      console.log('- Soma dobras:', skinFoldSum);
+      console.log('- % Gordura:', bodyFat);
+      console.log('- Massa Gorda:', fatMass);
+      console.log('- Massa Magra:', leanMass);
+      console.log('📦 Dados a serem salvos:', dataToSave);
+      console.log('🔍 editingMeasurement:', editingMeasurement);
+      console.log('🔍 É edição?', !!editingMeasurement);
+      
+      if (editingMeasurement && (editingMeasurement._id || editingMeasurement.id)) {
+        // Atualizar medição existente
+        const id = editingMeasurement._id || editingMeasurement.id;
+        console.log('✏️ Atualizando medição com ID:', id);
+        await updateMeasurement(id, dataToSave);
+      } else {
+        // Criar nova medição
+        console.log('➕ Criando nova medição');
+        await addMeasurement(dataToSave);
+      }
+      
+      handleCloseModal();
+    } catch (error) {
+      console.error('Erro ao salvar medida:', error);
+      alert('Erro ao salvar medida: ' + (error.message || 'Erro desconhecido'));
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Tem certeza que deseja excluir esta medição?')) {
+      try {
+        await deleteMeasurement(id);
+      } catch (error) {
+        console.error('Erro ao deletar medição:', error);
+        alert('Erro ao deletar medição');
+      }
+    }
   };
 
   const getEvolution = (field) => {
@@ -139,7 +345,7 @@ const Measurements = () => {
           >
             <option value="">Selecione um aluno</option>
             {students.map((student) => (
-              <option key={student.id} value={student.id}>
+              <option key={student._id || student.id} value={student._id || student.id}>
                 {student.name}
               </option>
             ))}
@@ -255,16 +461,20 @@ const Measurements = () => {
                   <ResponsiveContainer width="100%" height={250}>
                     <LineChart data={studentMeasurements.slice().reverse().map(m => ({
                       date: format(new Date(m.date), 'dd/MM'),
-                      esquerdo: parseFloat(m.armLeft) || 0,
-                      direito: parseFloat(m.armRight) || 0,
+                      relaxadoEsq: parseFloat(m.relaxedArmLeft) || 0,
+                      relaxadoDir: parseFloat(m.relaxedArmRight) || 0,
+                      contraidoEsq: parseFloat(m.contractedArmLeft) || 0,
+                      contraidoDir: parseFloat(m.contractedArmRight) || 0,
                     }))}>
                       <CartesianGrid strokeDasharray="3 3" />
                       <XAxis dataKey="date" />
                       <YAxis />
                       <Tooltip />
                       <Legend />
-                      <Line type="monotone" dataKey="esquerdo" stroke="#10b981" strokeWidth={2} name="Braço Esq. (cm)" />
-                      <Line type="monotone" dataKey="direito" stroke="#3b82f6" strokeWidth={2} name="Braço Dir. (cm)" />
+                      <Line type="monotone" dataKey="relaxadoEsq" stroke="#10b981" strokeWidth={2} name="Relaxado Esq. (cm)" />
+                      <Line type="monotone" dataKey="relaxadoDir" stroke="#3b82f6" strokeWidth={2} name="Relaxado Dir. (cm)" />
+                      <Line type="monotone" dataKey="contraidoEsq" stroke="#8b5cf6" strokeWidth={2} name="Contraído Esq. (cm)" />
+                      <Line type="monotone" dataKey="contraidoDir" stroke="#ec4899" strokeWidth={2} name="Contraído Dir. (cm)" />
                     </LineChart>
                   </ResponsiveContainer>
                 </Card>
@@ -331,11 +541,34 @@ const Measurements = () => {
           <Card title="Histórico Completo de Medições">
             <div className="space-y-4">
               {studentMeasurements.map((measurement) => (
-                <div key={measurement.id} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div key={measurement._id || measurement.id} className="p-4 bg-gray-50 rounded-lg border border-gray-200">
                   <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-300">
-                    <p className="font-semibold text-gray-900 text-lg">
-                      📅 {format(new Date(measurement.date), 'dd/MM/yyyy')}
-                    </p>
+                    <div>
+                      <p className="font-semibold text-gray-900 text-lg">
+                        📅 {format(new Date(measurement.date), 'dd/MM/yyyy')}
+                      </p>
+                      {measurement.trainer && (
+                        <p className="text-sm text-gray-600 mt-1">
+                          👤 Profissional: <span className="font-medium">{measurement.trainer.name || measurement.trainer}</span>
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleOpenModal(measurement)}
+                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        title="Editar medição"
+                      >
+                        <Edit size={18} />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(measurement._id || measurement.id)}
+                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        title="Excluir medição"
+                      >
+                        <Trash2 size={18} />
+                      </button>
+                    </div>
                   </div>
                   
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 text-sm">
@@ -361,20 +594,28 @@ const Measurements = () => {
                     </div>
                     <div className="bg-white p-3 rounded-lg">
                       <p className="text-gray-600 text-xs mb-1">% Gordura</p>
-                      <p className="font-semibold text-gray-900">{measurement.bodyFat}%</p>
+                      <p className="font-semibold text-gray-900">{measurement.bodyFat ? `${measurement.bodyFat}%` : '-'}</p>
                     </div>
                   </div>
 
                   <div className="mt-3 pt-3 border-t border-gray-300">
-                    <p className="text-xs font-medium text-gray-700 mb-2">Membros Unilaterais</p>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm">
+                    <p className="text-xs font-medium text-gray-700 mb-2">Braços</p>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
                       <div className="bg-green-50 p-3 rounded-lg">
-                        <p className="text-gray-600 text-xs mb-1">💪 Braço Esq.</p>
-                        <p className="font-semibold text-green-700">{measurement.armLeft} cm</p>
+                        <p className="text-gray-600 text-xs mb-1">💪 Relaxado Esq.</p>
+                        <p className="font-semibold text-green-700">{measurement.relaxedArmLeft || '-'} cm</p>
                       </div>
                       <div className="bg-blue-50 p-3 rounded-lg">
-                        <p className="text-gray-600 text-xs mb-1">💪 Braço Dir.</p>
-                        <p className="font-semibold text-blue-700">{measurement.armRight} cm</p>
+                        <p className="text-gray-600 text-xs mb-1">💪 Relaxado Dir.</p>
+                        <p className="font-semibold text-blue-700">{measurement.relaxedArmRight || '-'} cm</p>
+                      </div>
+                      <div className="bg-purple-50 p-3 rounded-lg">
+                        <p className="text-gray-600 text-xs mb-1">💪 Contraído Esq.</p>
+                        <p className="font-semibold text-purple-700">{measurement.contractedArmLeft || '-'} cm</p>
+                      </div>
+                      <div className="bg-pink-50 p-3 rounded-lg">
+                        <p className="text-gray-600 text-xs mb-1">💪 Contraído Dir.</p>
+                        <p className="font-semibold text-pink-700">{measurement.contractedArmRight || '-'} cm</p>
                       </div>
                       <div className="bg-orange-50 p-3 rounded-lg">
                         <p className="text-gray-600 text-xs mb-1">🦵 Coxa Esq.</p>
@@ -412,8 +653,8 @@ const Measurements = () => {
       {/* Modal */}
       <Modal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Nova Avaliação Antropométrica"
+        onClose={handleCloseModal}
+        title={editingMeasurement ? 'Editar Avaliação Antropométrica' : 'Nova Avaliação Antropométrica'}
         size="xl"
       >
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -429,11 +670,24 @@ const Measurements = () => {
             >
               <option value="">Selecione um aluno</option>
               {students.map((student) => (
-                <option key={student.id} value={student.id}>
+                <option key={student._id || student.id} value={student._id || student.id}>
                   {student.name}
                 </option>
               ))}
             </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Data da Avaliação *
+            </label>
+            <input
+              type="date"
+              value={formData.date}
+              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+              className="input-field"
+              required
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -576,7 +830,7 @@ const Measurements = () => {
           </div>
 
           <div className="flex gap-3 pt-4">
-            <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 btn-secondary">
+            <button type="button" onClick={handleCloseModal} className="flex-1 btn-secondary">
               Cancelar
             </button>
             <button type="submit" className="flex-1 btn-primary">

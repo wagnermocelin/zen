@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useData } from '../contexts/DataContext';
+import { useData } from '../contexts/DataContextAPI';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import { Plus, Search, DollarSign, Check, X, Clock, Repeat } from 'lucide-react';
@@ -11,6 +11,7 @@ const Payments = () => {
   const [filterStatus, setFilterStatus] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isRecurringModalOpen, setIsRecurringModalOpen] = useState(false);
+  const [editingPayment, setEditingPayment] = useState(null);
   const [formData, setFormData] = useState({
     studentId: '',
     amount: '',
@@ -59,37 +60,80 @@ const Payments = () => {
     return matchesSearch && matchesStatus;
   });
 
-  const handleOpenModal = () => {
-    setFormData({
-      studentId: '',
-      amount: '',
-      dueDate: '',
-      status: 'pending',
-      method: 'Dinheiro',
-      notes: '',
-    });
+  const handleOpenModal = (payment = null) => {
+    if (payment) {
+      // Editar pagamento existente
+      setEditingPayment(payment);
+      setFormData({
+        studentId: payment.student?._id || payment.student || payment.studentId || '',
+        amount: payment.amount || '',
+        dueDate: payment.dueDate ? payment.dueDate.split('T')[0] : '', // Converter para formato yyyy-MM-dd
+        status: payment.status || 'pending',
+        method: payment.paymentMethod || payment.method || 'Dinheiro',
+        notes: payment.notes || '',
+      });
+    } else {
+      // Novo pagamento
+      setEditingPayment(null);
+      setFormData({
+        studentId: '',
+        amount: '',
+        dueDate: '',
+        status: 'pending',
+        method: 'Dinheiro',
+        notes: '',
+      });
+    }
     setIsModalOpen(true);
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Verificar se a data de vencimento já passou
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const dueDate = new Date(formData.dueDate);
-    dueDate.setHours(0, 0, 0, 0);
-    
-    const paymentData = {
-      ...formData,
-      status: dueDate < today && formData.status === 'pending' ? 'overdue' : formData.status
-    };
-    
-    addPayment(paymentData);
+  
+  const handleCloseModal = () => {
     setIsModalOpen(false);
+    setEditingPayment(null);
   };
 
-  const handleRecurringSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      // Verificar se a data de vencimento já passou
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const dueDate = new Date(formData.dueDate);
+      dueDate.setHours(0, 0, 0, 0);
+      
+      const { studentId, ...rest } = formData;
+      
+      // Obter mês e ano da data de vencimento
+      const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
+                          'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+      const month = monthNames[dueDate.getMonth()];
+      const year = dueDate.getFullYear();
+      
+      const paymentData = {
+        ...rest,
+        student: studentId, // Renomear studentId para student
+        month: month,
+        year: year,
+        status: dueDate < today && formData.status === 'pending' ? 'overdue' : formData.status,
+        paymentMethod: rest.method // Renomear method para paymentMethod
+      };
+      
+      if (editingPayment) {
+        // Atualizar pagamento existente
+        await updatePayment(editingPayment._id || editingPayment.id, paymentData);
+      } else {
+        // Criar novo pagamento
+        await addPayment(paymentData);
+      }
+      handleCloseModal();
+    } catch (error) {
+      console.error('Erro ao salvar pagamento:', error);
+      alert('Erro ao salvar pagamento: ' + (error.message || 'Erro desconhecido'));
+    }
+  };
+
+  const handleRecurringSubmit = async (e) => {
     e.preventDefault();
     
     const startDate = new Date(recurringData.startDate);
@@ -125,12 +169,18 @@ const Payments = () => {
       paymentDate.setHours(0, 0, 0, 0);
       const status = paymentDate < today ? 'overdue' : 'pending';
       
+      // Obter mês e ano da data atual
+      const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
+                          'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+      
       paymentsToCreate.push({
-        studentId: recurringData.studentId,
+        student: recurringData.studentId, // Renomear studentId para student
         amount: recurringData.amount,
         dueDate: currentDate.toISOString().split('T')[0],
+        month: monthNames[currentMonth],
+        year: currentYear,
         status: status,
-        method: recurringData.method,
+        paymentMethod: recurringData.method,
         notes: (recurringData.notes ? recurringData.notes + ' ' : '') + '(Recorrente)',
       });
       
@@ -151,21 +201,20 @@ const Payments = () => {
       return;
     }
     
-    // Adicionar cada pagamento com um pequeno delay para garantir IDs únicos
-    let addedCount = 0;
-    paymentsToCreate.forEach((payment, index) => {
-      setTimeout(() => {
-        addPayment(payment);
-        addedCount++;
-        
-        // Mostrar alerta apenas no último
-        if (addedCount === paymentsToCreate.length) {
-          alert(`✅ ${paymentsToCreate.length} pagamentos recorrentes criados com sucesso!`);
-        }
-      }, index * 10); // 10ms de delay entre cada
-    });
-    
-    setIsRecurringModalOpen(false);
+    try {
+      // Adicionar todos os pagamentos sequencialmente
+      const createdPayments = [];
+      for (const payment of paymentsToCreate) {
+        const created = await addPayment(payment);
+        createdPayments.push(created);
+        console.log(`✅ Pagamento ${createdPayments.length}/${paymentsToCreate.length} criado`);
+      }
+      alert(`✅ ${createdPayments.length} pagamentos recorrentes criados com sucesso!`);
+      setIsRecurringModalOpen(false);
+    } catch (error) {
+      console.error('Erro ao criar pagamentos recorrentes:', error);
+      alert('Erro ao criar pagamentos recorrentes: ' + (error.message || 'Erro desconhecido'));
+    }
   };
 
   const handleOpenRecurringModal = () => {
@@ -186,8 +235,13 @@ const Payments = () => {
     setIsRecurringModalOpen(true);
   };
 
-  const handleStatusChange = (paymentId, newStatus) => {
-    updatePayment(paymentId, { status: newStatus });
+  const handleStatusChange = async (paymentId, newStatus) => {
+    try {
+      await updatePayment(paymentId, { status: newStatus });
+    } catch (error) {
+      console.error('Erro ao atualizar status:', error);
+      alert('Erro ao atualizar status do pagamento');
+    }
   };
 
   // Calcular estatísticas
@@ -320,7 +374,7 @@ const Payments = () => {
                 </tr>
               ) : (
                 filteredPayments.map((payment) => {
-                  const student = students.find(s => s.id === payment.studentId);
+                  const student = students.find(s => (s._id || s.id) === (payment.student?._id || payment.student || payment.studentId));
                   const statusConfig = {
                     paid: { label: 'Pago', color: 'bg-green-100 text-green-700' },
                     pending: { label: 'Pendente', color: 'bg-yellow-100 text-yellow-700' },
@@ -329,7 +383,7 @@ const Payments = () => {
                   const status = statusConfig[payment.status];
 
                   return (
-                    <tr key={payment.id} className="border-b border-gray-100 hover:bg-gray-50">
+                    <tr key={payment._id || payment.id} className="border-b border-gray-100 hover:bg-gray-50">
                       <td className="py-3 px-4">
                         <p className="font-medium text-gray-900">{student?.name || 'N/A'}</p>
                       </td>
@@ -348,14 +402,22 @@ const Payments = () => {
                         </span>
                       </td>
                       <td className="py-3 px-4">
-                        {payment.status !== 'paid' && (
+                        <div className="flex gap-2">
                           <button
-                            onClick={() => handleStatusChange(payment.id, 'paid')}
-                            className="text-sm text-green-600 hover:text-green-700 font-medium"
+                            onClick={() => handleOpenModal(payment)}
+                            className="text-sm text-blue-600 hover:text-blue-700 font-medium"
                           >
-                            Marcar como Pago
+                            Editar
                           </button>
-                        )}
+                          {payment.status !== 'paid' && (
+                            <button
+                              onClick={() => handleStatusChange(payment._id || payment.id, 'paid')}
+                              className="text-sm text-green-600 hover:text-green-700 font-medium"
+                            >
+                              Marcar Pago
+                            </button>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   );
@@ -369,8 +431,8 @@ const Payments = () => {
       {/* Modal */}
       <Modal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Novo Pagamento"
+        onClose={handleCloseModal}
+        title={editingPayment ? 'Editar Pagamento' : 'Novo Pagamento'}
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -385,7 +447,7 @@ const Payments = () => {
             >
               <option value="">Selecione um aluno</option>
               {students.map((student) => (
-                <option key={student.id} value={student.id}>
+                <option key={student._id || student.id} value={student._id || student.id}>
                   {student.name}
                 </option>
               ))}
@@ -512,7 +574,7 @@ const Payments = () => {
             >
               <option value="">Selecione um aluno</option>
               {students.map((student) => (
-                <option key={student.id} value={student.id}>
+                <option key={student._id || student.id} value={student._id || student.id}>
                   {student.name}
                 </option>
               ))}

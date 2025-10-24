@@ -16,6 +16,7 @@ const measurementSchema = new mongoose.Schema({
   
   // Calculados
   imc: Number,
+  bodyFat: Number,
   fatMass: Number,
   leanMass: Number,
   waistHipRatio: Number,

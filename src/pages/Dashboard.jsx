@@ -1,5 +1,5 @@
 import React from 'react';
-import { useData } from '../contexts/DataContext';
+import { useData } from '../contexts/DataContextAPI';
 import StatCard from '../components/StatCard';
 import Card from '../components/Card';
 import { Users, Dumbbell, DollarSign, TrendingUp, Calendar } from 'lucide-react';
@@ -83,7 +83,7 @@ const Dashboard = () => {
             <div className="space-y-3">
               {recentStudents.map((student) => (
                 <div
-                  key={student.id}
+                  key={student._id || student.id}
                   className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <div className="flex items-center gap-3">

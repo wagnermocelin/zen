@@ -144,8 +144,17 @@ const Layout = ({ children }) => {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 min-h-[calc(100vh-57px)]">
-          {children}
+        <main className="flex-1 min-h-[calc(100vh-57px)] flex flex-col">
+          <div className="flex-1">
+            {children}
+          </div>
+          
+          {/* Footer */}
+          <footer className="bg-white border-t border-gray-200 py-4 px-4 text-center">
+            <p className="text-sm text-gray-600">
+              Criado por <span className="font-semibold text-primary-600">Wagner Henrique Mocelin</span>
+            </p>
+          </footer>
         </main>
       </div>
     </div>

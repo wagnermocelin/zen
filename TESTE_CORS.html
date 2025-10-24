@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste CORS - Zen API</title>
+</head>
+<body>
+    <h1>Teste de Conexão com API</h1>
+    <button onclick="testarAPI()">Testar Conexão</button>
+    <pre id="resultado"></pre>
+
+    <script>
+        async function testarAPI() {
+            const resultado = document.getElementById('resultado');
+            resultado.textContent = 'Testando...';
+            
+            try {
+                // Testar endpoint raiz
+                const response = await fetch('http://localhost:5000');
+                const data = await response.json();
+                resultado.textContent = 'Sucesso! Backend respondeu:\n' + JSON.stringify(data, null, 2);
+                
+                // Testar login
+                console.log('Testando login...');
+                const loginResponse = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: 'wagner@zen.com',
+                        password: 'senha123'
+                    })
+                });
+                
+                const loginData = await loginResponse.json();
+                resultado.textContent += '\n\nLogin:\n' + JSON.stringify(loginData, null, 2);
+                
+            } catch (error) {
+                resultado.textContent = 'Erro: ' + error.message;
+                console.error('Erro completo:', error);
+            }
+        }
+    </script>
+</body>
+</html>

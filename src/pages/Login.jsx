@@ -16,10 +16,10 @@ const Login = () => {
     setError('');
     setLoading(true);
 
-    const result = login(email, password);
+    const result = await login(email, password);
     
     if (result.success) {
-      if (result.user.role === 'trainer') {
+      if (result.user.role === 'trainer' || result.user.role === 'professional') {
         navigate('/dashboard');
       } else {
         navigate('/student/dashboard');
