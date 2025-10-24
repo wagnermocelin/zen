@@ -189,7 +189,7 @@ router.post('/create-first-user', async (req, res) => {
     const user = await User.create({
       name: 'Juliana Dolinski',
       email: 'juliana@zem.com',
-      password: 'senha123', // Será criptografada automaticamente pelo modelo
+      password: '123456', // Será criptografada automaticamente pelo modelo
       role: 'professional'
     });
 
@@ -198,7 +198,7 @@ router.post('/create-first-user', async (req, res) => {
       success: true, 
       message: 'Usuário criado com sucesso!',
       email: 'juliana@zem.com',
-      senha: 'senha123',
+      senha: '123456',
       role: 'professional',
       id: user._id
     });
