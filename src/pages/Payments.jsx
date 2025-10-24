@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useData } from '../contexts/DataContextAPI';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
-import { Plus, Search, DollarSign, Check, X, Clock, Repeat } from 'lucide-react';
+import { Plus, Search, DollarSign, Check, X, Clock, Repeat, Trash2 } from 'lucide-react';
 import { format } from 'date-fns';
 
 const Payments = () => {
-  const { students, payments, addPayment, updatePayment } = useData();
+  const { students, payments, addPayment, updatePayment, deletePayment } = useData();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -273,6 +273,26 @@ const Payments = () => {
     }
   };
 
+  const handleDelete = async (paymentId) => {
+    if (!window.confirm('Tem certeza que deseja excluir este pagamento?')) {
+      return;
+    }
+
+    try {
+      console.log('🗑️ Excluindo pagamento:', paymentId);
+      
+      if (!paymentId || paymentId === 'undefined') {
+        throw new Error('ID do pagamento inválido');
+      }
+      
+      await deletePayment(paymentId);
+      console.log('✅ Pagamento excluído com sucesso');
+    } catch (error) {
+      console.error('Erro ao excluir pagamento:', error);
+      alert('Erro ao excluir pagamento: ' + (error.message || 'Erro desconhecido'));
+    }
+  };
+
   // Calcular estatísticas
   const totalPaid = payments
     .filter(p => p.status === 'paid')
@@ -439,7 +459,7 @@ const Payments = () => {
                         </span>
                       </td>
                       <td className="py-3 px-4">
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 items-center">
                           <button
                             onClick={() => handleOpenModal(payment)}
                             className="text-sm text-blue-600 hover:text-blue-700 font-medium"
@@ -454,6 +474,13 @@ const Payments = () => {
                               Marcar Pago
                             </button>
                           )}
+                          <button
+                            onClick={() => handleDelete(payment._id || payment.id)}
+                            className="text-red-600 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-colors"
+                            title="Excluir pagamento"
+                          >
+                            <Trash2 size={16} />
+                          </button>
                         </div>
                       </td>
                     </tr>
