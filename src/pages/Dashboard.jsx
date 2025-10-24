@@ -9,28 +9,50 @@ import { ptBR } from 'date-fns/locale';
 const Dashboard = () => {
   const { students, workouts, payments, schedules } = useData();
 
+  // Debug: verificar dados
+  console.log('📊 Dashboard - Dados carregados:');
+  console.log('- Alunos:', students.length);
+  console.log('- Treinos:', workouts.length);
+  console.log('- Pagamentos:', payments.length, payments);
+  console.log('- Fichas:', schedules.length, schedules);
+
   const activeStudents = students.filter(s => s.status === 'active').length;
   const totalWorkouts = workouts.length;
   
   // Calcular receita do mês atual
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
-  const monthlyRevenue = payments
-    .filter(p => {
-      const paymentDate = new Date(p.date);
-      return paymentDate.getMonth() === currentMonth && 
-             paymentDate.getFullYear() === currentYear &&
-             p.status === 'paid';
-    })
-    .reduce((sum, p) => sum + p.amount, 0);
+  console.log('📅 Mês atual:', currentMonth, 'Ano:', currentYear);
+  
+  const paidThisMonth = payments.filter(p => {
+    if (!p.dueDate || p.status !== 'paid') return false;
+    const paymentDate = new Date(p.dueDate);
+    return paymentDate.getMonth() === currentMonth && 
+           paymentDate.getFullYear() === currentYear;
+  });
+  
+  console.log('💰 Pagamentos pagos este mês:', paidThisMonth.length, paidThisMonth);
+  
+  const monthlyRevenue = paidThisMonth.reduce((sum, p) => sum + parseFloat(p.amount || 0), 0);
+  console.log('💵 Receita do mês:', monthlyRevenue);
 
   // Próximos treinos (fichas agendadas para hoje)
   const today = new Date().toISOString().split('T')[0];
+  const dayOfWeek = new Date().getDay();
+  const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const todayName = dayNames[dayOfWeek];
+  
+  console.log('📅 Hoje é:', todayName, '(dia da semana:', dayOfWeek + ')');
+  
   const todaySchedules = schedules.filter(s => {
-    // Simplificado: verificar se tem treino para o dia da semana atual
-    const dayOfWeek = new Date().getDay();
-    return s.schedule && s.schedule[dayOfWeek]?.exercises?.length > 0;
+    const hasSchedule = s.weekSchedule && s.weekSchedule[todayName] && s.weekSchedule[todayName].length > 0;
+    if (hasSchedule) {
+      console.log('✅ Ficha com treino hoje:', s);
+    }
+    return hasSchedule;
   });
+  
+  console.log('🏋️ Total de treinos hoje:', todaySchedules.length);
 
   // Últimos alunos cadastrados
   const recentStudents = [...students]
