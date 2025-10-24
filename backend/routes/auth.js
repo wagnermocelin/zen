@@ -166,4 +166,44 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// @route   POST /api/auth/create-first-user
+// @desc    Criar primeiro usuário (REMOVER DEPOIS!)
+// @access  Public
+router.post('/create-first-user', async (req, res) => {
+  try {
+    const existingUser = await User.findOne({ email: 'juliana@zem.com' });
+    if (existingUser) {
+      return res.json({ 
+        success: true,
+        message: 'Usuário já existe',
+        email: 'juliana@zem.com'
+      });
+    }
+
+    const bcrypt = await import('bcryptjs');
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash('senha123', salt);
+
+    const user = await User.create({
+      name: 'Juliana Dolinski',
+      email: 'juliana@zem.com',
+      password: hashedPassword,
+      role: 'professional'
+    });
+
+    res.json({ 
+      success: true, 
+      message: 'Usuário criado com sucesso!',
+      email: 'juliana@zem.com',
+      senha: 'senha123',
+      role: 'professional'
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false,
+      error: error.message 
+    });
+  }
+});
+
 export default router;
