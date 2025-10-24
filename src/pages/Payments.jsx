@@ -259,7 +259,14 @@ const Payments = () => {
         throw new Error('ID do pagamento inválido');
       }
       
-      await updatePayment(paymentId, { status: newStatus });
+      // Se está marcando como pago, adicionar a data de recebimento
+      const updateData = { status: newStatus };
+      if (newStatus === 'paid') {
+        updateData.paymentDate = new Date().toISOString();
+        console.log('💰 Adicionando data de recebimento:', updateData.paymentDate);
+      }
+      
+      await updatePayment(paymentId, updateData);
     } catch (error) {
       console.error('Erro ao atualizar status:', error);
       alert('Erro ao atualizar status do pagamento: ' + (error.message || 'Erro desconhecido'));
@@ -380,6 +387,7 @@ const Payments = () => {
                 <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Aluno</th>
                 <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Valor</th>
                 <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Vencimento</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Recebimento</th>
                 <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Método</th>
                 <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Status</th>
                 <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">Ações</th>
@@ -388,7 +396,7 @@ const Payments = () => {
             <tbody>
               {filteredPayments.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="text-center py-8 text-gray-500">
+                  <td colSpan="7" className="text-center py-8 text-gray-500">
                     {searchTerm || filterStatus !== 'all' 
                       ? 'Nenhum pagamento encontrado' 
                       : 'Nenhum pagamento cadastrado ainda'}
@@ -414,6 +422,13 @@ const Payments = () => {
                       </td>
                       <td className="py-3 px-4">
                         <p className="text-gray-600">{format(new Date(payment.dueDate), 'dd/MM/yyyy')}</p>
+                      </td>
+                      <td className="py-3 px-4">
+                        {payment.paymentDate ? (
+                          <p className="text-green-600 font-medium">{format(new Date(payment.paymentDate), 'dd/MM/yyyy')}</p>
+                        ) : (
+                          <p className="text-gray-400 text-sm">-</p>
+                        )}
                       </td>
                       <td className="py-3 px-4">
                         <p className="text-gray-600">{payment.paymentMethod || payment.method || 'N/A'}</p>

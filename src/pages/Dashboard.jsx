@@ -19,7 +19,7 @@ const Dashboard = () => {
   const activeStudents = students.filter(s => s.status === 'active').length;
   const totalWorkouts = workouts.length;
   
-  // Calcular receita do mês atual
+  // Calcular receita do mês atual (baseado na data de recebimento)
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
   const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
@@ -29,23 +29,31 @@ const Dashboard = () => {
   console.log('📅 Mês atual:', currentMonthName, '(', currentMonth, ') Ano:', currentYear);
   console.log('📋 Todos os pagamentos:', payments);
   
-  // Filtrar por mês/ano usando os campos month e year do modelo
+  // Filtrar por data de recebimento (paymentDate) para receita real do mês
   const paidThisMonth = payments.filter(p => {
     console.log('🔍 Verificando pagamento:', {
       month: p.month,
       year: p.year,
       status: p.status,
       amount: p.amount,
-      dueDate: p.dueDate
+      dueDate: p.dueDate,
+      paymentDate: p.paymentDate
     });
     
-    // Usar os campos month e year que já existem no modelo
+    // Se tem paymentDate, usar ela para calcular receita do mês
+    if (p.status === 'paid' && p.paymentDate) {
+      const receivedDate = new Date(p.paymentDate);
+      return receivedDate.getMonth() === currentMonth && 
+             receivedDate.getFullYear() === currentYear;
+    }
+    
+    // Fallback: se não tem paymentDate, usar month/year do vencimento
     return p.status === 'paid' && 
            p.month === currentMonthName && 
            p.year === currentYear;
   });
   
-  console.log('💰 Pagamentos pagos este mês:', paidThisMonth.length, paidThisMonth);
+  console.log('💰 Pagamentos recebidos este mês:', paidThisMonth.length, paidThisMonth);
   
   const monthlyRevenue = paidThisMonth.reduce((sum, p) => sum + parseFloat(p.amount || 0), 0);
   console.log('💵 Receita do mês:', monthlyRevenue);
