@@ -119,11 +119,14 @@ const Payments = () => {
         paymentMethod: rest.method // Renomear method para paymentMethod
       };
       
-      if (editingPayment) {
+      if (editingPayment && (editingPayment._id || editingPayment.id)) {
         // Atualizar pagamento existente
-        await updatePayment(editingPayment._id || editingPayment.id, paymentData);
+        const paymentId = editingPayment._id || editingPayment.id;
+        console.log('📝 Atualizando pagamento:', paymentId);
+        await updatePayment(paymentId, paymentData);
       } else {
         // Criar novo pagamento
+        console.log('📝 Criando novo pagamento');
         await addPayment(paymentData);
       }
       handleCloseModal();
