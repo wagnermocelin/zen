@@ -81,7 +81,26 @@ router.post('/', authorize('trainer', 'professional'), async (req, res) => {
     });
   } catch (error) {
     console.error('❌ Erro ao criar aluno:', error.message);
-    console.error('❌ Detalhes:', error);
+    console.error('❌ Detalhes completos:', error);
+    
+    // Verificar se é erro de validação do Mongoose
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(e => e.message);
+      return res.status(400).json({
+        success: false,
+        message: 'Erro de validação',
+        errors: errors
+      });
+    }
+    
+    // Verificar se é erro de duplicação (email já existe)
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: 'Email já cadastrado'
+      });
+    }
+    
     res.status(400).json({
       success: false,
       message: 'Erro ao criar aluno',
