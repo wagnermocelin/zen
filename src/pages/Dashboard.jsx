@@ -22,13 +22,27 @@ const Dashboard = () => {
   // Calcular receita do mês atual
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
-  console.log('📅 Mês atual:', currentMonth, 'Ano:', currentYear);
+  const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
+                      'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  const currentMonthName = monthNames[currentMonth];
   
+  console.log('📅 Mês atual:', currentMonthName, '(', currentMonth, ') Ano:', currentYear);
+  console.log('📋 Todos os pagamentos:', payments);
+  
+  // Filtrar por mês/ano usando os campos month e year do modelo
   const paidThisMonth = payments.filter(p => {
-    if (!p.dueDate || p.status !== 'paid') return false;
-    const paymentDate = new Date(p.dueDate);
-    return paymentDate.getMonth() === currentMonth && 
-           paymentDate.getFullYear() === currentYear;
+    console.log('🔍 Verificando pagamento:', {
+      month: p.month,
+      year: p.year,
+      status: p.status,
+      amount: p.amount,
+      dueDate: p.dueDate
+    });
+    
+    // Usar os campos month e year que já existem no modelo
+    return p.status === 'paid' && 
+           p.month === currentMonthName && 
+           p.year === currentYear;
   });
   
   console.log('💰 Pagamentos pagos este mês:', paidThisMonth.length, paidThisMonth);
