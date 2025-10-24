@@ -42,7 +42,10 @@ const Payments = () => {
         dueDate.setHours(0, 0, 0, 0);
         
         if (dueDate < today) {
-          updatePayment(payment.id, { status: 'overdue' });
+          const paymentId = payment._id || payment.id;
+          if (paymentId) {
+            updatePayment(paymentId, { status: 'overdue' });
+          }
         }
       }
     });
