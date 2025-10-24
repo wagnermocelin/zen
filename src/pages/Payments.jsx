@@ -57,7 +57,7 @@ const Payments = () => {
   }, [payments.length]);
 
   const filteredPayments = payments.filter(payment => {
-    const student = students.find(s => s.id === payment.studentId);
+    const student = students.find(s => (s._id || s.id) === (payment.student?._id || payment.student || payment.studentId));
     const matchesSearch = student?.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = filterStatus === 'all' || payment.status === filterStatus;
     return matchesSearch && matchesStatus;
@@ -128,10 +128,18 @@ const Payments = () => {
         // Atualizar pagamento existente
         const paymentId = editingPayment._id || editingPayment.id;
         console.log('📝 Atualizando pagamento:', paymentId);
+        console.log('📝 editingPayment completo:', editingPayment);
+        console.log('📝 Dados a enviar:', paymentData);
+        
+        if (!paymentId || paymentId === 'undefined') {
+          throw new Error('ID do pagamento inválido para atualização');
+        }
+        
         await updatePayment(paymentId, paymentData);
       } else {
         // Criar novo pagamento
         console.log('📝 Criando novo pagamento');
+        console.log('📝 Dados a enviar:', paymentData);
         await addPayment(paymentData);
       }
       handleCloseModal();
@@ -245,10 +253,16 @@ const Payments = () => {
 
   const handleStatusChange = async (paymentId, newStatus) => {
     try {
+      console.log('🔄 Alterando status do pagamento:', paymentId, 'para:', newStatus);
+      
+      if (!paymentId || paymentId === 'undefined') {
+        throw new Error('ID do pagamento inválido');
+      }
+      
       await updatePayment(paymentId, { status: newStatus });
     } catch (error) {
       console.error('Erro ao atualizar status:', error);
-      alert('Erro ao atualizar status do pagamento');
+      alert('Erro ao atualizar status do pagamento: ' + (error.message || 'Erro desconhecido'));
     }
   };
 
@@ -402,7 +416,7 @@ const Payments = () => {
                         <p className="text-gray-600">{format(new Date(payment.dueDate), 'dd/MM/yyyy')}</p>
                       </td>
                       <td className="py-3 px-4">
-                        <p className="text-gray-600">{payment.method}</p>
+                        <p className="text-gray-600">{payment.paymentMethod || payment.method || 'N/A'}</p>
                       </td>
                       <td className="py-3 px-4">
                         <span className={`px-2 py-1 text-xs rounded-full ${status.color}`}>

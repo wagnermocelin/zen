@@ -28,9 +28,28 @@ router.post('/', authorize('trainer', 'professional'), async (req, res) => {
 
 router.put('/:id', authorize('trainer', 'professional'), async (req, res) => {
   try {
-    const payment = await Payment.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const { id } = req.params;
+    
+    // Validar se o ID foi fornecido e não é 'undefined'
+    if (!id || id === 'undefined') {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'ID do pagamento inválido ou não fornecido' 
+      });
+    }
+    
+    const payment = await Payment.findByIdAndUpdate(id, req.body, { new: true });
+    
+    if (!payment) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Pagamento não encontrado' 
+      });
+    }
+    
     res.json({ success: true, data: payment });
   } catch (error) {
+    console.error('❌ Erro ao atualizar pagamento:', error);
     res.status(400).json({ success: false, message: error.message });
   }
 });
