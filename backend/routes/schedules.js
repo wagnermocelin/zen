@@ -7,10 +7,8 @@ router.use(protect);
 
 router.get('/', async (req, res) => {
   try {
-    const query = req.userRole === 'student' 
-      ? { student: req.user._id }
-      : { trainer: req.user._id };
-    const schedules = await Schedule.find(query)
+    // Remover filtro por trainer - retorna todos os agendamentos
+    const schedules = await Schedule.find({})
       .populate('student', 'name');
     res.json({ success: true, data: schedules });
   } catch (error) {

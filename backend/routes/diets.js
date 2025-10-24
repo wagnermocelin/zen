@@ -7,10 +7,8 @@ router.use(protect);
 
 router.get('/', async (req, res) => {
   try {
-    const query = req.userRole === 'student' 
-      ? { student: req.user._id }
-      : { trainer: req.user._id };
-    const diets = await Diet.find(query).populate('student', 'name');
+    // Remover filtro por trainer - retorna todas as dietas
+    const diets = await Diet.find({}).populate('student', 'name');
     res.json({ success: true, data: diets });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

@@ -7,10 +7,8 @@ router.use(protect);
 
 router.get('/', async (req, res) => {
   try {
-    const query = req.userRole === 'student' 
-      ? { student: req.user._id }
-      : { trainer: req.user._id };
-    const measurements = await Measurement.find(query)
+    // Remover filtro por trainer - retorna todas as medidas
+    const measurements = await Measurement.find({})
       .populate('student', 'name')
       .populate('trainer', 'name');
     res.json({ success: true, data: measurements });

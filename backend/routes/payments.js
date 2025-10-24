@@ -7,10 +7,8 @@ router.use(protect);
 
 router.get('/', async (req, res) => {
   try {
-    const query = req.userRole === 'student' 
-      ? { student: req.user._id }
-      : { trainer: req.user._id };
-    const payments = await Payment.find(query).populate('student', 'name').sort('-year -month');
+    // Remover filtro por trainer - retorna todos os pagamentos
+    const payments = await Payment.find({}).populate('student', 'name').sort('-year -month');
     res.json({ success: true, data: payments });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

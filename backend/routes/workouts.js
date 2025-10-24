@@ -7,7 +7,8 @@ router.use(protect);
 
 router.get('/', authorize('trainer', 'professional'), async (req, res) => {
   try {
-    const workouts = await Workout.find({ trainer: req.user._id });
+    // Remover filtro por trainer - retorna todos os treinos
+    const workouts = await Workout.find({});
     res.json({ success: true, count: workouts.length, data: workouts });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -16,6 +17,7 @@ router.get('/', authorize('trainer', 'professional'), async (req, res) => {
 
 router.post('/', authorize('trainer', 'professional'), async (req, res) => {
   try {
+    // Manter trainer para referência, mas não filtrar por ele
     const workout = await Workout.create({ ...req.body, trainer: req.user._id });
     res.status(201).json({ success: true, data: workout });
   } catch (error) {

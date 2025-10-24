@@ -8,11 +8,12 @@ const router = express.Router();
 router.use(protect);
 
 // @route   GET /api/students
-// @desc    Listar todos os alunos do trainer
+// @desc    Listar todos os alunos (compartilhado entre todos os usuários)
 // @access  Private (Trainer)
 router.get('/', authorize('trainer', 'professional'), async (req, res) => {
   try {
-    const students = await Student.find({ trainer: req.user._id }).select('-password');
+    // Remover filtro por trainer - retorna todos os alunos
+    const students = await Student.find({}).select('-password');
     
     res.json({
       success: true,
