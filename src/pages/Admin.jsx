@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
-import { Plus, Edit2, Trash2, Upload, Settings, Users, Shield, Image } from 'lucide-react';
+import { Plus, Edit2, Trash2, Upload, Settings, Users, Shield, Image, Mail, Send, Eye, EyeOff } from 'lucide-react';
 import { usersService, configService } from '../services/api';
 
 const Admin = () => {
@@ -10,6 +10,22 @@ const Admin = () => {
   const [editingUser, setEditingUser] = useState(null);
   const [logo, setLogo] = useState('');
   const [gymName, setGymName] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [emailConfig, setEmailConfig] = useState({
+    enabled: true,
+    provider: 'ethereal',
+    smtpHost: '',
+    smtpPort: 587,
+    smtpSecure: false,
+    smtpUser: '',
+    smtpPassword: '',
+    fromEmail: 'noreply@zen.com',
+    fromName: 'Zen Personal Trainer',
+    emailTemplates: {
+      welcomeSubject: 'Bem-vindo ao Zen - Ative sua conta',
+      resetPasswordSubject: 'Redefinir Senha - Zen Personal Trainer'
+    }
+  });
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,6 +55,16 @@ const Admin = () => {
       const config = response.data || response;
       if (config.gymName) setGymName(config.gymName);
       if (config.logo) setLogo(config.logo);
+      if (config.emailConfig) {
+        setEmailConfig({
+          ...emailConfig,
+          ...config.emailConfig,
+          emailTemplates: {
+            ...emailConfig.emailTemplates,
+            ...config.emailConfig.emailTemplates
+          }
+        });
+      }
     } catch (error) {
       console.error('Erro ao carregar configurações:', error);
     }
@@ -152,6 +178,39 @@ const Admin = () => {
     }
   };
 
+  const handleSaveEmailConfig = async () => {
+    try {
+      await configService.update({ emailConfig, gymName, logo });
+      alert('Configurações de email salvas com sucesso!');
+    } catch (error) {
+      console.error('Erro ao salvar configurações de email:', error);
+      alert('Erro ao salvar configurações de email: ' + error.message);
+    }
+  };
+
+  const handleTestEmail = async () => {
+    const testEmail = prompt('Digite um email para teste:');
+    if (!testEmail) return;
+
+    try {
+      const response = await configService.testEmail(testEmail);
+      if (response.success) {
+        let message = 'Email de teste enviado com sucesso!';
+        if (response.data.previewUrl) {
+          message += '\n\nClique em OK para ver o preview do email (Ethereal).';
+          alert(message);
+          window.open(response.data.previewUrl, '_blank');
+        } else {
+          message += '\n\nVerifique sua caixa de entrada.';
+          alert(message);
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao testar email:', error);
+      alert('Erro ao enviar email de teste:\n' + error.message);
+    }
+  };
+
   return (
     <div className="p-4 lg:p-8 space-y-6">
       {/* Header */}
@@ -233,6 +292,209 @@ const Admin = () => {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Configurações de Email */}
+      <Card title="📧 Configurações de Email">
+        <div className="space-y-6">
+          {/* Habilitar Email */}
+          <div className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              id="emailEnabled"
+              checked={emailConfig.enabled}
+              onChange={(e) => setEmailConfig({ ...emailConfig, enabled: e.target.checked })}
+              className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
+            />
+            <label htmlFor="emailEnabled" className="text-sm font-medium text-gray-700">
+              Habilitar envio de emails
+            </label>
+          </div>
+
+          {/* Provedor */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Provedor de Email
+            </label>
+            <select
+              value={emailConfig.provider}
+              onChange={(e) => setEmailConfig({ ...emailConfig, provider: e.target.value })}
+              className="input-field"
+            >
+              <option value="ethereal">Ethereal (Desenvolvimento/Teste)</option>
+              <option value="gmail">Gmail</option>
+              <option value="sendgrid">SendGrid</option>
+              <option value="smtp">SMTP Customizado</option>
+            </select>
+            <p className="text-xs text-gray-500 mt-1">
+              {emailConfig.provider === 'ethereal' && '⚠️ Emails não são enviados de verdade. Apenas para testes.'}
+              {emailConfig.provider === 'gmail' && '📧 Use uma Senha de App do Google (não sua senha normal).'}
+              {emailConfig.provider === 'sendgrid' && '🚀 Serviço profissional com 100 emails/dia grátis.'}
+              {emailConfig.provider === 'smtp' && '⚙️ Configure qualquer servidor SMTP.'}
+            </p>
+          </div>
+
+          {/* Remetente */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Nome do Remetente
+              </label>
+              <input
+                type="text"
+                value={emailConfig.fromName}
+                onChange={(e) => setEmailConfig({ ...emailConfig, fromName: e.target.value })}
+                className="input-field"
+                placeholder="Ex: Academia Fit"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email do Remetente
+              </label>
+              <input
+                type="email"
+                value={emailConfig.fromEmail}
+                onChange={(e) => setEmailConfig({ ...emailConfig, fromEmail: e.target.value })}
+                className="input-field"
+                placeholder="Ex: contato@academia.com"
+              />
+            </div>
+          </div>
+
+          {/* Configurações SMTP (apenas para providers que precisam) */}
+          {(emailConfig.provider === 'gmail' || emailConfig.provider === 'sendgrid' || emailConfig.provider === 'smtp') && (
+            <div className="border-t pt-6 space-y-4">
+              <h3 className="font-semibold text-gray-900">Configurações SMTP</h3>
+              
+              {emailConfig.provider === 'smtp' && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Servidor SMTP
+                    </label>
+                    <input
+                      type="text"
+                      value={emailConfig.smtpHost}
+                      onChange={(e) => setEmailConfig({ ...emailConfig, smtpHost: e.target.value })}
+                      className="input-field"
+                      placeholder="smtp.seuservidor.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Porta
+                    </label>
+                    <input
+                      type="number"
+                      value={emailConfig.smtpPort}
+                      onChange={(e) => setEmailConfig({ ...emailConfig, smtpPort: parseInt(e.target.value) })}
+                      className="input-field"
+                      placeholder="587"
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Usuário / Email
+                </label>
+                <input
+                  type="text"
+                  value={emailConfig.smtpUser}
+                  onChange={(e) => setEmailConfig({ ...emailConfig, smtpUser: e.target.value })}
+                  className="input-field"
+                  placeholder={emailConfig.provider === 'gmail' ? 'seu.email@gmail.com' : 'usuário SMTP'}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Senha / API Key
+                </label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={emailConfig.smtpPassword}
+                    onChange={(e) => setEmailConfig({ ...emailConfig, smtpPassword: e.target.value })}
+                    className="input-field pr-10"
+                    placeholder={emailConfig.provider === 'gmail' ? 'Senha de App (16 dígitos)' : 'Senha ou API Key'}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+                {emailConfig.provider === 'gmail' && (
+                  <p className="text-xs text-blue-600 mt-1">
+                    <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener noreferrer" className="underline">
+                      Clique aqui para gerar uma Senha de App
+                    </a>
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Templates */}
+          <div className="border-t pt-6 space-y-4">
+            <h3 className="font-semibold text-gray-900">Templates de Email</h3>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Assunto - Email de Boas-vindas
+              </label>
+              <input
+                type="text"
+                value={emailConfig.emailTemplates.welcomeSubject}
+                onChange={(e) => setEmailConfig({
+                  ...emailConfig,
+                  emailTemplates: {
+                    ...emailConfig.emailTemplates,
+                    welcomeSubject: e.target.value
+                  }
+                })}
+                className="input-field"
+                placeholder="Bem-vindo ao Zen - Ative sua conta"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Assunto - Redefinição de Senha
+              </label>
+              <input
+                type="text"
+                value={emailConfig.emailTemplates.resetPasswordSubject}
+                onChange={(e) => setEmailConfig({
+                  ...emailConfig,
+                  emailTemplates: {
+                    ...emailConfig.emailTemplates,
+                    resetPasswordSubject: e.target.value
+                  }
+                })}
+                className="input-field"
+                placeholder="Redefinir Senha - Zen Personal Trainer"
+              />
+            </div>
+          </div>
+
+          {/* Botões de Ação */}
+          <div className="flex gap-3 pt-4">
+            <button onClick={handleTestEmail} className="btn-secondary flex items-center gap-2">
+              <Send size={20} />
+              Testar Email
+            </button>
+            <button onClick={handleSaveEmailConfig} className="btn-primary flex items-center gap-2">
+              <Mail size={20} />
+              Salvar Configurações
+            </button>
           </div>
         </div>
       </Card>

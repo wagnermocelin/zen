@@ -18,6 +18,8 @@ import StudentSchedule from './pages/student/StudentSchedule';
 import StudentDiet from './pages/student/StudentDiet';
 import StudentPayments from './pages/student/StudentPayments';
 import Admin from './pages/Admin';
+import ActivateAccount from './pages/ActivateAccount';
+import ResetPassword from './pages/ResetPassword';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, requireTrainer = false, requireStudent = false }) => {
@@ -56,6 +58,10 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={user ? <Navigate to={user.role === 'trainer' || user.role === 'professional' ? '/dashboard' : '/student/dashboard'} replace /> : <Login />} />
+      
+      {/* Public Routes */}
+      <Route path="/activate-account" element={<ActivateAccount />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
       
       {/* Trainer Routes */}
       <Route path="/dashboard" element={<ProtectedRoute requireTrainer><Layout><Dashboard /></Layout></ProtectedRoute>} />

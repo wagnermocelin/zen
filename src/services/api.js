@@ -182,7 +182,17 @@ export const usersService = {
 // Serviços de Configuração
 export const configService = {
   get: () => api.get('/config'),
-  update: (data) => api.put('/config', data)
+  update: (data) => api.put('/config', data),
+  testEmail: (testEmail) => api.post('/config/test-email', { testEmail })
+};
+
+// Serviços de Autenticação de Alunos
+export const studentAuthService = {
+  activate: (email, token, password) => api.post('/student-auth/activate', { email, token, password }),
+  resendVerification: (email) => api.post('/student-auth/resend-verification', { email }),
+  forgotPassword: (email) => api.post('/student-auth/forgot-password', { email }),
+  resetPassword: (email, token, password) => api.post('/student-auth/reset-password', { email, token, password }),
+  verifyToken: (email, token, type) => api.get(`/student-auth/verify-token?email=${email}&token=${token}&type=${type}`)
 };
 
 export default api;
