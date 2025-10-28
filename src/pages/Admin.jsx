@@ -53,17 +53,29 @@ const Admin = () => {
     try {
       const response = await configService.get();
       const config = response.data || response;
+      console.log('📥 Configurações carregadas do servidor:', config);
+      
       if (config.gymName) setGymName(config.gymName);
       if (config.logo) setLogo(config.logo);
+      
       if (config.emailConfig) {
-        setEmailConfig({
-          ...emailConfig,
-          ...config.emailConfig,
+        const loadedConfig = {
+          enabled: config.emailConfig.enabled !== undefined ? config.emailConfig.enabled : true,
+          provider: config.emailConfig.provider || 'ethereal',
+          smtpHost: config.emailConfig.smtpHost || '',
+          smtpPort: config.emailConfig.smtpPort || 587,
+          smtpSecure: config.emailConfig.smtpSecure || false,
+          smtpUser: config.emailConfig.smtpUser || '',
+          smtpPassword: config.emailConfig.smtpPassword || '',
+          fromEmail: config.emailConfig.fromEmail || 'noreply@zen.com',
+          fromName: config.emailConfig.fromName || 'Zen Personal Trainer',
           emailTemplates: {
-            ...emailConfig.emailTemplates,
-            ...config.emailConfig.emailTemplates
+            welcomeSubject: config.emailConfig.emailTemplates?.welcomeSubject || 'Bem-vindo ao Zen - Ative sua conta',
+            resetPasswordSubject: config.emailConfig.emailTemplates?.resetPasswordSubject || 'Redefinir Senha - Zen Personal Trainer'
           }
-        });
+        };
+        console.log('📧 EmailConfig carregado:', loadedConfig);
+        setEmailConfig(loadedConfig);
       }
     } catch (error) {
       console.error('Erro ao carregar configurações:', error);

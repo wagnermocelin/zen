@@ -65,6 +65,8 @@ router.post('/test-email', async (req, res) => {
   try {
     const { testEmail } = req.body;
     
+    console.log('📧 Teste de email solicitado para:', testEmail);
+    
     if (!testEmail) {
       return res.status(400).json({
         success: false,
@@ -75,6 +77,13 @@ router.post('/test-email', async (req, res) => {
     // Buscar configurações
     const config = await Config.findOne({ trainer: req.user._id }).select('+emailConfig.smtpUser +emailConfig.smtpPassword');
     
+    console.log('⚙️ Configuração encontrada:', {
+      provider: config?.emailConfig?.provider,
+      enabled: config?.emailConfig?.enabled,
+      hasUser: !!config?.emailConfig?.smtpUser,
+      hasPassword: !!config?.emailConfig?.smtpPassword
+    });
+    
     if (!config || !config.emailConfig) {
       return res.status(400).json({
         success: false,
@@ -84,11 +93,22 @@ router.post('/test-email', async (req, res) => {
 
     const emailConfig = config.emailConfig;
 
+    // Validar configurações necessárias
+    if (emailConfig.provider === 'gmail' || emailConfig.provider === 'sendgrid' || emailConfig.provider === 'smtp') {
+      if (!emailConfig.smtpUser || !emailConfig.smtpPassword) {
+        return res.status(400).json({
+          success: false,
+          message: `Para usar ${emailConfig.provider}, você precisa configurar usuário e senha/API key`
+        });
+      }
+    }
+
     // Criar transporter baseado na configuração
     let transporter;
     
     switch (emailConfig.provider) {
       case 'gmail':
+        console.log('🔧 Configurando Gmail...');
         transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
