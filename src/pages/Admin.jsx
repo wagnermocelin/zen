@@ -180,8 +180,12 @@ const Admin = () => {
 
   const handleSaveEmailConfig = async () => {
     try {
-      await configService.update({ emailConfig, gymName, logo });
+      console.log('Salvando configurações de email:', emailConfig);
+      const response = await configService.update({ emailConfig, gymName, logo });
+      console.log('Resposta do servidor:', response);
       alert('Configurações de email salvas com sucesso!');
+      // Recarregar configurações para garantir sincronização
+      await loadConfig();
     } catch (error) {
       console.error('Erro ao salvar configurações de email:', error);
       alert('Erro ao salvar configurações de email: ' + error.message);

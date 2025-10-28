@@ -25,10 +25,35 @@ router.put('/', async (req, res) => {
     if (!config) {
       config = await Config.create({ ...req.body, trainer: req.user._id });
     } else {
-      config = await Config.findByIdAndUpdate(config._id, req.body, { new: true });
+      // Fazer merge manual dos campos para preservar objetos aninhados
+      if (req.body.gymName !== undefined) config.gymName = req.body.gymName;
+      if (req.body.logo !== undefined) config.logo = req.body.logo;
+      
+      // Merge do emailConfig
+      if (req.body.emailConfig) {
+        if (!config.emailConfig) config.emailConfig = {};
+        
+        Object.keys(req.body.emailConfig).forEach(key => {
+          if (key === 'emailTemplates' && req.body.emailConfig.emailTemplates) {
+            // Merge dos templates
+            if (!config.emailConfig.emailTemplates) config.emailConfig.emailTemplates = {};
+            Object.keys(req.body.emailConfig.emailTemplates).forEach(templateKey => {
+              config.emailConfig.emailTemplates[templateKey] = req.body.emailConfig.emailTemplates[templateKey];
+            });
+          } else {
+            config.emailConfig[key] = req.body.emailConfig[key];
+          }
+        });
+        
+        // IMPORTANTE: Marcar como modificado para o Mongoose salvar objetos aninhados
+        config.markModified('emailConfig');
+      }
+      
+      await config.save();
     }
     res.json({ success: true, data: config });
   } catch (error) {
+    console.error('Erro ao salvar config:', error);
     res.status(400).json({ success: false, message: error.message });
   }
 });
