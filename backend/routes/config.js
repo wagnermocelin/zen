@@ -24,10 +24,16 @@ router.get('/', async (req, res) => {
 
 router.put('/', async (req, res) => {
   try {
+    console.log('📝 PUT /api/config - Dados recebidos:', JSON.stringify(req.body, null, 2));
+    
     let config = await Config.findOne({ trainer: req.user._id });
+    console.log('📦 Config existente encontrado:', !!config);
+    
     if (!config) {
+      console.log('🆕 Criando nova config...');
       config = await Config.create({ ...req.body, trainer: req.user._id });
     } else {
+      console.log('🔄 Atualizando config existente...');
       // Fazer merge manual dos campos para preservar objetos aninhados
       if (req.body.gymName !== undefined) config.gymName = req.body.gymName;
       if (req.body.logo !== undefined) config.logo = req.body.logo;
@@ -53,10 +59,19 @@ router.put('/', async (req, res) => {
       }
       
       await config.save();
+      console.log('✅ Config salva com sucesso!');
     }
+    
+    console.log('📤 Retornando config:', {
+      id: config._id,
+      provider: config.emailConfig?.provider,
+      hasUser: !!config.emailConfig?.smtpUser,
+      hasPassword: !!config.emailConfig?.smtpPassword
+    });
+    
     res.json({ success: true, data: config });
   } catch (error) {
-    console.error('Erro ao salvar config:', error);
+    console.error('❌ Erro ao salvar config:', error);
     res.status(400).json({ success: false, message: error.message });
   }
 });

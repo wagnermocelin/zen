@@ -14,6 +14,7 @@ import scheduleRoutes from './routes/schedules.js';
 import dietRoutes from './routes/diets.js';
 import paymentRoutes from './routes/payments.js';
 import configRoutes from './routes/config.js';
+import foodRoutes from './routes/foods.js';
 
 // Carregar variáveis de ambiente
 dotenv.config();
@@ -44,6 +45,7 @@ app.use('/api/schedules', scheduleRoutes);
 app.use('/api/diets', dietRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/config', configRoutes);
+app.use('/api/foods', foodRoutes);
 
 // Rota de teste
 app.get('/', (req, res) => {
