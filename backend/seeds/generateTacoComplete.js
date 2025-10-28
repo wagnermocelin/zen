@@ -347,7 +347,112 @@ Chá de hibisco|bebida|2|0|0.5|0|0|1
 Tahine pasta de gergelim|gordura|595|17.0|21.2|53.8|9.3|115
 Pasta de amendoim integral|gordura|588|25.8|20.0|50.0|8.0|17|true
 Gergelim torrado|gordura|631|20.5|11.9|61.2|14.0|39
-Semente de papoula|gordura|525|17.9|28.1|41.6|19.5|26`;
+Semente de papoula|gordura|525|17.9|28.1|41.6|19.5|26
+Feijoada completa|proteina|133|8.5|8.2|7.8|2.1|380|true
+Moqueca de peixe|proteina|145|12.8|3.2|9.5|0.8|285
+Vatapá|proteina|198|8.5|15.2|12.8|1.5|420
+Acarajé|carboidrato|287|9.2|35.8|11.5|4.2|580
+Bobó de camarão|proteina|168|11.5|8.5|10.2|1.2|320
+Caruru baiano|vegetal|85|4.2|12.5|2.8|3.5|180
+Escondidinho de carne|carboidrato|185|9.8|18.5|8.2|1.8|340
+Baião de dois|carboidrato|142|5.8|22.5|3.5|4.2|280
+Tutu de feijão|proteina|98|5.2|14.8|2.1|3.8|220
+Virado à paulista|proteina|245|12.5|28.5|8.9|5.2|480
+Coxinha de frango frita|proteina|253|9.8|27.5|11.8|1.2|380
+Pastel de carne frito|carboidrato|337|6.5|32.8|20.2|1.3|380
+Pastel de queijo frito|carboidrato|325|8.2|30.5|19.5|1.1|420
+Empada de frango|proteina|298|8.5|28.2|16.8|1.3|420
+Empadão de frango|proteina|265|10.2|25.8|13.5|1.5|385
+Quibe frito|proteina|285|12.5|22.8|16.2|1.8|420
+Quibe assado|proteina|198|11.8|18.5|8.9|1.5|360
+Esfirra de carne|carboidrato|245|10.5|28.5|9.8|1.8|420
+Esfirra de queijo|carboidrato|258|11.2|29.8|10.5|1.5|450
+Pizza mussarela|carboidrato|266|11.8|33.5|9.5|2.1|580
+Pizza calabresa|carboidrato|285|12.5|32.8|11.2|2.0|620
+Pizza margherita|carboidrato|263|10.8|34.2|9.2|2.3|550
+Lasanha à bolonhesa|carboidrato|165|8.5|18.5|6.8|1.5|380
+Nhoque de batata|carboidrato|126|3.5|24.8|1.5|1.2|380
+Ravióli de carne|carboidrato|185|8.2|25.5|5.8|1.8|420
+Cappelletti ao molho|carboidrato|168|7.5|23.8|5.2|1.5|385
+Molho bolonhesa|proteina|98|5.8|8.5|4.2|1.8|420
+Molho branco|lacteo|158|4.8|10.2|11.0|0.3|380
+Molho de tomate caseiro|vegetal|45|1.8|8.5|0.8|2.1|285
+Molho rosé|lacteo|180|2.1|8.5|15.2|0.5|520
+Molho pesto|gordura|385|8.5|5.2|38.5|2.1|680
+Molho de soja shoyu|bebida|61|5.6|5.6|0.1|0.8|5586
+Molho inglês|vegetal|78|0|19.6|0|0|690
+Molho barbecue|vegetal|172|1.2|40.5|0.8|0.5|1250
+Ketchup|vegetal|100|1.8|25.0|0.2|0.8|1042
+Mostarda|vegetal|67|4.4|5.3|3.3|3.3|1135
+Maionese|gordura|680|1.3|2.4|75.0|0|700
+Maionese light|gordura|371|0.8|8.5|38.5|0|580
+Catchup picante|vegetal|105|1.5|26.2|0.3|0.9|1180
+Molho de pimenta|vegetal|21|0.9|4.8|0.2|1.5|2150
+Pudim de leite|carboidrato|223|5.8|35.5|6.8|0|125
+Brigadeiro|carboidrato|395|3.8|58.5|15.2|1.8|85
+Beijinho|carboidrato|385|3.5|57.8|14.8|1.5|80
+Cajuzinho|carboidrato|420|8.5|52.5|19.5|2.8|65
+Quindim|carboidrato|297|5.2|60.8|3.8|0.5|95
+Papo de anjo|carboidrato|297|5.2|60.8|3.8|0.5|95
+Bolo de rolo|carboidrato|368|5.5|58.2|12.5|1.2|285
+Bolo de noiva|carboidrato|385|6.2|62.5|12.8|0.8|320
+Sonho recheado|carboidrato|342|6.8|48.5|13.5|1.5|285
+Churros|carboidrato|312|5.5|42.8|13.2|1.8|220
+Cocada branca|gordura|458|3.2|68.5|18.5|4.2|45
+Cocada preta|gordura|465|3.5|70.2|18.8|4.5|48
+Pé de moleque|gordura|446|9.8|68.5|15.2|3.5|85
+Paçoca de amendoim|gordura|488|14.5|56.8|22.5|3.8|45
+Rapadura|carboidrato|376|0.2|97.2|0|0|28
+Doce de leite|carboidrato|315|6.8|55.5|7.5|0|129
+Goiabada|carboidrato|269|0.6|70.4|0.1|5.5|18
+Marmelada|carboidrato|245|0.4|64.2|0.1|3.2|15
+Bananada|carboidrato|252|0.8|65.8|0.2|2.8|12
+Gelatina pronta|carboidrato|62|1.5|14.5|0|0|52
+Mousse de chocolate|carboidrato|198|3.8|25.5|8.9|1.5|85
+Mousse de maracujá|carboidrato|185|3.2|24.8|8.2|0.8|78
+Sorvete de creme|carboidrato|207|3.6|23.8|11.2|0.3|80
+Sorvete de chocolate|carboidrato|216|4.2|28.5|9.8|1.8|75
+Sorvete de morango|carboidrato|192|3.2|26.5|8.5|0.8|68
+Picolé de frutas|carboidrato|78|0.2|19.5|0.1|0.5|8
+Açaí na tigela|fruta|142|2.8|24.5|4.2|3.8|15|true
+Hambúrguer bovino grelhado|proteina|269|17.8|12.4|16.2|0.6|650
+Hambúrguer de frango|proteina|185|16.5|8.5|9.8|0.5|520
+Hot dog completo|carboidrato|285|10.5|32.5|12.8|2.1|980
+Cachorro quente|carboidrato|285|10.5|32.5|12.8|2.1|980
+X-burger|proteina|312|18.5|28.5|14.2|1.8|780
+X-salada|proteina|298|17.2|29.8|12.5|2.5|720
+Batata frita fast food|carboidrato|312|3.8|41.2|15.2|3.5|285
+Nuggets de frango|proteina|296|13.5|18.2|18.9|1.2|588
+Onion rings|carboidrato|285|3.5|35.8|13.8|2.8|520
+Milkshake de chocolate|bebida|198|5.2|32.5|5.8|0.8|125
+Milkshake de morango|bebida|185|4.8|30.2|5.2|0.5|118
+Refrigerante cola|bebida|42|0|10.6|0|0|4
+Refrigerante guaraná|bebida|40|0|10.2|0|0|8
+Refrigerante laranja|bebida|48|0|12.2|0|0|12
+Suco de caixinha laranja|bebida|45|0.5|10.8|0.1|0.2|8
+Suco de caixinha uva|bebida|58|0.3|14.5|0.1|0.1|10
+Suco de caixinha maracujá|bebida|48|0.4|11.8|0.1|0.2|8
+Isotônico|bebida|27|0|6.8|0|0|52
+Energético|bebida|45|0.2|11.2|0|0|85
+Cerveja pilsen|bebida|43|0.5|3.5|0|0|4
+Cerveja IPA|bebida|50|0.6|4.2|0|0|6
+Vinho tinto seco|bebida|85|0.1|2.6|0|0|5
+Vinho branco seco|bebida|82|0.1|2.1|0|0|5
+Caipirinha|bebida|168|0|18.5|0|0|2
+Vodka|bebida|231|0|0|0|0|1
+Whisky|bebida|250|0|0|0|0|1
+Cachaça|bebida|231|0|0|0|0|1
+Salgadinho de pacote|carboidrato|528|6.5|58.5|29.5|3.2|1250
+Pipoca de micro-ondas|carboidrato|485|9.5|52.8|26.5|9.8|980
+Chocolate ao leite|carboidrato|533|7.3|59.7|30.0|2.8|79
+Chocolate meio amargo|carboidrato|479|5.2|63.0|24.5|7.0|11
+Chocolate branco|carboidrato|539|6.9|58.3|32.3|0.2|90
+Barra de cereal|carboidrato|385|6.8|68.5|9.5|4.2|185
+Whey protein|proteina|375|75.0|8.5|5.2|2.1|280|true
+Creatina|proteina|0|0|0|0|0|0
+BCAA|proteina|0|0|0|0|0|0
+Maltodextrina|carboidrato|380|0|95.0|0|0|5
+Dextrose|carboidrato|387|0|99.9|0|0|0`;
 
 const foods = tacoFoods.split('\n').map(line => {
   const [name, category, calories, protein, carbs, fat, fiber, sodium, popular] = line.split('|');

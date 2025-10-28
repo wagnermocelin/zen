@@ -5437,5 +5437,1614 @@
       "de",
       "papoula"
     ]
+  },
+  {
+    "name": "Feijoada completa",
+    "category": "proteina",
+    "calories": 133,
+    "protein": 8.5,
+    "carbs": 8.2,
+    "fat": 7.8,
+    "fiber": 2.1,
+    "sodium": 380,
+    "popular": true,
+    "tags": [
+      "feijoada",
+      "completa"
+    ]
+  },
+  {
+    "name": "Moqueca de peixe",
+    "category": "proteina",
+    "calories": 145,
+    "protein": 12.8,
+    "carbs": 3.2,
+    "fat": 9.5,
+    "fiber": 0.8,
+    "sodium": 285,
+    "popular": false,
+    "tags": [
+      "moqueca",
+      "de",
+      "peixe"
+    ]
+  },
+  {
+    "name": "Vatapá",
+    "category": "proteina",
+    "calories": 198,
+    "protein": 8.5,
+    "carbs": 15.2,
+    "fat": 12.8,
+    "fiber": 1.5,
+    "sodium": 420,
+    "popular": false,
+    "tags": [
+      "vatapá"
+    ]
+  },
+  {
+    "name": "Acarajé",
+    "category": "carboidrato",
+    "calories": 287,
+    "protein": 9.2,
+    "carbs": 35.8,
+    "fat": 11.5,
+    "fiber": 4.2,
+    "sodium": 580,
+    "popular": false,
+    "tags": [
+      "acarajé"
+    ]
+  },
+  {
+    "name": "Bobó de camarão",
+    "category": "proteina",
+    "calories": 168,
+    "protein": 11.5,
+    "carbs": 8.5,
+    "fat": 10.2,
+    "fiber": 1.2,
+    "sodium": 320,
+    "popular": false,
+    "tags": [
+      "bobó",
+      "de",
+      "camarão"
+    ]
+  },
+  {
+    "name": "Caruru baiano",
+    "category": "vegetal",
+    "calories": 85,
+    "protein": 4.2,
+    "carbs": 12.5,
+    "fat": 2.8,
+    "fiber": 3.5,
+    "sodium": 180,
+    "popular": false,
+    "tags": [
+      "caruru",
+      "baiano"
+    ]
+  },
+  {
+    "name": "Escondidinho de carne",
+    "category": "carboidrato",
+    "calories": 185,
+    "protein": 9.8,
+    "carbs": 18.5,
+    "fat": 8.2,
+    "fiber": 1.8,
+    "sodium": 340,
+    "popular": false,
+    "tags": [
+      "escondidinho",
+      "de",
+      "carne"
+    ]
+  },
+  {
+    "name": "Baião de dois",
+    "category": "carboidrato",
+    "calories": 142,
+    "protein": 5.8,
+    "carbs": 22.5,
+    "fat": 3.5,
+    "fiber": 4.2,
+    "sodium": 280,
+    "popular": false,
+    "tags": [
+      "baião",
+      "de",
+      "dois"
+    ]
+  },
+  {
+    "name": "Tutu de feijão",
+    "category": "proteina",
+    "calories": 98,
+    "protein": 5.2,
+    "carbs": 14.8,
+    "fat": 2.1,
+    "fiber": 3.8,
+    "sodium": 220,
+    "popular": false,
+    "tags": [
+      "tutu",
+      "de",
+      "feijão"
+    ]
+  },
+  {
+    "name": "Virado à paulista",
+    "category": "proteina",
+    "calories": 245,
+    "protein": 12.5,
+    "carbs": 28.5,
+    "fat": 8.9,
+    "fiber": 5.2,
+    "sodium": 480,
+    "popular": false,
+    "tags": [
+      "virado",
+      "à",
+      "paulista"
+    ]
+  },
+  {
+    "name": "Coxinha de frango frita",
+    "category": "proteina",
+    "calories": 253,
+    "protein": 9.8,
+    "carbs": 27.5,
+    "fat": 11.8,
+    "fiber": 1.2,
+    "sodium": 380,
+    "popular": false,
+    "tags": [
+      "coxinha",
+      "de",
+      "frango",
+      "frita"
+    ]
+  },
+  {
+    "name": "Pastel de carne frito",
+    "category": "carboidrato",
+    "calories": 337,
+    "protein": 6.5,
+    "carbs": 32.8,
+    "fat": 20.2,
+    "fiber": 1.3,
+    "sodium": 380,
+    "popular": false,
+    "tags": [
+      "pastel",
+      "de",
+      "carne",
+      "frito"
+    ]
+  },
+  {
+    "name": "Pastel de queijo frito",
+    "category": "carboidrato",
+    "calories": 325,
+    "protein": 8.2,
+    "carbs": 30.5,
+    "fat": 19.5,
+    "fiber": 1.1,
+    "sodium": 420,
+    "popular": false,
+    "tags": [
+      "pastel",
+      "de",
+      "queijo",
+      "frito"
+    ]
+  },
+  {
+    "name": "Empada de frango",
+    "category": "proteina",
+    "calories": 298,
+    "protein": 8.5,
+    "carbs": 28.2,
+    "fat": 16.8,
+    "fiber": 1.3,
+    "sodium": 420,
+    "popular": false,
+    "tags": [
+      "empada",
+      "de",
+      "frango"
+    ]
+  },
+  {
+    "name": "Empadão de frango",
+    "category": "proteina",
+    "calories": 265,
+    "protein": 10.2,
+    "carbs": 25.8,
+    "fat": 13.5,
+    "fiber": 1.5,
+    "sodium": 385,
+    "popular": false,
+    "tags": [
+      "empadão",
+      "de",
+      "frango"
+    ]
+  },
+  {
+    "name": "Quibe frito",
+    "category": "proteina",
+    "calories": 285,
+    "protein": 12.5,
+    "carbs": 22.8,
+    "fat": 16.2,
+    "fiber": 1.8,
+    "sodium": 420,
+    "popular": false,
+    "tags": [
+      "quibe",
+      "frito"
+    ]
+  },
+  {
+    "name": "Quibe assado",
+    "category": "proteina",
+    "calories": 198,
+    "protein": 11.8,
+    "carbs": 18.5,
+    "fat": 8.9,
+    "fiber": 1.5,
+    "sodium": 360,
+    "popular": false,
+    "tags": [
+      "quibe",
+      "assado"
+    ]
+  },
+  {
+    "name": "Esfirra de carne",
+    "category": "carboidrato",
+    "calories": 245,
+    "protein": 10.5,
+    "carbs": 28.5,
+    "fat": 9.8,
+    "fiber": 1.8,
+    "sodium": 420,
+    "popular": false,
+    "tags": [
+      "esfirra",
+      "de",
+      "carne"
+    ]
+  },
+  {
+    "name": "Esfirra de queijo",
+    "category": "carboidrato",
+    "calories": 258,
+    "protein": 11.2,
+    "carbs": 29.8,
+    "fat": 10.5,
+    "fiber": 1.5,
+    "sodium": 450,
+    "popular": false,
+    "tags": [
+      "esfirra",
+      "de",
+      "queijo"
+    ]
+  },
+  {
+    "name": "Pizza mussarela",
+    "category": "carboidrato",
+    "calories": 266,
+    "protein": 11.8,
+    "carbs": 33.5,
+    "fat": 9.5,
+    "fiber": 2.1,
+    "sodium": 580,
+    "popular": false,
+    "tags": [
+      "pizza",
+      "mussarela"
+    ]
+  },
+  {
+    "name": "Pizza calabresa",
+    "category": "carboidrato",
+    "calories": 285,
+    "protein": 12.5,
+    "carbs": 32.8,
+    "fat": 11.2,
+    "fiber": 2,
+    "sodium": 620,
+    "popular": false,
+    "tags": [
+      "pizza",
+      "calabresa"
+    ]
+  },
+  {
+    "name": "Pizza margherita",
+    "category": "carboidrato",
+    "calories": 263,
+    "protein": 10.8,
+    "carbs": 34.2,
+    "fat": 9.2,
+    "fiber": 2.3,
+    "sodium": 550,
+    "popular": false,
+    "tags": [
+      "pizza",
+      "margherita"
+    ]
+  },
+  {
+    "name": "Lasanha à bolonhesa",
+    "category": "carboidrato",
+    "calories": 165,
+    "protein": 8.5,
+    "carbs": 18.5,
+    "fat": 6.8,
+    "fiber": 1.5,
+    "sodium": 380,
+    "popular": false,
+    "tags": [
+      "lasanha",
+      "à",
+      "bolonhesa"
+    ]
+  },
+  {
+    "name": "Nhoque de batata",
+    "category": "carboidrato",
+    "calories": 126,
+    "protein": 3.5,
+    "carbs": 24.8,
+    "fat": 1.5,
+    "fiber": 1.2,
+    "sodium": 380,
+    "popular": false,
+    "tags": [
+      "nhoque",
+      "de",
+      "batata"
+    ]
+  },
+  {
+    "name": "Ravióli de carne",
+    "category": "carboidrato",
+    "calories": 185,
+    "protein": 8.2,
+    "carbs": 25.5,
+    "fat": 5.8,
+    "fiber": 1.8,
+    "sodium": 420,
+    "popular": false,
+    "tags": [
+      "ravióli",
+      "de",
+      "carne"
+    ]
+  },
+  {
+    "name": "Cappelletti ao molho",
+    "category": "carboidrato",
+    "calories": 168,
+    "protein": 7.5,
+    "carbs": 23.8,
+    "fat": 5.2,
+    "fiber": 1.5,
+    "sodium": 385,
+    "popular": false,
+    "tags": [
+      "cappelletti",
+      "ao",
+      "molho"
+    ]
+  },
+  {
+    "name": "Molho bolonhesa",
+    "category": "proteina",
+    "calories": 98,
+    "protein": 5.8,
+    "carbs": 8.5,
+    "fat": 4.2,
+    "fiber": 1.8,
+    "sodium": 420,
+    "popular": false,
+    "tags": [
+      "molho",
+      "bolonhesa"
+    ]
+  },
+  {
+    "name": "Molho branco",
+    "category": "lacteo",
+    "calories": 158,
+    "protein": 4.8,
+    "carbs": 10.2,
+    "fat": 11,
+    "fiber": 0.3,
+    "sodium": 380,
+    "popular": false,
+    "tags": [
+      "molho",
+      "branco"
+    ]
+  },
+  {
+    "name": "Molho de tomate caseiro",
+    "category": "vegetal",
+    "calories": 45,
+    "protein": 1.8,
+    "carbs": 8.5,
+    "fat": 0.8,
+    "fiber": 2.1,
+    "sodium": 285,
+    "popular": false,
+    "tags": [
+      "molho",
+      "de",
+      "tomate",
+      "caseiro"
+    ]
+  },
+  {
+    "name": "Molho rosé",
+    "category": "lacteo",
+    "calories": 180,
+    "protein": 2.1,
+    "carbs": 8.5,
+    "fat": 15.2,
+    "fiber": 0.5,
+    "sodium": 520,
+    "popular": false,
+    "tags": [
+      "molho",
+      "rosé"
+    ]
+  },
+  {
+    "name": "Molho pesto",
+    "category": "gordura",
+    "calories": 385,
+    "protein": 8.5,
+    "carbs": 5.2,
+    "fat": 38.5,
+    "fiber": 2.1,
+    "sodium": 680,
+    "popular": false,
+    "tags": [
+      "molho",
+      "pesto"
+    ]
+  },
+  {
+    "name": "Molho de soja shoyu",
+    "category": "bebida",
+    "calories": 61,
+    "protein": 5.6,
+    "carbs": 5.6,
+    "fat": 0.1,
+    "fiber": 0.8,
+    "sodium": 5586,
+    "popular": false,
+    "tags": [
+      "molho",
+      "de",
+      "soja",
+      "shoyu"
+    ]
+  },
+  {
+    "name": "Molho inglês",
+    "category": "vegetal",
+    "calories": 78,
+    "protein": 0,
+    "carbs": 19.6,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 690,
+    "popular": false,
+    "tags": [
+      "molho",
+      "inglês"
+    ]
+  },
+  {
+    "name": "Molho barbecue",
+    "category": "vegetal",
+    "calories": 172,
+    "protein": 1.2,
+    "carbs": 40.5,
+    "fat": 0.8,
+    "fiber": 0.5,
+    "sodium": 1250,
+    "popular": false,
+    "tags": [
+      "molho",
+      "barbecue"
+    ]
+  },
+  {
+    "name": "Ketchup",
+    "category": "vegetal",
+    "calories": 100,
+    "protein": 1.8,
+    "carbs": 25,
+    "fat": 0.2,
+    "fiber": 0.8,
+    "sodium": 1042,
+    "popular": false,
+    "tags": [
+      "ketchup"
+    ]
+  },
+  {
+    "name": "Mostarda",
+    "category": "vegetal",
+    "calories": 67,
+    "protein": 4.4,
+    "carbs": 5.3,
+    "fat": 3.3,
+    "fiber": 3.3,
+    "sodium": 1135,
+    "popular": false,
+    "tags": [
+      "mostarda"
+    ]
+  },
+  {
+    "name": "Maionese",
+    "category": "gordura",
+    "calories": 680,
+    "protein": 1.3,
+    "carbs": 2.4,
+    "fat": 75,
+    "fiber": 0,
+    "sodium": 700,
+    "popular": false,
+    "tags": [
+      "maionese"
+    ]
+  },
+  {
+    "name": "Maionese light",
+    "category": "gordura",
+    "calories": 371,
+    "protein": 0.8,
+    "carbs": 8.5,
+    "fat": 38.5,
+    "fiber": 0,
+    "sodium": 580,
+    "popular": false,
+    "tags": [
+      "maionese",
+      "light"
+    ]
+  },
+  {
+    "name": "Catchup picante",
+    "category": "vegetal",
+    "calories": 105,
+    "protein": 1.5,
+    "carbs": 26.2,
+    "fat": 0.3,
+    "fiber": 0.9,
+    "sodium": 1180,
+    "popular": false,
+    "tags": [
+      "catchup",
+      "picante"
+    ]
+  },
+  {
+    "name": "Molho de pimenta",
+    "category": "vegetal",
+    "calories": 21,
+    "protein": 0.9,
+    "carbs": 4.8,
+    "fat": 0.2,
+    "fiber": 1.5,
+    "sodium": 2150,
+    "popular": false,
+    "tags": [
+      "molho",
+      "de",
+      "pimenta"
+    ]
+  },
+  {
+    "name": "Pudim de leite",
+    "category": "carboidrato",
+    "calories": 223,
+    "protein": 5.8,
+    "carbs": 35.5,
+    "fat": 6.8,
+    "fiber": 0,
+    "sodium": 125,
+    "popular": false,
+    "tags": [
+      "pudim",
+      "de",
+      "leite"
+    ]
+  },
+  {
+    "name": "Brigadeiro",
+    "category": "carboidrato",
+    "calories": 395,
+    "protein": 3.8,
+    "carbs": 58.5,
+    "fat": 15.2,
+    "fiber": 1.8,
+    "sodium": 85,
+    "popular": false,
+    "tags": [
+      "brigadeiro"
+    ]
+  },
+  {
+    "name": "Beijinho",
+    "category": "carboidrato",
+    "calories": 385,
+    "protein": 3.5,
+    "carbs": 57.8,
+    "fat": 14.8,
+    "fiber": 1.5,
+    "sodium": 80,
+    "popular": false,
+    "tags": [
+      "beijinho"
+    ]
+  },
+  {
+    "name": "Cajuzinho",
+    "category": "carboidrato",
+    "calories": 420,
+    "protein": 8.5,
+    "carbs": 52.5,
+    "fat": 19.5,
+    "fiber": 2.8,
+    "sodium": 65,
+    "popular": false,
+    "tags": [
+      "cajuzinho"
+    ]
+  },
+  {
+    "name": "Quindim",
+    "category": "carboidrato",
+    "calories": 297,
+    "protein": 5.2,
+    "carbs": 60.8,
+    "fat": 3.8,
+    "fiber": 0.5,
+    "sodium": 95,
+    "popular": false,
+    "tags": [
+      "quindim"
+    ]
+  },
+  {
+    "name": "Papo de anjo",
+    "category": "carboidrato",
+    "calories": 297,
+    "protein": 5.2,
+    "carbs": 60.8,
+    "fat": 3.8,
+    "fiber": 0.5,
+    "sodium": 95,
+    "popular": false,
+    "tags": [
+      "papo",
+      "de",
+      "anjo"
+    ]
+  },
+  {
+    "name": "Bolo de rolo",
+    "category": "carboidrato",
+    "calories": 368,
+    "protein": 5.5,
+    "carbs": 58.2,
+    "fat": 12.5,
+    "fiber": 1.2,
+    "sodium": 285,
+    "popular": false,
+    "tags": [
+      "bolo",
+      "de",
+      "rolo"
+    ]
+  },
+  {
+    "name": "Bolo de noiva",
+    "category": "carboidrato",
+    "calories": 385,
+    "protein": 6.2,
+    "carbs": 62.5,
+    "fat": 12.8,
+    "fiber": 0.8,
+    "sodium": 320,
+    "popular": false,
+    "tags": [
+      "bolo",
+      "de",
+      "noiva"
+    ]
+  },
+  {
+    "name": "Sonho recheado",
+    "category": "carboidrato",
+    "calories": 342,
+    "protein": 6.8,
+    "carbs": 48.5,
+    "fat": 13.5,
+    "fiber": 1.5,
+    "sodium": 285,
+    "popular": false,
+    "tags": [
+      "sonho",
+      "recheado"
+    ]
+  },
+  {
+    "name": "Churros",
+    "category": "carboidrato",
+    "calories": 312,
+    "protein": 5.5,
+    "carbs": 42.8,
+    "fat": 13.2,
+    "fiber": 1.8,
+    "sodium": 220,
+    "popular": false,
+    "tags": [
+      "churros"
+    ]
+  },
+  {
+    "name": "Cocada branca",
+    "category": "gordura",
+    "calories": 458,
+    "protein": 3.2,
+    "carbs": 68.5,
+    "fat": 18.5,
+    "fiber": 4.2,
+    "sodium": 45,
+    "popular": false,
+    "tags": [
+      "cocada",
+      "branca"
+    ]
+  },
+  {
+    "name": "Cocada preta",
+    "category": "gordura",
+    "calories": 465,
+    "protein": 3.5,
+    "carbs": 70.2,
+    "fat": 18.8,
+    "fiber": 4.5,
+    "sodium": 48,
+    "popular": false,
+    "tags": [
+      "cocada",
+      "preta"
+    ]
+  },
+  {
+    "name": "Pé de moleque",
+    "category": "gordura",
+    "calories": 446,
+    "protein": 9.8,
+    "carbs": 68.5,
+    "fat": 15.2,
+    "fiber": 3.5,
+    "sodium": 85,
+    "popular": false,
+    "tags": [
+      "pé",
+      "de",
+      "moleque"
+    ]
+  },
+  {
+    "name": "Paçoca de amendoim",
+    "category": "gordura",
+    "calories": 488,
+    "protein": 14.5,
+    "carbs": 56.8,
+    "fat": 22.5,
+    "fiber": 3.8,
+    "sodium": 45,
+    "popular": false,
+    "tags": [
+      "paçoca",
+      "de",
+      "amendoim"
+    ]
+  },
+  {
+    "name": "Rapadura",
+    "category": "carboidrato",
+    "calories": 376,
+    "protein": 0.2,
+    "carbs": 97.2,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 28,
+    "popular": false,
+    "tags": [
+      "rapadura"
+    ]
+  },
+  {
+    "name": "Doce de leite",
+    "category": "carboidrato",
+    "calories": 315,
+    "protein": 6.8,
+    "carbs": 55.5,
+    "fat": 7.5,
+    "fiber": 0,
+    "sodium": 129,
+    "popular": false,
+    "tags": [
+      "doce",
+      "de",
+      "leite"
+    ]
+  },
+  {
+    "name": "Goiabada",
+    "category": "carboidrato",
+    "calories": 269,
+    "protein": 0.6,
+    "carbs": 70.4,
+    "fat": 0.1,
+    "fiber": 5.5,
+    "sodium": 18,
+    "popular": false,
+    "tags": [
+      "goiabada"
+    ]
+  },
+  {
+    "name": "Marmelada",
+    "category": "carboidrato",
+    "calories": 245,
+    "protein": 0.4,
+    "carbs": 64.2,
+    "fat": 0.1,
+    "fiber": 3.2,
+    "sodium": 15,
+    "popular": false,
+    "tags": [
+      "marmelada"
+    ]
+  },
+  {
+    "name": "Bananada",
+    "category": "carboidrato",
+    "calories": 252,
+    "protein": 0.8,
+    "carbs": 65.8,
+    "fat": 0.2,
+    "fiber": 2.8,
+    "sodium": 12,
+    "popular": false,
+    "tags": [
+      "bananada"
+    ]
+  },
+  {
+    "name": "Gelatina pronta",
+    "category": "carboidrato",
+    "calories": 62,
+    "protein": 1.5,
+    "carbs": 14.5,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 52,
+    "popular": false,
+    "tags": [
+      "gelatina",
+      "pronta"
+    ]
+  },
+  {
+    "name": "Mousse de chocolate",
+    "category": "carboidrato",
+    "calories": 198,
+    "protein": 3.8,
+    "carbs": 25.5,
+    "fat": 8.9,
+    "fiber": 1.5,
+    "sodium": 85,
+    "popular": false,
+    "tags": [
+      "mousse",
+      "de",
+      "chocolate"
+    ]
+  },
+  {
+    "name": "Mousse de maracujá",
+    "category": "carboidrato",
+    "calories": 185,
+    "protein": 3.2,
+    "carbs": 24.8,
+    "fat": 8.2,
+    "fiber": 0.8,
+    "sodium": 78,
+    "popular": false,
+    "tags": [
+      "mousse",
+      "de",
+      "maracujá"
+    ]
+  },
+  {
+    "name": "Sorvete de creme",
+    "category": "carboidrato",
+    "calories": 207,
+    "protein": 3.6,
+    "carbs": 23.8,
+    "fat": 11.2,
+    "fiber": 0.3,
+    "sodium": 80,
+    "popular": false,
+    "tags": [
+      "sorvete",
+      "de",
+      "creme"
+    ]
+  },
+  {
+    "name": "Sorvete de chocolate",
+    "category": "carboidrato",
+    "calories": 216,
+    "protein": 4.2,
+    "carbs": 28.5,
+    "fat": 9.8,
+    "fiber": 1.8,
+    "sodium": 75,
+    "popular": false,
+    "tags": [
+      "sorvete",
+      "de",
+      "chocolate"
+    ]
+  },
+  {
+    "name": "Sorvete de morango",
+    "category": "carboidrato",
+    "calories": 192,
+    "protein": 3.2,
+    "carbs": 26.5,
+    "fat": 8.5,
+    "fiber": 0.8,
+    "sodium": 68,
+    "popular": false,
+    "tags": [
+      "sorvete",
+      "de",
+      "morango"
+    ]
+  },
+  {
+    "name": "Picolé de frutas",
+    "category": "carboidrato",
+    "calories": 78,
+    "protein": 0.2,
+    "carbs": 19.5,
+    "fat": 0.1,
+    "fiber": 0.5,
+    "sodium": 8,
+    "popular": false,
+    "tags": [
+      "picolé",
+      "de",
+      "frutas"
+    ]
+  },
+  {
+    "name": "Açaí na tigela",
+    "category": "fruta",
+    "calories": 142,
+    "protein": 2.8,
+    "carbs": 24.5,
+    "fat": 4.2,
+    "fiber": 3.8,
+    "sodium": 15,
+    "popular": true,
+    "tags": [
+      "açaí",
+      "na",
+      "tigela"
+    ]
+  },
+  {
+    "name": "Hambúrguer bovino grelhado",
+    "category": "proteina",
+    "calories": 269,
+    "protein": 17.8,
+    "carbs": 12.4,
+    "fat": 16.2,
+    "fiber": 0.6,
+    "sodium": 650,
+    "popular": false,
+    "tags": [
+      "hambúrguer",
+      "bovino",
+      "grelhado"
+    ]
+  },
+  {
+    "name": "Hambúrguer de frango",
+    "category": "proteina",
+    "calories": 185,
+    "protein": 16.5,
+    "carbs": 8.5,
+    "fat": 9.8,
+    "fiber": 0.5,
+    "sodium": 520,
+    "popular": false,
+    "tags": [
+      "hambúrguer",
+      "de",
+      "frango"
+    ]
+  },
+  {
+    "name": "Hot dog completo",
+    "category": "carboidrato",
+    "calories": 285,
+    "protein": 10.5,
+    "carbs": 32.5,
+    "fat": 12.8,
+    "fiber": 2.1,
+    "sodium": 980,
+    "popular": false,
+    "tags": [
+      "hot",
+      "dog",
+      "completo"
+    ]
+  },
+  {
+    "name": "Cachorro quente",
+    "category": "carboidrato",
+    "calories": 285,
+    "protein": 10.5,
+    "carbs": 32.5,
+    "fat": 12.8,
+    "fiber": 2.1,
+    "sodium": 980,
+    "popular": false,
+    "tags": [
+      "cachorro",
+      "quente"
+    ]
+  },
+  {
+    "name": "X-burger",
+    "category": "proteina",
+    "calories": 312,
+    "protein": 18.5,
+    "carbs": 28.5,
+    "fat": 14.2,
+    "fiber": 1.8,
+    "sodium": 780,
+    "popular": false,
+    "tags": [
+      "x-burger"
+    ]
+  },
+  {
+    "name": "X-salada",
+    "category": "proteina",
+    "calories": 298,
+    "protein": 17.2,
+    "carbs": 29.8,
+    "fat": 12.5,
+    "fiber": 2.5,
+    "sodium": 720,
+    "popular": false,
+    "tags": [
+      "x-salada"
+    ]
+  },
+  {
+    "name": "Batata frita fast food",
+    "category": "carboidrato",
+    "calories": 312,
+    "protein": 3.8,
+    "carbs": 41.2,
+    "fat": 15.2,
+    "fiber": 3.5,
+    "sodium": 285,
+    "popular": false,
+    "tags": [
+      "batata",
+      "frita",
+      "fast",
+      "food"
+    ]
+  },
+  {
+    "name": "Nuggets de frango",
+    "category": "proteina",
+    "calories": 296,
+    "protein": 13.5,
+    "carbs": 18.2,
+    "fat": 18.9,
+    "fiber": 1.2,
+    "sodium": 588,
+    "popular": false,
+    "tags": [
+      "nuggets",
+      "de",
+      "frango"
+    ]
+  },
+  {
+    "name": "Onion rings",
+    "category": "carboidrato",
+    "calories": 285,
+    "protein": 3.5,
+    "carbs": 35.8,
+    "fat": 13.8,
+    "fiber": 2.8,
+    "sodium": 520,
+    "popular": false,
+    "tags": [
+      "onion",
+      "rings"
+    ]
+  },
+  {
+    "name": "Milkshake de chocolate",
+    "category": "bebida",
+    "calories": 198,
+    "protein": 5.2,
+    "carbs": 32.5,
+    "fat": 5.8,
+    "fiber": 0.8,
+    "sodium": 125,
+    "popular": false,
+    "tags": [
+      "milkshake",
+      "de",
+      "chocolate"
+    ]
+  },
+  {
+    "name": "Milkshake de morango",
+    "category": "bebida",
+    "calories": 185,
+    "protein": 4.8,
+    "carbs": 30.2,
+    "fat": 5.2,
+    "fiber": 0.5,
+    "sodium": 118,
+    "popular": false,
+    "tags": [
+      "milkshake",
+      "de",
+      "morango"
+    ]
+  },
+  {
+    "name": "Refrigerante cola",
+    "category": "bebida",
+    "calories": 42,
+    "protein": 0,
+    "carbs": 10.6,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 4,
+    "popular": false,
+    "tags": [
+      "refrigerante",
+      "cola"
+    ]
+  },
+  {
+    "name": "Refrigerante guaraná",
+    "category": "bebida",
+    "calories": 40,
+    "protein": 0,
+    "carbs": 10.2,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 8,
+    "popular": false,
+    "tags": [
+      "refrigerante",
+      "guaraná"
+    ]
+  },
+  {
+    "name": "Refrigerante laranja",
+    "category": "bebida",
+    "calories": 48,
+    "protein": 0,
+    "carbs": 12.2,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 12,
+    "popular": false,
+    "tags": [
+      "refrigerante",
+      "laranja"
+    ]
+  },
+  {
+    "name": "Suco de caixinha laranja",
+    "category": "bebida",
+    "calories": 45,
+    "protein": 0.5,
+    "carbs": 10.8,
+    "fat": 0.1,
+    "fiber": 0.2,
+    "sodium": 8,
+    "popular": false,
+    "tags": [
+      "suco",
+      "de",
+      "caixinha",
+      "laranja"
+    ]
+  },
+  {
+    "name": "Suco de caixinha uva",
+    "category": "bebida",
+    "calories": 58,
+    "protein": 0.3,
+    "carbs": 14.5,
+    "fat": 0.1,
+    "fiber": 0.1,
+    "sodium": 10,
+    "popular": false,
+    "tags": [
+      "suco",
+      "de",
+      "caixinha",
+      "uva"
+    ]
+  },
+  {
+    "name": "Suco de caixinha maracujá",
+    "category": "bebida",
+    "calories": 48,
+    "protein": 0.4,
+    "carbs": 11.8,
+    "fat": 0.1,
+    "fiber": 0.2,
+    "sodium": 8,
+    "popular": false,
+    "tags": [
+      "suco",
+      "de",
+      "caixinha",
+      "maracujá"
+    ]
+  },
+  {
+    "name": "Isotônico",
+    "category": "bebida",
+    "calories": 27,
+    "protein": 0,
+    "carbs": 6.8,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 52,
+    "popular": false,
+    "tags": [
+      "isotônico"
+    ]
+  },
+  {
+    "name": "Energético",
+    "category": "bebida",
+    "calories": 45,
+    "protein": 0.2,
+    "carbs": 11.2,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 85,
+    "popular": false,
+    "tags": [
+      "energético"
+    ]
+  },
+  {
+    "name": "Cerveja pilsen",
+    "category": "bebida",
+    "calories": 43,
+    "protein": 0.5,
+    "carbs": 3.5,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 4,
+    "popular": false,
+    "tags": [
+      "cerveja",
+      "pilsen"
+    ]
+  },
+  {
+    "name": "Cerveja IPA",
+    "category": "bebida",
+    "calories": 50,
+    "protein": 0.6,
+    "carbs": 4.2,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 6,
+    "popular": false,
+    "tags": [
+      "cerveja",
+      "ipa"
+    ]
+  },
+  {
+    "name": "Vinho tinto seco",
+    "category": "bebida",
+    "calories": 85,
+    "protein": 0.1,
+    "carbs": 2.6,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 5,
+    "popular": false,
+    "tags": [
+      "vinho",
+      "tinto",
+      "seco"
+    ]
+  },
+  {
+    "name": "Vinho branco seco",
+    "category": "bebida",
+    "calories": 82,
+    "protein": 0.1,
+    "carbs": 2.1,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 5,
+    "popular": false,
+    "tags": [
+      "vinho",
+      "branco",
+      "seco"
+    ]
+  },
+  {
+    "name": "Caipirinha",
+    "category": "bebida",
+    "calories": 168,
+    "protein": 0,
+    "carbs": 18.5,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 2,
+    "popular": false,
+    "tags": [
+      "caipirinha"
+    ]
+  },
+  {
+    "name": "Vodka",
+    "category": "bebida",
+    "calories": 231,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "vodka"
+    ]
+  },
+  {
+    "name": "Whisky",
+    "category": "bebida",
+    "calories": 250,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "whisky"
+    ]
+  },
+  {
+    "name": "Cachaça",
+    "category": "bebida",
+    "calories": 231,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "cachaça"
+    ]
+  },
+  {
+    "name": "Salgadinho de pacote",
+    "category": "carboidrato",
+    "calories": 528,
+    "protein": 6.5,
+    "carbs": 58.5,
+    "fat": 29.5,
+    "fiber": 3.2,
+    "sodium": 1250,
+    "popular": false,
+    "tags": [
+      "salgadinho",
+      "de",
+      "pacote"
+    ]
+  },
+  {
+    "name": "Pipoca de micro-ondas",
+    "category": "carboidrato",
+    "calories": 485,
+    "protein": 9.5,
+    "carbs": 52.8,
+    "fat": 26.5,
+    "fiber": 9.8,
+    "sodium": 980,
+    "popular": false,
+    "tags": [
+      "pipoca",
+      "de",
+      "micro-ondas"
+    ]
+  },
+  {
+    "name": "Chocolate ao leite",
+    "category": "carboidrato",
+    "calories": 533,
+    "protein": 7.3,
+    "carbs": 59.7,
+    "fat": 30,
+    "fiber": 2.8,
+    "sodium": 79,
+    "popular": false,
+    "tags": [
+      "chocolate",
+      "ao",
+      "leite"
+    ]
+  },
+  {
+    "name": "Chocolate meio amargo",
+    "category": "carboidrato",
+    "calories": 479,
+    "protein": 5.2,
+    "carbs": 63,
+    "fat": 24.5,
+    "fiber": 7,
+    "sodium": 11,
+    "popular": false,
+    "tags": [
+      "chocolate",
+      "meio",
+      "amargo"
+    ]
+  },
+  {
+    "name": "Chocolate branco",
+    "category": "carboidrato",
+    "calories": 539,
+    "protein": 6.9,
+    "carbs": 58.3,
+    "fat": 32.3,
+    "fiber": 0.2,
+    "sodium": 90,
+    "popular": false,
+    "tags": [
+      "chocolate",
+      "branco"
+    ]
+  },
+  {
+    "name": "Barra de cereal",
+    "category": "carboidrato",
+    "calories": 385,
+    "protein": 6.8,
+    "carbs": 68.5,
+    "fat": 9.5,
+    "fiber": 4.2,
+    "sodium": 185,
+    "popular": false,
+    "tags": [
+      "barra",
+      "de",
+      "cereal"
+    ]
+  },
+  {
+    "name": "Whey protein",
+    "category": "proteina",
+    "calories": 375,
+    "protein": 75,
+    "carbs": 8.5,
+    "fat": 5.2,
+    "fiber": 2.1,
+    "sodium": 280,
+    "popular": true,
+    "tags": [
+      "whey",
+      "protein"
+    ]
+  },
+  {
+    "name": "Creatina",
+    "category": "proteina",
+    "calories": 0,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 0,
+    "popular": false,
+    "tags": [
+      "creatina"
+    ]
+  },
+  {
+    "name": "BCAA",
+    "category": "proteina",
+    "calories": 0,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 0,
+    "popular": false,
+    "tags": [
+      "bcaa"
+    ]
+  },
+  {
+    "name": "Maltodextrina",
+    "category": "carboidrato",
+    "calories": 380,
+    "protein": 0,
+    "carbs": 95,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 5,
+    "popular": false,
+    "tags": [
+      "maltodextrina"
+    ]
+  },
+  {
+    "name": "Dextrose",
+    "category": "carboidrato",
+    "calories": 387,
+    "protein": 0,
+    "carbs": 99.9,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 0,
+    "popular": false,
+    "tags": [
+      "dextrose"
+    ]
   }
 ]
