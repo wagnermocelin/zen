@@ -195,4 +195,24 @@ export const studentAuthService = {
   verifyToken: (email, token, type) => api.get(`/student-auth/verify-token?email=${email}&token=${token}&type=${type}`)
 };
 
+// Serviços de Alimentos
+export const foodsService = {
+  getAll: (params = {}) => {
+    const queryString = new URLSearchParams(params).toString();
+    return api.get(`/foods${queryString ? `?${queryString}` : ''}`);
+  },
+  getById: (id) => api.get(`/foods/${id}`),
+  create: (data) => api.post('/foods', data),
+  update: (id, data) => api.put(`/foods/${id}`, data),
+  delete: (id) => api.delete(`/foods/${id}`),
+  getCategories: () => api.get('/foods/categories/list'),
+  calculateMacros: (id, amount, unit) => api.post(`/foods/${id}/calculate`, { amount, unit }),
+  search: (search, category = null) => {
+    const params = { search };
+    if (category) params.category = category;
+    return foodsService.getAll(params);
+  },
+  getPopular: () => foodsService.getAll({ popular: 'true' })
+};
+
 export default api;
