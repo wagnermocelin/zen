@@ -6,8 +6,8 @@ Write-Host ""
 
 # Configurações FTP (EDITE COM SEUS DADOS)
 $ftpServer = "ftpupload.net"  # Servidor FTP do InfinityFree
-$ftpUsername = "seu_usuario"   # Seu usuário FTP
-$ftpPassword = "sua_senha"     # Sua senha FTP
+$ftpUsername = "if0_40238999"   # Seu usuário FTP
+$ftpPassword = "J25021989j"     # Sua senha FTP
 $ftpPath = "/htdocs/"          # Caminho remoto (geralmente /htdocs/ ou /public_html/)
 
 # Verificar se a pasta dist existe
