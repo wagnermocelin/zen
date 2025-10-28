@@ -2,6 +2,7 @@ import express from 'express';
 import Student from '../models/Student.js';
 import Payment from '../models/Payment.js';
 import { protect, authorize } from '../middleware/auth.js';
+import { generateVerificationToken, sendVerificationEmail } from '../utils/emailService.js';
 
 const router = express.Router();
 
@@ -65,9 +66,13 @@ router.post('/', authorize('trainer', 'professional'), async (req, res) => {
     console.log('- Dados recebidos:', req.body);
     console.log('- Trainer ID:', req.user._id);
     
+    // Remover senha dos dados se foi enviada (será criada pelo aluno)
+    const { password, ...studentDataWithoutPassword } = req.body;
+    
     const studentData = {
-      ...req.body,
-      trainer: req.user._id
+      ...studentDataWithoutPassword,
+      trainer: req.user._id,
+      isEmailVerified: false
     };
     
     console.log('- Dados a serem salvos:', studentData);
@@ -76,10 +81,35 @@ router.post('/', authorize('trainer', 'professional'), async (req, res) => {
     
     console.log('✅ Aluno criado com sucesso:', student._id);
     
-    res.status(201).json({
-      success: true,
-      data: student
-    });
+    // Gerar token de verificação
+    const verificationToken = generateVerificationToken();
+    student.emailVerificationToken = verificationToken;
+    student.emailVerificationExpires = Date.now() + 24 * 60 * 60 * 1000; // 24 horas
+    
+    await student.save();
+    
+    // Enviar email de verificação
+    try {
+      const emailResult = await sendVerificationEmail(student, verificationToken, req.user._id);
+      console.log('📧 Email de verificação enviado para:', student.email);
+      
+      res.status(201).json({
+        success: true,
+        message: 'Aluno criado com sucesso! Email de ativação enviado.',
+        data: student,
+        emailPreviewUrl: emailResult.previewUrl // Apenas para desenvolvimento
+      });
+    } catch (emailError) {
+      console.error('⚠️ Erro ao enviar email, mas aluno foi criado:', emailError);
+      
+      // Aluno foi criado, mas email falhou
+      res.status(201).json({
+        success: true,
+        message: 'Aluno criado, mas houve erro ao enviar email de ativação',
+        data: student,
+        emailError: emailError.message
+      });
+    }
   } catch (error) {
     console.error('❌ Erro ao criar aluno:', error.message);
     console.error('❌ Detalhes completos:', error);
