@@ -10,6 +10,10 @@ router.use(protect);
 // @access  Private
 router.get('/', async (req, res) => {
   try {
+    console.log('🍽️ GET /api/foods - Requisição recebida');
+    console.log('Query params:', req.query);
+    console.log('User ID:', req.user._id);
+    
     const { search, category, popular } = req.query;
     
     let query = {
@@ -34,9 +38,13 @@ router.get('/', async (req, res) => {
       query.popular = true;
     }
     
+    console.log('Query final:', JSON.stringify(query));
+    
     const foods = await Food.find(query)
       .sort({ popular: -1, name: 1 })
       .limit(100);
+    
+    console.log(`✅ ${foods.length} alimentos encontrados`);
     
     res.json({ success: true, data: foods });
   } catch (error) {

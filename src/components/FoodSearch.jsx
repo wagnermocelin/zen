@@ -30,11 +30,14 @@ const FoodSearch = ({ onSelectFood, selectedFoods = [] }) => {
 
   const loadFoods = async () => {
     try {
+      console.log('🔍 FoodSearch: Carregando alimentos...');
       setLoading(true);
       const response = await foodsService.getAll();
+      console.log('📦 FoodSearch: Resposta recebida:', response);
+      console.log('🍽️ FoodSearch: Total de alimentos:', response.data?.length || 0);
       setFoods(response.data || []);
     } catch (error) {
-      console.error('Erro ao carregar alimentos:', error);
+      console.error('❌ FoodSearch: Erro ao carregar alimentos:', error);
     } finally {
       setLoading(false);
     }
