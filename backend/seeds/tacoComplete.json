@@ -3816,5 +3816,1626 @@
       "vagem",
       "cozida"
     ]
+  },
+  {
+    "name": "Lagosta cozida",
+    "category": "proteina",
+    "calories": 89,
+    "protein": 18.8,
+    "carbs": 0.5,
+    "fat": 1.3,
+    "fiber": 0,
+    "sodium": 296,
+    "popular": false,
+    "tags": [
+      "lagosta",
+      "cozida"
+    ]
+  },
+  {
+    "name": "Lula crua",
+    "category": "proteina",
+    "calories": 92,
+    "protein": 15.6,
+    "carbs": 3.1,
+    "fat": 1.4,
+    "fiber": 0,
+    "sodium": 44,
+    "popular": false,
+    "tags": [
+      "lula",
+      "crua"
+    ]
+  },
+  {
+    "name": "Lula frita",
+    "category": "proteina",
+    "calories": 175,
+    "protein": 15.1,
+    "carbs": 7.9,
+    "fat": 9.3,
+    "fiber": 0.3,
+    "sodium": 260,
+    "popular": false,
+    "tags": [
+      "lula",
+      "frita"
+    ]
+  },
+  {
+    "name": "Polvo cozido",
+    "category": "proteina",
+    "calories": 164,
+    "protein": 29.8,
+    "carbs": 4.4,
+    "fat": 2.1,
+    "fiber": 0,
+    "sodium": 230,
+    "popular": false,
+    "tags": [
+      "polvo",
+      "cozido"
+    ]
+  },
+  {
+    "name": "Ostra crua",
+    "category": "proteina",
+    "calories": 81,
+    "protein": 9.5,
+    "carbs": 4.9,
+    "fat": 2.3,
+    "fiber": 0,
+    "sodium": 211,
+    "popular": false,
+    "tags": [
+      "ostra",
+      "crua"
+    ]
+  },
+  {
+    "name": "Mexilhão cozido",
+    "category": "proteina",
+    "calories": 86,
+    "protein": 11.9,
+    "carbs": 3.7,
+    "fat": 2.2,
+    "fiber": 0,
+    "sodium": 369,
+    "popular": false,
+    "tags": [
+      "mexilhão",
+      "cozido"
+    ]
+  },
+  {
+    "name": "Marisco cozido",
+    "category": "proteina",
+    "calories": 79,
+    "protein": 13.1,
+    "carbs": 3.5,
+    "fat": 1.6,
+    "fiber": 0,
+    "sodium": 369,
+    "popular": false,
+    "tags": [
+      "marisco",
+      "cozido"
+    ]
+  },
+  {
+    "name": "Salame",
+    "category": "proteina",
+    "calories": 431,
+    "protein": 21.6,
+    "carbs": 1.2,
+    "fat": 37.6,
+    "fiber": 0,
+    "sodium": 2260,
+    "popular": false,
+    "tags": [
+      "salame"
+    ]
+  },
+  {
+    "name": "Copa",
+    "category": "proteina",
+    "calories": 248,
+    "protein": 24.5,
+    "carbs": 0.8,
+    "fat": 16.2,
+    "fiber": 0,
+    "sodium": 1890,
+    "popular": false,
+    "tags": [
+      "copa"
+    ]
+  },
+  {
+    "name": "Paio",
+    "category": "proteina",
+    "calories": 342,
+    "protein": 18.2,
+    "carbs": 2.1,
+    "fat": 29.5,
+    "fiber": 0,
+    "sodium": 1520,
+    "popular": false,
+    "tags": [
+      "paio"
+    ]
+  },
+  {
+    "name": "Apresuntado",
+    "category": "proteina",
+    "calories": 145,
+    "protein": 16.8,
+    "carbs": 3.2,
+    "fat": 7.5,
+    "fiber": 0,
+    "sodium": 1180,
+    "popular": false,
+    "tags": [
+      "apresuntado"
+    ]
+  },
+  {
+    "name": "Peito de peru defumado fatiado",
+    "category": "proteina",
+    "calories": 104,
+    "protein": 18.2,
+    "carbs": 3.8,
+    "fat": 1.5,
+    "fiber": 0,
+    "sodium": 1020,
+    "popular": false,
+    "tags": [
+      "peito",
+      "de",
+      "peru",
+      "defumado",
+      "fatiado"
+    ]
+  },
+  {
+    "name": "Carne de cordeiro crua",
+    "category": "proteina",
+    "calories": 178,
+    "protein": 16.5,
+    "carbs": 0,
+    "fat": 12,
+    "fiber": 0,
+    "sodium": 70,
+    "popular": false,
+    "tags": [
+      "carne",
+      "de",
+      "cordeiro",
+      "crua"
+    ]
+  },
+  {
+    "name": "Carne de cordeiro assada",
+    "category": "proteina",
+    "calories": 294,
+    "protein": 25.6,
+    "carbs": 0,
+    "fat": 20.9,
+    "fiber": 0,
+    "sodium": 82,
+    "popular": false,
+    "tags": [
+      "carne",
+      "de",
+      "cordeiro",
+      "assada"
+    ]
+  },
+  {
+    "name": "Carne de cabrito crua",
+    "category": "proteina",
+    "calories": 109,
+    "protein": 20.6,
+    "carbs": 0,
+    "fat": 2.3,
+    "fiber": 0,
+    "sodium": 82,
+    "popular": false,
+    "tags": [
+      "carne",
+      "de",
+      "cabrito",
+      "crua"
+    ]
+  },
+  {
+    "name": "Carne de coelho crua",
+    "category": "proteina",
+    "calories": 114,
+    "protein": 21.2,
+    "carbs": 0,
+    "fat": 2.4,
+    "fiber": 0,
+    "sodium": 38,
+    "popular": false,
+    "tags": [
+      "carne",
+      "de",
+      "coelho",
+      "crua"
+    ]
+  },
+  {
+    "name": "Pato assado",
+    "category": "proteina",
+    "calories": 337,
+    "protein": 19,
+    "carbs": 0,
+    "fat": 28.4,
+    "fiber": 0,
+    "sodium": 59,
+    "popular": false,
+    "tags": [
+      "pato",
+      "assado"
+    ]
+  },
+  {
+    "name": "Chester assado",
+    "category": "proteina",
+    "calories": 220,
+    "protein": 25,
+    "carbs": 0,
+    "fat": 13,
+    "fiber": 0,
+    "sodium": 75,
+    "popular": false,
+    "tags": [
+      "chester",
+      "assado"
+    ]
+  },
+  {
+    "name": "Fígado de boi cru",
+    "category": "proteina",
+    "calories": 135,
+    "protein": 20.5,
+    "carbs": 5.3,
+    "fat": 3.6,
+    "fiber": 0,
+    "sodium": 87,
+    "popular": false,
+    "tags": [
+      "fígado",
+      "de",
+      "boi",
+      "cru"
+    ]
+  },
+  {
+    "name": "Fígado de boi grelhado",
+    "category": "proteina",
+    "calories": 159,
+    "protein": 24.7,
+    "carbs": 3.9,
+    "fat": 4.8,
+    "fiber": 0,
+    "sodium": 91,
+    "popular": false,
+    "tags": [
+      "fígado",
+      "de",
+      "boi",
+      "grelhado"
+    ]
+  },
+  {
+    "name": "Fígado de frango cru",
+    "category": "proteina",
+    "calories": 136,
+    "protein": 19.1,
+    "carbs": 3.3,
+    "fat": 4.6,
+    "fiber": 0,
+    "sodium": 71,
+    "popular": false,
+    "tags": [
+      "fígado",
+      "de",
+      "frango",
+      "cru"
+    ]
+  },
+  {
+    "name": "Fígado de porco cru",
+    "category": "proteina",
+    "calories": 134,
+    "protein": 20.8,
+    "carbs": 2.5,
+    "fat": 4.4,
+    "fiber": 0,
+    "sodium": 78,
+    "popular": false,
+    "tags": [
+      "fígado",
+      "de",
+      "porco",
+      "cru"
+    ]
+  },
+  {
+    "name": "Coração de boi cru",
+    "category": "proteina",
+    "calories": 108,
+    "protein": 17.1,
+    "carbs": 0.5,
+    "fat": 3.6,
+    "fiber": 0,
+    "sodium": 140,
+    "popular": false,
+    "tags": [
+      "coração",
+      "de",
+      "boi",
+      "cru"
+    ]
+  },
+  {
+    "name": "Coração de frango cru",
+    "category": "proteina",
+    "calories": 153,
+    "protein": 15.3,
+    "carbs": 0.8,
+    "fat": 9.7,
+    "fiber": 0,
+    "sodium": 119,
+    "popular": false,
+    "tags": [
+      "coração",
+      "de",
+      "frango",
+      "cru"
+    ]
+  },
+  {
+    "name": "Moela de frango crua",
+    "category": "proteina",
+    "calories": 94,
+    "protein": 17.7,
+    "carbs": 0.8,
+    "fat": 1.8,
+    "fiber": 0,
+    "sodium": 61,
+    "popular": false,
+    "tags": [
+      "moela",
+      "de",
+      "frango",
+      "crua"
+    ]
+  },
+  {
+    "name": "Língua de boi crua",
+    "category": "proteina",
+    "calories": 224,
+    "protein": 15.7,
+    "carbs": 0.4,
+    "fat": 17.2,
+    "fiber": 0,
+    "sodium": 61,
+    "popular": false,
+    "tags": [
+      "língua",
+      "de",
+      "boi",
+      "crua"
+    ]
+  },
+  {
+    "name": "Rim de boi cru",
+    "category": "proteina",
+    "calories": 86,
+    "protein": 15.7,
+    "carbs": 0.9,
+    "fat": 2.2,
+    "fiber": 0,
+    "sodium": 182,
+    "popular": false,
+    "tags": [
+      "rim",
+      "de",
+      "boi",
+      "cru"
+    ]
+  },
+  {
+    "name": "Bucho de boi cru",
+    "category": "proteina",
+    "calories": 85,
+    "protein": 15.1,
+    "carbs": 0,
+    "fat": 2.6,
+    "fiber": 0,
+    "sodium": 68,
+    "popular": false,
+    "tags": [
+      "bucho",
+      "de",
+      "boi",
+      "cru"
+    ]
+  },
+  {
+    "name": "Queijo cheddar",
+    "category": "lacteo",
+    "calories": 403,
+    "protein": 24.9,
+    "carbs": 1.3,
+    "fat": 33.1,
+    "fiber": 0,
+    "sodium": 621,
+    "popular": false,
+    "tags": [
+      "queijo",
+      "cheddar"
+    ]
+  },
+  {
+    "name": "Queijo provolone",
+    "category": "lacteo",
+    "calories": 351,
+    "protein": 25.6,
+    "carbs": 2.1,
+    "fat": 26.6,
+    "fiber": 0,
+    "sodium": 876,
+    "popular": false,
+    "tags": [
+      "queijo",
+      "provolone"
+    ]
+  },
+  {
+    "name": "Queijo gorgonzola",
+    "category": "lacteo",
+    "calories": 353,
+    "protein": 21.4,
+    "carbs": 2.3,
+    "fat": 28.7,
+    "fiber": 0,
+    "sodium": 1395,
+    "popular": false,
+    "tags": [
+      "queijo",
+      "gorgonzola"
+    ]
+  },
+  {
+    "name": "Queijo brie",
+    "category": "lacteo",
+    "calories": 334,
+    "protein": 20.8,
+    "carbs": 0.5,
+    "fat": 27.7,
+    "fiber": 0,
+    "sodium": 629,
+    "popular": false,
+    "tags": [
+      "queijo",
+      "brie"
+    ]
+  },
+  {
+    "name": "Queijo camembert",
+    "category": "lacteo",
+    "calories": 300,
+    "protein": 19.8,
+    "carbs": 0.5,
+    "fat": 24.3,
+    "fiber": 0,
+    "sodium": 842,
+    "popular": false,
+    "tags": [
+      "queijo",
+      "camembert"
+    ]
+  },
+  {
+    "name": "Cream cheese",
+    "category": "lacteo",
+    "calories": 342,
+    "protein": 5.9,
+    "carbs": 5.5,
+    "fat": 34.2,
+    "fiber": 0,
+    "sodium": 296,
+    "popular": false,
+    "tags": [
+      "cream",
+      "cheese"
+    ]
+  },
+  {
+    "name": "Requeijão cremoso",
+    "category": "lacteo",
+    "calories": 270,
+    "protein": 9.8,
+    "carbs": 3.5,
+    "fat": 25,
+    "fiber": 0,
+    "sodium": 560,
+    "popular": false,
+    "tags": [
+      "requeijão",
+      "cremoso"
+    ]
+  },
+  {
+    "name": "Leite condensado",
+    "category": "lacteo",
+    "calories": 321,
+    "protein": 7.9,
+    "carbs": 54.3,
+    "fat": 8.4,
+    "fiber": 0,
+    "sodium": 127,
+    "popular": false,
+    "tags": [
+      "leite",
+      "condensado"
+    ]
+  },
+  {
+    "name": "Leite em pó integral",
+    "category": "lacteo",
+    "calories": 496,
+    "protein": 25.8,
+    "carbs": 38.4,
+    "fat": 26.7,
+    "fiber": 0,
+    "sodium": 405,
+    "popular": false,
+    "tags": [
+      "leite",
+      "em",
+      "pó",
+      "integral"
+    ]
+  },
+  {
+    "name": "Leite em pó desnatado",
+    "category": "lacteo",
+    "calories": 358,
+    "protein": 36.2,
+    "carbs": 51,
+    "fat": 0.8,
+    "fiber": 0,
+    "sodium": 535,
+    "popular": false,
+    "tags": [
+      "leite",
+      "em",
+      "pó",
+      "desnatado"
+    ]
+  },
+  {
+    "name": "Leite de cabra integral",
+    "category": "lacteo",
+    "calories": 68,
+    "protein": 3.6,
+    "carbs": 4.4,
+    "fat": 4.1,
+    "fiber": 0,
+    "sodium": 50,
+    "popular": false,
+    "tags": [
+      "leite",
+      "de",
+      "cabra",
+      "integral"
+    ]
+  },
+  {
+    "name": "Nata",
+    "category": "lacteo",
+    "calories": 337,
+    "protein": 2.1,
+    "carbs": 2.8,
+    "fat": 35.3,
+    "fiber": 0,
+    "sodium": 32,
+    "popular": false,
+    "tags": [
+      "nata"
+    ]
+  },
+  {
+    "name": "Chantilly",
+    "category": "lacteo",
+    "calories": 257,
+    "protein": 2.1,
+    "carbs": 12.5,
+    "fat": 22.2,
+    "fiber": 0,
+    "sodium": 78,
+    "popular": false,
+    "tags": [
+      "chantilly"
+    ]
+  },
+  {
+    "name": "Iogurte com polpa de frutas",
+    "category": "lacteo",
+    "calories": 80,
+    "protein": 2.9,
+    "carbs": 15.2,
+    "fat": 1,
+    "fiber": 0.3,
+    "sodium": 44,
+    "popular": false,
+    "tags": [
+      "iogurte",
+      "com",
+      "polpa",
+      "de",
+      "frutas"
+    ]
+  },
+  {
+    "name": "Cupuaçu polpa",
+    "category": "fruta",
+    "calories": 49,
+    "protein": 1.5,
+    "carbs": 11.3,
+    "fat": 0.8,
+    "fiber": 1.6,
+    "sodium": 2,
+    "popular": false,
+    "tags": [
+      "cupuaçu",
+      "polpa"
+    ]
+  },
+  {
+    "name": "Graviola polpa",
+    "category": "fruta",
+    "calories": 62,
+    "protein": 1,
+    "carbs": 15.8,
+    "fat": 0.2,
+    "fiber": 1.9,
+    "sodium": 4,
+    "popular": false,
+    "tags": [
+      "graviola",
+      "polpa"
+    ]
+  },
+  {
+    "name": "Jabuticaba",
+    "category": "fruta",
+    "calories": 58,
+    "protein": 0.5,
+    "carbs": 15.3,
+    "fat": 0.1,
+    "fiber": 1.2,
+    "sodium": 3,
+    "popular": false,
+    "tags": [
+      "jabuticaba"
+    ]
+  },
+  {
+    "name": "Caju castanha torrada",
+    "category": "gordura",
+    "calories": 570,
+    "protein": 18.5,
+    "carbs": 28.7,
+    "fat": 46.3,
+    "fiber": 3.7,
+    "sodium": 270,
+    "popular": false,
+    "tags": [
+      "caju",
+      "castanha",
+      "torrada"
+    ]
+  },
+  {
+    "name": "Pitanga",
+    "category": "fruta",
+    "calories": 41,
+    "protein": 0.8,
+    "carbs": 10.2,
+    "fat": 0.4,
+    "fiber": 3.3,
+    "sodium": 3,
+    "popular": false,
+    "tags": [
+      "pitanga"
+    ]
+  },
+  {
+    "name": "Açaí tigela com granola",
+    "category": "fruta",
+    "calories": 142,
+    "protein": 2.8,
+    "carbs": 24.5,
+    "fat": 4.2,
+    "fiber": 3.8,
+    "sodium": 15,
+    "popular": true,
+    "tags": [
+      "açaí",
+      "tigela",
+      "com",
+      "granola"
+    ]
+  },
+  {
+    "name": "Amora",
+    "category": "fruta",
+    "calories": 43,
+    "protein": 1.4,
+    "carbs": 9.6,
+    "fat": 0.5,
+    "fiber": 5.3,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "amora"
+    ]
+  },
+  {
+    "name": "Cereja fresca",
+    "category": "fruta",
+    "calories": 63,
+    "protein": 1.1,
+    "carbs": 16,
+    "fat": 0.2,
+    "fiber": 2.1,
+    "sodium": 0,
+    "popular": false,
+    "tags": [
+      "cereja",
+      "fresca"
+    ]
+  },
+  {
+    "name": "Damasco fresco",
+    "category": "fruta",
+    "calories": 48,
+    "protein": 1.4,
+    "carbs": 11.1,
+    "fat": 0.4,
+    "fiber": 2,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "damasco",
+      "fresco"
+    ]
+  },
+  {
+    "name": "Damasco seco",
+    "category": "fruta",
+    "calories": 241,
+    "protein": 3.4,
+    "carbs": 62.6,
+    "fat": 0.5,
+    "fiber": 7.3,
+    "sodium": 10,
+    "popular": false,
+    "tags": [
+      "damasco",
+      "seco"
+    ]
+  },
+  {
+    "name": "Figo fresco",
+    "category": "fruta",
+    "calories": 74,
+    "protein": 0.8,
+    "carbs": 19.2,
+    "fat": 0.3,
+    "fiber": 2.9,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "figo",
+      "fresco"
+    ]
+  },
+  {
+    "name": "Lichia",
+    "category": "fruta",
+    "calories": 66,
+    "protein": 0.8,
+    "carbs": 16.5,
+    "fat": 0.4,
+    "fiber": 1.3,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "lichia"
+    ]
+  },
+  {
+    "name": "Romã",
+    "category": "fruta",
+    "calories": 83,
+    "protein": 1.7,
+    "carbs": 18.7,
+    "fat": 1.2,
+    "fiber": 4,
+    "sodium": 3,
+    "popular": false,
+    "tags": [
+      "romã"
+    ]
+  },
+  {
+    "name": "Tâmara seca",
+    "category": "fruta",
+    "calories": 282,
+    "protein": 2.5,
+    "carbs": 75,
+    "fat": 0.4,
+    "fiber": 8,
+    "sodium": 2,
+    "popular": false,
+    "tags": [
+      "tâmara",
+      "seca"
+    ]
+  },
+  {
+    "name": "Uva passa",
+    "category": "fruta",
+    "calories": 299,
+    "protein": 3.1,
+    "carbs": 79.2,
+    "fat": 0.5,
+    "fiber": 3.7,
+    "sodium": 11,
+    "popular": false,
+    "tags": [
+      "uva",
+      "passa"
+    ]
+  },
+  {
+    "name": "Ameixa seca",
+    "category": "fruta",
+    "calories": 240,
+    "protein": 2.2,
+    "carbs": 63.9,
+    "fat": 0.4,
+    "fiber": 7.1,
+    "sodium": 2,
+    "popular": false,
+    "tags": [
+      "ameixa",
+      "seca"
+    ]
+  },
+  {
+    "name": "Cogumelo shiitake cru",
+    "category": "vegetal",
+    "calories": 34,
+    "protein": 2.2,
+    "carbs": 6.8,
+    "fat": 0.5,
+    "fiber": 2.5,
+    "sodium": 9,
+    "popular": false,
+    "tags": [
+      "cogumelo",
+      "shiitake",
+      "cru"
+    ]
+  },
+  {
+    "name": "Cogumelo shimeji cru",
+    "category": "vegetal",
+    "calories": 35,
+    "protein": 2.5,
+    "carbs": 7,
+    "fat": 0.4,
+    "fiber": 2.8,
+    "sodium": 18,
+    "popular": false,
+    "tags": [
+      "cogumelo",
+      "shimeji",
+      "cru"
+    ]
+  },
+  {
+    "name": "Cogumelo Paris cru",
+    "category": "vegetal",
+    "calories": 22,
+    "protein": 3.1,
+    "carbs": 3.3,
+    "fat": 0.3,
+    "fiber": 1,
+    "sodium": 5,
+    "popular": false,
+    "tags": [
+      "cogumelo",
+      "paris",
+      "cru"
+    ]
+  },
+  {
+    "name": "Cogumelo portobello cru",
+    "category": "vegetal",
+    "calories": 26,
+    "protein": 2.5,
+    "carbs": 4.3,
+    "fat": 0.4,
+    "fiber": 1.5,
+    "sodium": 6,
+    "popular": false,
+    "tags": [
+      "cogumelo",
+      "portobello",
+      "cru"
+    ]
+  },
+  {
+    "name": "Aspargo cru",
+    "category": "vegetal",
+    "calories": 20,
+    "protein": 2.2,
+    "carbs": 3.9,
+    "fat": 0.1,
+    "fiber": 2.1,
+    "sodium": 2,
+    "popular": false,
+    "tags": [
+      "aspargo",
+      "cru"
+    ]
+  },
+  {
+    "name": "Aspargo em conserva",
+    "category": "vegetal",
+    "calories": 23,
+    "protein": 2.4,
+    "carbs": 3.2,
+    "fat": 0.8,
+    "fiber": 1.8,
+    "sodium": 298,
+    "popular": false,
+    "tags": [
+      "aspargo",
+      "em",
+      "conserva"
+    ]
+  },
+  {
+    "name": "Alcachofra cozida",
+    "category": "vegetal",
+    "calories": 47,
+    "protein": 2.9,
+    "carbs": 10.5,
+    "fat": 0.2,
+    "fiber": 8.6,
+    "sodium": 80,
+    "popular": false,
+    "tags": [
+      "alcachofra",
+      "cozida"
+    ]
+  },
+  {
+    "name": "Berinjela japonesa crua",
+    "category": "vegetal",
+    "calories": 18,
+    "protein": 0.9,
+    "carbs": 4.2,
+    "fat": 0.1,
+    "fiber": 2.2,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "berinjela",
+      "japonesa",
+      "crua"
+    ]
+  },
+  {
+    "name": "Abobrinha japonesa crua",
+    "category": "vegetal",
+    "calories": 17,
+    "protein": 1.3,
+    "carbs": 3.6,
+    "fat": 0.2,
+    "fiber": 1.1,
+    "sodium": 3,
+    "popular": false,
+    "tags": [
+      "abobrinha",
+      "japonesa",
+      "crua"
+    ]
+  },
+  {
+    "name": "Rúcula selvagem crua",
+    "category": "vegetal",
+    "calories": 25,
+    "protein": 2.6,
+    "carbs": 3.7,
+    "fat": 0.7,
+    "fiber": 1.6,
+    "sodium": 27,
+    "popular": false,
+    "tags": [
+      "rúcula",
+      "selvagem",
+      "crua"
+    ]
+  },
+  {
+    "name": "Agrião d'água cru",
+    "category": "vegetal",
+    "calories": 11,
+    "protein": 2.3,
+    "carbs": 1.3,
+    "fat": 0.1,
+    "fiber": 0.5,
+    "sodium": 41,
+    "popular": false,
+    "tags": [
+      "agrião",
+      "d'água",
+      "cru"
+    ]
+  },
+  {
+    "name": "Mostarda folha crua",
+    "category": "vegetal",
+    "calories": 27,
+    "protein": 2.9,
+    "carbs": 4.7,
+    "fat": 0.4,
+    "fiber": 3.2,
+    "sodium": 25,
+    "popular": false,
+    "tags": [
+      "mostarda",
+      "folha",
+      "crua"
+    ]
+  },
+  {
+    "name": "Ora-pro-nóbis crua",
+    "category": "vegetal",
+    "calories": 26,
+    "protein": 2,
+    "carbs": 5.6,
+    "fat": 0.4,
+    "fiber": 1.4,
+    "sodium": 4,
+    "popular": false,
+    "tags": [
+      "ora-pro-nóbis",
+      "crua"
+    ]
+  },
+  {
+    "name": "Taioba crua",
+    "category": "vegetal",
+    "calories": 28,
+    "protein": 2.8,
+    "carbs": 4.9,
+    "fat": 0.4,
+    "fiber": 2.2,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "taioba",
+      "crua"
+    ]
+  },
+  {
+    "name": "Biscoito wafer chocolate",
+    "category": "carboidrato",
+    "calories": 502,
+    "protein": 6,
+    "carbs": 65.4,
+    "fat": 24.3,
+    "fiber": 1.7,
+    "sodium": 95,
+    "popular": false,
+    "tags": [
+      "biscoito",
+      "wafer",
+      "chocolate"
+    ]
+  },
+  {
+    "name": "Biscoito recheado morango",
+    "category": "carboidrato",
+    "calories": 465,
+    "protein": 5.2,
+    "carbs": 67.8,
+    "fat": 18.9,
+    "fiber": 1.5,
+    "sodium": 225,
+    "popular": false,
+    "tags": [
+      "biscoito",
+      "recheado",
+      "morango"
+    ]
+  },
+  {
+    "name": "Biscoito maria",
+    "category": "carboidrato",
+    "calories": 443,
+    "protein": 7.5,
+    "carbs": 74.2,
+    "fat": 12.8,
+    "fiber": 2.1,
+    "sodium": 380,
+    "popular": false,
+    "tags": [
+      "biscoito",
+      "maria"
+    ]
+  },
+  {
+    "name": "Biscoito rosquinha",
+    "category": "carboidrato",
+    "calories": 377,
+    "protein": 9.8,
+    "carbs": 75,
+    "fat": 4,
+    "fiber": 2.5,
+    "sodium": 450,
+    "popular": false,
+    "tags": [
+      "biscoito",
+      "rosquinha"
+    ]
+  },
+  {
+    "name": "Biscoito polvilho",
+    "category": "carboidrato",
+    "calories": 387,
+    "protein": 1.5,
+    "carbs": 83.7,
+    "fat": 5.2,
+    "fiber": 1.2,
+    "sodium": 1032,
+    "popular": false,
+    "tags": [
+      "biscoito",
+      "polvilho"
+    ]
+  },
+  {
+    "name": "Bolo de chocolate",
+    "category": "carboidrato",
+    "calories": 410,
+    "protein": 5.4,
+    "carbs": 58.9,
+    "fat": 17.2,
+    "fiber": 2.1,
+    "sodium": 328,
+    "popular": false,
+    "tags": [
+      "bolo",
+      "de",
+      "chocolate"
+    ]
+  },
+  {
+    "name": "Bolo de fubá",
+    "category": "carboidrato",
+    "calories": 354,
+    "protein": 6.8,
+    "carbs": 58.2,
+    "fat": 10.5,
+    "fiber": 1.8,
+    "sodium": 380,
+    "popular": false,
+    "tags": [
+      "bolo",
+      "de",
+      "fubá"
+    ]
+  },
+  {
+    "name": "Bolo de cenoura",
+    "category": "carboidrato",
+    "calories": 352,
+    "protein": 5.9,
+    "carbs": 57.8,
+    "fat": 10.8,
+    "fiber": 1.5,
+    "sodium": 365,
+    "popular": false,
+    "tags": [
+      "bolo",
+      "de",
+      "cenoura"
+    ]
+  },
+  {
+    "name": "Bolo de laranja",
+    "category": "carboidrato",
+    "calories": 348,
+    "protein": 6.2,
+    "carbs": 56.5,
+    "fat": 11.2,
+    "fiber": 1.3,
+    "sodium": 340,
+    "popular": false,
+    "tags": [
+      "bolo",
+      "de",
+      "laranja"
+    ]
+  },
+  {
+    "name": "Bolo simples",
+    "category": "carboidrato",
+    "calories": 362,
+    "protein": 6.2,
+    "carbs": 59.8,
+    "fat": 11,
+    "fiber": 1.2,
+    "sodium": 340,
+    "popular": false,
+    "tags": [
+      "bolo",
+      "simples"
+    ]
+  },
+  {
+    "name": "Pão ciabatta",
+    "category": "carboidrato",
+    "calories": 271,
+    "protein": 9,
+    "carbs": 52,
+    "fat": 3.5,
+    "fiber": 2.8,
+    "sodium": 580,
+    "popular": false,
+    "tags": [
+      "pão",
+      "ciabatta"
+    ]
+  },
+  {
+    "name": "Pão baguete",
+    "category": "carboidrato",
+    "calories": 276,
+    "protein": 9.2,
+    "carbs": 54.8,
+    "fat": 2.8,
+    "fiber": 2.5,
+    "sodium": 620,
+    "popular": false,
+    "tags": [
+      "pão",
+      "baguete"
+    ]
+  },
+  {
+    "name": "Croissant",
+    "category": "carboidrato",
+    "calories": 406,
+    "protein": 8.2,
+    "carbs": 45.8,
+    "fat": 20.5,
+    "fiber": 2.6,
+    "sodium": 492,
+    "popular": false,
+    "tags": [
+      "croissant"
+    ]
+  },
+  {
+    "name": "Brioche",
+    "category": "carboidrato",
+    "calories": 375,
+    "protein": 9.5,
+    "carbs": 48.2,
+    "fat": 16.8,
+    "fiber": 2.1,
+    "sodium": 380,
+    "popular": false,
+    "tags": [
+      "brioche"
+    ]
+  },
+  {
+    "name": "Pão de centeio",
+    "category": "carboidrato",
+    "calories": 259,
+    "protein": 8.5,
+    "carbs": 52.7,
+    "fat": 3.3,
+    "fiber": 5.8,
+    "sodium": 660,
+    "popular": false,
+    "tags": [
+      "pão",
+      "de",
+      "centeio"
+    ]
+  },
+  {
+    "name": "Pão sírio",
+    "category": "carboidrato",
+    "calories": 275,
+    "protein": 9,
+    "carbs": 56,
+    "fat": 1.5,
+    "fiber": 2.8,
+    "sodium": 520,
+    "popular": false,
+    "tags": [
+      "pão",
+      "sírio"
+    ]
+  },
+  {
+    "name": "Pão de hot dog",
+    "category": "carboidrato",
+    "calories": 272,
+    "protein": 8.5,
+    "carbs": 53.2,
+    "fat": 3,
+    "fiber": 2.5,
+    "sodium": 580,
+    "popular": false,
+    "tags": [
+      "pão",
+      "de",
+      "hot",
+      "dog"
+    ]
+  },
+  {
+    "name": "Cuscuz de milho",
+    "category": "carboidrato",
+    "calories": 112,
+    "protein": 2.4,
+    "carbs": 24.5,
+    "fat": 0.5,
+    "fiber": 1.2,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "cuscuz",
+      "de",
+      "milho"
+    ]
+  },
+  {
+    "name": "Farofa pronta",
+    "category": "carboidrato",
+    "calories": 387,
+    "protein": 2.8,
+    "carbs": 68.5,
+    "fat": 11.2,
+    "fiber": 4.5,
+    "sodium": 890,
+    "popular": false,
+    "tags": [
+      "farofa",
+      "pronta"
+    ]
+  },
+  {
+    "name": "Pamonha doce",
+    "category": "carboidrato",
+    "calories": 152,
+    "protein": 3.5,
+    "carbs": 30.2,
+    "fat": 2.5,
+    "fiber": 1.8,
+    "sodium": 8,
+    "popular": false,
+    "tags": [
+      "pamonha",
+      "doce"
+    ]
+  },
+  {
+    "name": "Pamonha salgada",
+    "category": "carboidrato",
+    "calories": 135,
+    "protein": 3.8,
+    "carbs": 26.5,
+    "fat": 2.2,
+    "fiber": 1.5,
+    "sodium": 285,
+    "popular": false,
+    "tags": [
+      "pamonha",
+      "salgada"
+    ]
+  },
+  {
+    "name": "Suco de uva integral",
+    "category": "bebida",
+    "calories": 60,
+    "protein": 0.3,
+    "carbs": 15.2,
+    "fat": 0.1,
+    "fiber": 0.1,
+    "sodium": 2,
+    "popular": false,
+    "tags": [
+      "suco",
+      "de",
+      "uva",
+      "integral"
+    ]
+  },
+  {
+    "name": "Suco de maracujá",
+    "category": "bebida",
+    "calories": 51,
+    "protein": 0.8,
+    "carbs": 12.8,
+    "fat": 0.2,
+    "fiber": 0.2,
+    "sodium": 3,
+    "popular": false,
+    "tags": [
+      "suco",
+      "de",
+      "maracujá"
+    ]
+  },
+  {
+    "name": "Suco de abacaxi",
+    "category": "bebida",
+    "calories": 48,
+    "protein": 0.4,
+    "carbs": 12.6,
+    "fat": 0.1,
+    "fiber": 0.3,
+    "sodium": 2,
+    "popular": false,
+    "tags": [
+      "suco",
+      "de",
+      "abacaxi"
+    ]
+  },
+  {
+    "name": "Suco de limão",
+    "category": "bebida",
+    "calories": 25,
+    "protein": 0.4,
+    "carbs": 8.2,
+    "fat": 0.1,
+    "fiber": 0.1,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "suco",
+      "de",
+      "limão"
+    ]
+  },
+  {
+    "name": "Chá verde",
+    "category": "bebida",
+    "calories": 1,
+    "protein": 0.2,
+    "carbs": 0,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "chá",
+      "verde"
+    ]
+  },
+  {
+    "name": "Chá branco",
+    "category": "bebida",
+    "calories": 1,
+    "protein": 0.1,
+    "carbs": 0.2,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "chá",
+      "branco"
+    ]
+  },
+  {
+    "name": "Chá de hibisco",
+    "category": "bebida",
+    "calories": 2,
+    "protein": 0,
+    "carbs": 0.5,
+    "fat": 0,
+    "fiber": 0,
+    "sodium": 1,
+    "popular": false,
+    "tags": [
+      "chá",
+      "de",
+      "hibisco"
+    ]
+  },
+  {
+    "name": "Tahine pasta de gergelim",
+    "category": "gordura",
+    "calories": 595,
+    "protein": 17,
+    "carbs": 21.2,
+    "fat": 53.8,
+    "fiber": 9.3,
+    "sodium": 115,
+    "popular": false,
+    "tags": [
+      "tahine",
+      "pasta",
+      "de",
+      "gergelim"
+    ]
+  },
+  {
+    "name": "Pasta de amendoim integral",
+    "category": "gordura",
+    "calories": 588,
+    "protein": 25.8,
+    "carbs": 20,
+    "fat": 50,
+    "fiber": 8,
+    "sodium": 17,
+    "popular": true,
+    "tags": [
+      "pasta",
+      "de",
+      "amendoim",
+      "integral"
+    ]
+  },
+  {
+    "name": "Gergelim torrado",
+    "category": "gordura",
+    "calories": 631,
+    "protein": 20.5,
+    "carbs": 11.9,
+    "fat": 61.2,
+    "fiber": 14,
+    "sodium": 39,
+    "popular": false,
+    "tags": [
+      "gergelim",
+      "torrado"
+    ]
+  },
+  {
+    "name": "Semente de papoula",
+    "category": "gordura",
+    "calories": 525,
+    "protein": 17.9,
+    "carbs": 28.1,
+    "fat": 41.6,
+    "fiber": 19.5,
+    "sodium": 26,
+    "popular": false,
+    "tags": [
+      "semente",
+      "de",
+      "papoula"
+    ]
   }
 ]

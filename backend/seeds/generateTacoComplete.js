@@ -243,7 +243,111 @@ Tomate cru|vegetal|15|1.1|3.1|0.2|1.2|5|true
 Tomate molho industrializado|vegetal|64|1.4|13.8|0.5|1.4|643
 Uva itália|fruta|53|0.6|14.0|0.1|0.9|1
 Vagem crua|vegetal|25|2.1|5.5|0.2|2.7|1
-Vagem cozida|vegetal|29|2.4|6.5|0.2|3.1|1`;
+Vagem cozida|vegetal|29|2.4|6.5|0.2|3.1|1
+Lagosta cozida|proteina|89|18.8|0.5|1.3|0|296
+Lula crua|proteina|92|15.6|3.1|1.4|0|44
+Lula frita|proteina|175|15.1|7.9|9.3|0.3|260
+Polvo cozido|proteina|164|29.8|4.4|2.1|0|230
+Ostra crua|proteina|81|9.5|4.9|2.3|0|211
+Mexilhão cozido|proteina|86|11.9|3.7|2.2|0|369
+Marisco cozido|proteina|79|13.1|3.5|1.6|0|369
+Salame|proteina|431|21.6|1.2|37.6|0|2260
+Copa|proteina|248|24.5|0.8|16.2|0|1890
+Paio|proteina|342|18.2|2.1|29.5|0|1520
+Apresuntado|proteina|145|16.8|3.2|7.5|0|1180
+Peito de peru defumado fatiado|proteina|104|18.2|3.8|1.5|0|1020
+Carne de cordeiro crua|proteina|178|16.5|0|12.0|0|70
+Carne de cordeiro assada|proteina|294|25.6|0|20.9|0|82
+Carne de cabrito crua|proteina|109|20.6|0|2.3|0|82
+Carne de coelho crua|proteina|114|21.2|0|2.4|0|38
+Pato assado|proteina|337|19.0|0|28.4|0|59
+Chester assado|proteina|220|25.0|0|13.0|0|75
+Fígado de boi cru|proteina|135|20.5|5.3|3.6|0|87
+Fígado de boi grelhado|proteina|159|24.7|3.9|4.8|0|91
+Fígado de frango cru|proteina|136|19.1|3.3|4.6|0|71
+Fígado de porco cru|proteina|134|20.8|2.5|4.4|0|78
+Coração de boi cru|proteina|108|17.1|0.5|3.6|0|140
+Coração de frango cru|proteina|153|15.3|0.8|9.7|0|119
+Moela de frango crua|proteina|94|17.7|0.8|1.8|0|61
+Língua de boi crua|proteina|224|15.7|0.4|17.2|0|61
+Rim de boi cru|proteina|86|15.7|0.9|2.2|0|182
+Bucho de boi cru|proteina|85|15.1|0|2.6|0|68
+Queijo cheddar|lacteo|403|24.9|1.3|33.1|0|621
+Queijo provolone|lacteo|351|25.6|2.1|26.6|0|876
+Queijo gorgonzola|lacteo|353|21.4|2.3|28.7|0|1395
+Queijo brie|lacteo|334|20.8|0.5|27.7|0|629
+Queijo camembert|lacteo|300|19.8|0.5|24.3|0|842
+Cream cheese|lacteo|342|5.9|5.5|34.2|0|296
+Requeijão cremoso|lacteo|270|9.8|3.5|25.0|0|560
+Leite condensado|lacteo|321|7.9|54.3|8.4|0|127
+Leite em pó integral|lacteo|496|25.8|38.4|26.7|0|405
+Leite em pó desnatado|lacteo|358|36.2|51.0|0.8|0|535
+Leite de cabra integral|lacteo|68|3.6|4.4|4.1|0|50
+Nata|lacteo|337|2.1|2.8|35.3|0|32
+Chantilly|lacteo|257|2.1|12.5|22.2|0|78
+Iogurte com polpa de frutas|lacteo|80|2.9|15.2|1.0|0.3|44
+Cupuaçu polpa|fruta|49|1.5|11.3|0.8|1.6|2
+Graviola polpa|fruta|62|1.0|15.8|0.2|1.9|4
+Jabuticaba|fruta|58|0.5|15.3|0.1|1.2|3
+Caju castanha torrada|gordura|570|18.5|28.7|46.3|3.7|270
+Pitanga|fruta|41|0.8|10.2|0.4|3.3|3
+Açaí tigela com granola|fruta|142|2.8|24.5|4.2|3.8|15|true
+Amora|fruta|43|1.4|9.6|0.5|5.3|1
+Cereja fresca|fruta|63|1.1|16.0|0.2|2.1|0
+Damasco fresco|fruta|48|1.4|11.1|0.4|2.0|1
+Damasco seco|fruta|241|3.4|62.6|0.5|7.3|10
+Figo fresco|fruta|74|0.8|19.2|0.3|2.9|1
+Lichia|fruta|66|0.8|16.5|0.4|1.3|1
+Romã|fruta|83|1.7|18.7|1.2|4.0|3
+Tâmara seca|fruta|282|2.5|75.0|0.4|8.0|2
+Uva passa|fruta|299|3.1|79.2|0.5|3.7|11
+Ameixa seca|fruta|240|2.2|63.9|0.4|7.1|2
+Cogumelo shiitake cru|vegetal|34|2.2|6.8|0.5|2.5|9
+Cogumelo shimeji cru|vegetal|35|2.5|7.0|0.4|2.8|18
+Cogumelo Paris cru|vegetal|22|3.1|3.3|0.3|1.0|5
+Cogumelo portobello cru|vegetal|26|2.5|4.3|0.4|1.5|6
+Aspargo cru|vegetal|20|2.2|3.9|0.1|2.1|2
+Aspargo em conserva|vegetal|23|2.4|3.2|0.8|1.8|298
+Alcachofra cozida|vegetal|47|2.9|10.5|0.2|8.6|80
+Berinjela japonesa crua|vegetal|18|0.9|4.2|0.1|2.2|1
+Abobrinha japonesa crua|vegetal|17|1.3|3.6|0.2|1.1|3
+Rúcula selvagem crua|vegetal|25|2.6|3.7|0.7|1.6|27
+Agrião d'água cru|vegetal|11|2.3|1.3|0.1|0.5|41
+Mostarda folha crua|vegetal|27|2.9|4.7|0.4|3.2|25
+Ora-pro-nóbis crua|vegetal|26|2.0|5.6|0.4|1.4|4
+Taioba crua|vegetal|28|2.8|4.9|0.4|2.2|1
+Biscoito wafer chocolate|carboidrato|502|6.0|65.4|24.3|1.7|95
+Biscoito recheado morango|carboidrato|465|5.2|67.8|18.9|1.5|225
+Biscoito maria|carboidrato|443|7.5|74.2|12.8|2.1|380
+Biscoito rosquinha|carboidrato|377|9.8|75.0|4.0|2.5|450
+Biscoito polvilho|carboidrato|387|1.5|83.7|5.2|1.2|1032
+Bolo de chocolate|carboidrato|410|5.4|58.9|17.2|2.1|328
+Bolo de fubá|carboidrato|354|6.8|58.2|10.5|1.8|380
+Bolo de cenoura|carboidrato|352|5.9|57.8|10.8|1.5|365
+Bolo de laranja|carboidrato|348|6.2|56.5|11.2|1.3|340
+Bolo simples|carboidrato|362|6.2|59.8|11.0|1.2|340
+Pão ciabatta|carboidrato|271|9.0|52.0|3.5|2.8|580
+Pão baguete|carboidrato|276|9.2|54.8|2.8|2.5|620
+Croissant|carboidrato|406|8.2|45.8|20.5|2.6|492
+Brioche|carboidrato|375|9.5|48.2|16.8|2.1|380
+Pão de centeio|carboidrato|259|8.5|52.7|3.3|5.8|660
+Pão sírio|carboidrato|275|9.0|56.0|1.5|2.8|520
+Pão de hot dog|carboidrato|272|8.5|53.2|3.0|2.5|580
+Cuscuz de milho|carboidrato|112|2.4|24.5|0.5|1.2|1
+Farofa pronta|carboidrato|387|2.8|68.5|11.2|4.5|890
+Pamonha doce|carboidrato|152|3.5|30.2|2.5|1.8|8
+Pamonha salgada|carboidrato|135|3.8|26.5|2.2|1.5|285
+Suco de uva integral|bebida|60|0.3|15.2|0.1|0.1|2
+Suco de maracujá|bebida|51|0.8|12.8|0.2|0.2|3
+Suco de abacaxi|bebida|48|0.4|12.6|0.1|0.3|2
+Suco de limão|bebida|25|0.4|8.2|0.1|0.1|1
+Chá verde|bebida|1|0.2|0|0|0|1
+Chá branco|bebida|1|0.1|0.2|0|0|1
+Chá de hibisco|bebida|2|0|0.5|0|0|1
+Tahine pasta de gergelim|gordura|595|17.0|21.2|53.8|9.3|115
+Pasta de amendoim integral|gordura|588|25.8|20.0|50.0|8.0|17|true
+Gergelim torrado|gordura|631|20.5|11.9|61.2|14.0|39
+Semente de papoula|gordura|525|17.9|28.1|41.6|19.5|26`;
 
 const foods = tacoFoods.split('\n').map(line => {
   const [name, category, calories, protein, carbs, fat, fiber, sodium, popular] = line.split('|');
