@@ -435,37 +435,37 @@ const Diets = () => {
             <div className="grid grid-cols-4 gap-3">
               <div className="text-center">
                 <p className="text-xs text-blue-700 mb-1">Calorias</p>
-                <p className="text-lg font-bold text-blue-900">{Math.round(dietTotals.calories)}</p>
-                {formData.goals.calories && (
+                <p className="text-lg font-bold text-blue-900">{Math.round(dietTotals.calories) || 0}</p>
+                {formData.goals.calories > 0 && (
                   <p className="text-xs text-blue-600">
-                    {Math.round((dietTotals.calories / formData.goals.calories) * 100)}%
+                    {Math.round((dietTotals.calories / formData.goals.calories) * 100) || 0}%
                   </p>
                 )}
               </div>
               <div className="text-center">
                 <p className="text-xs text-blue-700 mb-1">Proteína</p>
-                <p className="text-lg font-bold text-blue-900">{Math.round(dietTotals.protein)}g</p>
-                {formData.goals.protein && (
+                <p className="text-lg font-bold text-blue-900">{Math.round(dietTotals.protein) || 0}g</p>
+                {formData.goals.protein > 0 && (
                   <p className="text-xs text-blue-600">
-                    {Math.round((dietTotals.protein / formData.goals.protein) * 100)}%
+                    {Math.round((dietTotals.protein / formData.goals.protein) * 100) || 0}%
                   </p>
                 )}
               </div>
               <div className="text-center">
                 <p className="text-xs text-blue-700 mb-1">Carbo</p>
-                <p className="text-lg font-bold text-blue-900">{Math.round(dietTotals.carbs)}g</p>
-                {formData.goals.carbs && (
+                <p className="text-lg font-bold text-blue-900">{Math.round(dietTotals.carbs) || 0}g</p>
+                {formData.goals.carbs > 0 && (
                   <p className="text-xs text-blue-600">
-                    {Math.round((dietTotals.carbs / formData.goals.carbs) * 100)}%
+                    {Math.round((dietTotals.carbs / formData.goals.carbs) * 100) || 0}%
                   </p>
                 )}
               </div>
               <div className="text-center">
                 <p className="text-xs text-blue-700 mb-1">Gordura</p>
-                <p className="text-lg font-bold text-blue-900">{Math.round(dietTotals.fat)}g</p>
-                {formData.goals.fat && (
+                <p className="text-lg font-bold text-blue-900">{Math.round(dietTotals.fat) || 0}g</p>
+                {formData.goals.fat > 0 && (
                   <p className="text-xs text-blue-600">
-                    {Math.round((dietTotals.fat / formData.goals.fat) * 100)}%
+                    {Math.round((dietTotals.fat / formData.goals.fat) * 100) || 0}%
                   </p>
                 )}
               </div>
@@ -588,19 +588,19 @@ const Diets = () => {
                         <div className="grid grid-cols-4 gap-2 text-center">
                           <div>
                             <p className="text-xs text-gray-600">Calorias</p>
-                            <p className="font-semibold text-sm">{Math.round(mealTotal.calories)}</p>
+                            <p className="font-semibold text-sm">{Math.round(mealTotal.calories) || 0}</p>
                           </div>
                           <div>
                             <p className="text-xs text-gray-600">Proteína</p>
-                            <p className="font-semibold text-sm">{Math.round(mealTotal.protein)}g</p>
+                            <p className="font-semibold text-sm">{Math.round(mealTotal.protein) || 0}g</p>
                           </div>
                           <div>
                             <p className="text-xs text-gray-600">Carbo</p>
-                            <p className="font-semibold text-sm">{Math.round(mealTotal.carbs)}g</p>
+                            <p className="font-semibold text-sm">{Math.round(mealTotal.carbs) || 0}g</p>
                           </div>
                           <div>
                             <p className="text-xs text-gray-600">Gordura</p>
-                            <p className="font-semibold text-sm">{Math.round(mealTotal.fat)}g</p>
+                            <p className="font-semibold text-sm">{Math.round(mealTotal.fat) || 0}g</p>
                           </div>
                         </div>
                       </div>
