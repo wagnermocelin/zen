@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useData } from '../contexts/DataContextAPI';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
-import { Plus, Search, Edit, Trash2, Salad } from 'lucide-react';
+import FoodSearch from '../components/FoodSearch';
+import { Plus, Search, Edit, Trash2, Salad, X, Calculator } from 'lucide-react';
 
 const Diets = () => {
   const { students, diets, addDiet, updateDiet, deleteDiet } = useData();
@@ -13,12 +14,16 @@ const Diets = () => {
     studentId: '',
     name: '',
     goal: 'Emagrecimento',
-    calories: '',
-    protein: '',
-    carbs: '',
-    fat: '',
-    meals: [{ name: 'Café da Manhã', time: '08:00', foods: '' }],
+    goals: {
+      calories: '',
+      protein: '',
+      carbs: '',
+      fat: ''
+    },
+    meals: [{ name: 'Café da Manhã', time: '08:00', foods: '', foodItems: [] }],
   });
+  const [mealTotals, setMealTotals] = useState({});
+  const [dietTotals, setDietTotals] = useState({ calories: 0, protein: 0, carbs: 0, fat: 0 });
 
   const filteredDiets = diets.filter(diet => {
     const student = students.find(s => (s._id || s.id) === (diet.student?._id || diet.student || diet.studentId));
@@ -38,12 +43,16 @@ const Diets = () => {
         studentId: '',
         name: '',
         goal: 'Emagrecimento',
-        calories: '',
-        protein: '',
-        carbs: '',
-        fat: '',
-        meals: [{ name: 'Café da Manhã', time: '08:00', foods: '' }],
+        goals: {
+          calories: '',
+          protein: '',
+          carbs: '',
+          fat: ''
+        },
+        meals: [{ name: 'Café da Manhã', time: '08:00', foods: '', foodItems: [] }],
       });
+      setMealTotals({});
+      setDietTotals({ calories: 0, protein: 0, carbs: 0, fat: 0 });
     }
     setIsModalOpen(true);
   };
@@ -86,10 +95,41 @@ const Diets = () => {
     }
   };
 
+  // Calcular totais sempre que as refeições mudarem
+  useEffect(() => {
+    calculateDietTotals();
+  }, [formData.meals]);
+
+  const calculateMealTotals = (foodItems) => {
+    return foodItems.reduce((totals, item) => {
+      const multiplier = item.amount / 100;
+      return {
+        calories: totals.calories + (item.food.calories * multiplier),
+        protein: totals.protein + (item.food.protein * multiplier),
+        carbs: totals.carbs + (item.food.carbs * multiplier),
+        fat: totals.fat + (item.food.fat * multiplier)
+      };
+    }, { calories: 0, protein: 0, carbs: 0, fat: 0 });
+  };
+
+  const calculateDietTotals = () => {
+    const totals = formData.meals.reduce((acc, meal) => {
+      const mealTotal = calculateMealTotals(meal.foodItems || []);
+      return {
+        calories: acc.calories + mealTotal.calories,
+        protein: acc.protein + mealTotal.protein,
+        carbs: acc.carbs + mealTotal.carbs,
+        fat: acc.fat + mealTotal.fat
+      };
+    }, { calories: 0, protein: 0, carbs: 0, fat: 0 });
+
+    setDietTotals(totals);
+  };
+
   const addMeal = () => {
     setFormData({
       ...formData,
-      meals: [...formData.meals, { name: '', time: '', foods: '' }],
+      meals: [...formData.meals, { name: '', time: '', foods: '', foodItems: [] }],
     });
   };
 
@@ -103,6 +143,51 @@ const Diets = () => {
   const updateMeal = (index, field, value) => {
     const newMeals = [...formData.meals];
     newMeals[index][field] = value;
+    setFormData({ ...formData, meals: newMeals });
+  };
+
+  const addFoodToMeal = (mealIndex, food) => {
+    const newMeals = [...formData.meals];
+    if (!newMeals[mealIndex].foodItems) {
+      newMeals[mealIndex].foodItems = [];
+    }
+    
+    // Adicionar com quantidade padrão de 100g
+    newMeals[mealIndex].foodItems.push({
+      food: food,
+      amount: 100,
+      unit: 'g',
+      calculatedMacros: {
+        calories: food.calories,
+        protein: food.protein,
+        carbs: food.carbs,
+        fat: food.fat
+      }
+    });
+    
+    setFormData({ ...formData, meals: newMeals });
+  };
+
+  const removeFoodFromMeal = (mealIndex, foodIndex) => {
+    const newMeals = [...formData.meals];
+    newMeals[mealIndex].foodItems.splice(foodIndex, 1);
+    setFormData({ ...formData, meals: newMeals });
+  };
+
+  const updateFoodAmount = (mealIndex, foodIndex, amount) => {
+    const newMeals = [...formData.meals];
+    const foodItem = newMeals[mealIndex].foodItems[foodIndex];
+    foodItem.amount = amount;
+    
+    // Recalcular macros
+    const multiplier = amount / 100;
+    foodItem.calculatedMacros = {
+      calories: Math.round(foodItem.food.calories * multiplier),
+      protein: Math.round(foodItem.food.protein * multiplier * 10) / 10,
+      carbs: Math.round(foodItem.food.carbs * multiplier * 10) / 10,
+      fat: Math.round(foodItem.food.fat * multiplier * 10) / 10
+    };
+    
     setFormData({ ...formData, meals: newMeals });
   };
 
@@ -284,58 +369,106 @@ const Diets = () => {
             </select>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Calorias *
-              </label>
-              <input
-                type="number"
-                value={formData.calories}
-                onChange={(e) => setFormData({ ...formData, calories: e.target.value })}
-                className="input-field"
-                placeholder="2000"
-                required
-              />
+          {/* Metas Diárias */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-3">
+              Metas Diárias
+            </label>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div>
+                <label className="block text-xs text-gray-600 mb-1">
+                  Calorias
+                </label>
+                <input
+                  type="number"
+                  value={formData.goals.calories}
+                  onChange={(e) => setFormData({ ...formData, goals: { ...formData.goals, calories: e.target.value }})}
+                  className="input-field"
+                  placeholder="2000"
+                />
+              </div>
+              <div>
+                <label className="block text-xs text-gray-600 mb-1">
+                  Proteína (g)
+                </label>
+                <input
+                  type="number"
+                  value={formData.goals.protein}
+                  onChange={(e) => setFormData({ ...formData, goals: { ...formData.goals, protein: e.target.value }})}
+                  className="input-field"
+                  placeholder="150"
+                />
+              </div>
+              <div>
+                <label className="block text-xs text-gray-600 mb-1">
+                  Carboidrato (g)
+                </label>
+                <input
+                  type="number"
+                  value={formData.goals.carbs}
+                  onChange={(e) => setFormData({ ...formData, goals: { ...formData.goals, carbs: e.target.value }})}
+                  className="input-field"
+                  placeholder="200"
+                />
+              </div>
+              <div>
+                <label className="block text-xs text-gray-600 mb-1">
+                  Gordura (g)
+                </label>
+                <input
+                  type="number"
+                  value={formData.goals.fat}
+                  onChange={(e) => setFormData({ ...formData, goals: { ...formData.goals, fat: e.target.value }})}
+                  className="input-field"
+                  placeholder="60"
+                />
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Proteína (g) *
-              </label>
-              <input
-                type="number"
-                value={formData.protein}
-                onChange={(e) => setFormData({ ...formData, protein: e.target.value })}
-                className="input-field"
-                placeholder="150"
-                required
-              />
+          </div>
+
+          {/* Totais Calculados */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <Calculator size={20} className="text-blue-600" />
+              <span className="font-medium text-blue-900">Totais Calculados</span>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Carboidrato (g) *
-              </label>
-              <input
-                type="number"
-                value={formData.carbs}
-                onChange={(e) => setFormData({ ...formData, carbs: e.target.value })}
-                className="input-field"
-                placeholder="200"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Gordura (g) *
-              </label>
-              <input
-                type="number"
-                value={formData.fat}
-                onChange={(e) => setFormData({ ...formData, fat: e.target.value })}
-                className="input-field"
-                placeholder="60"
-                required
-              />
+            <div className="grid grid-cols-4 gap-3">
+              <div className="text-center">
+                <p className="text-xs text-blue-700 mb-1">Calorias</p>
+                <p className="text-lg font-bold text-blue-900">{Math.round(dietTotals.calories)}</p>
+                {formData.goals.calories && (
+                  <p className="text-xs text-blue-600">
+                    {Math.round((dietTotals.calories / formData.goals.calories) * 100)}%
+                  </p>
+                )}
+              </div>
+              <div className="text-center">
+                <p className="text-xs text-blue-700 mb-1">Proteína</p>
+                <p className="text-lg font-bold text-blue-900">{Math.round(dietTotals.protein)}g</p>
+                {formData.goals.protein && (
+                  <p className="text-xs text-blue-600">
+                    {Math.round((dietTotals.protein / formData.goals.protein) * 100)}%
+                  </p>
+                )}
+              </div>
+              <div className="text-center">
+                <p className="text-xs text-blue-700 mb-1">Carbo</p>
+                <p className="text-lg font-bold text-blue-900">{Math.round(dietTotals.carbs)}g</p>
+                {formData.goals.carbs && (
+                  <p className="text-xs text-blue-600">
+                    {Math.round((dietTotals.carbs / formData.goals.carbs) * 100)}%
+                  </p>
+                )}
+              </div>
+              <div className="text-center">
+                <p className="text-xs text-blue-700 mb-1">Gordura</p>
+                <p className="text-lg font-bold text-blue-900">{Math.round(dietTotals.fat)}g</p>
+                {formData.goals.fat && (
+                  <p className="text-xs text-blue-600">
+                    {Math.round((dietTotals.fat / formData.goals.fat) * 100)}%
+                  </p>
+                )}
+              </div>
             </div>
           </div>
 
@@ -353,52 +486,142 @@ const Diets = () => {
               </button>
             </div>
 
-            <div className="space-y-3 max-h-96 overflow-y-auto">
-              {formData.meals.map((meal, index) => (
-                <div key={index} className="p-4 bg-gray-50 rounded-lg space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">
-                      Refeição {index + 1}
-                    </span>
-                    {formData.meals.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeMeal(index)}
-                        className="text-red-600 hover:text-red-700 text-sm"
-                      >
-                        Remover
-                      </button>
+            <div className="space-y-4 max-h-[600px] overflow-y-auto">
+              {formData.meals.map((meal, index) => {
+                const mealTotal = calculateMealTotals(meal.foodItems || []);
+                return (
+                  <div key={index} className="p-4 bg-gray-50 rounded-lg space-y-3 border border-gray-200">
+                    {/* Header da Refeição */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-gray-700">
+                        Refeição {index + 1}
+                      </span>
+                      {formData.meals.length > 1 && (
+                        <button
+                          type="button"
+                          onClick={() => removeMeal(index)}
+                          className="text-red-600 hover:text-red-700 text-sm font-medium"
+                        >
+                          Remover
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Nome e Horário */}
+                    <div className="grid grid-cols-2 gap-2">
+                      <input
+                        type="text"
+                        value={meal.name}
+                        onChange={(e) => updateMeal(index, 'name', e.target.value)}
+                        className="input-field"
+                        placeholder="Nome da refeição"
+                        required
+                      />
+                      <input
+                        type="time"
+                        value={meal.time}
+                        onChange={(e) => updateMeal(index, 'time', e.target.value)}
+                        className="input-field"
+                        required
+                      />
+                    </div>
+
+                    {/* Busca de Alimentos */}
+                    <div>
+                      <label className="block text-xs font-medium text-gray-700 mb-2">
+                        Adicionar Alimentos
+                      </label>
+                      <FoodSearch
+                        onSelectFood={(food) => addFoodToMeal(index, food)}
+                        selectedFoods={meal.foodItems || []}
+                      />
+                    </div>
+
+                    {/* Lista de Alimentos Adicionados */}
+                    {meal.foodItems && meal.foodItems.length > 0 && (
+                      <div className="space-y-2">
+                        <label className="block text-xs font-medium text-gray-700">
+                          Alimentos ({meal.foodItems.length})
+                        </label>
+                        {meal.foodItems.map((foodItem, foodIndex) => (
+                          <div key={foodIndex} className="bg-white p-3 rounded border border-gray-200">
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="flex-1">
+                                <p className="font-medium text-sm text-gray-900">{foodItem.food.name}</p>
+                                <div className="flex items-center gap-3 mt-2">
+                                  <div className="flex items-center gap-2">
+                                    <input
+                                      type="number"
+                                      value={foodItem.amount}
+                                      onChange={(e) => updateFoodAmount(index, foodIndex, parseFloat(e.target.value) || 0)}
+                                      className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
+                                      min="0"
+                                      step="10"
+                                    />
+                                    <span className="text-xs text-gray-600">{foodItem.unit}</span>
+                                  </div>
+                                  <div className="text-xs text-gray-600">
+                                    {foodItem.calculatedMacros.calories} kcal •
+                                    P: {foodItem.calculatedMacros.protein}g •
+                                    C: {foodItem.calculatedMacros.carbs}g •
+                                    G: {foodItem.calculatedMacros.fat}g
+                                  </div>
+                                </div>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => removeFoodFromMeal(index, foodIndex)}
+                                className="text-red-600 hover:text-red-700 p-1"
+                              >
+                                <X size={16} />
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     )}
-                  </div>
 
-                  <div className="grid grid-cols-2 gap-2">
-                    <input
-                      type="text"
-                      value={meal.name}
-                      onChange={(e) => updateMeal(index, 'name', e.target.value)}
-                      className="input-field"
-                      placeholder="Nome da refeição"
-                      required
-                    />
-                    <input
-                      type="time"
-                      value={meal.time}
-                      onChange={(e) => updateMeal(index, 'time', e.target.value)}
-                      className="input-field"
-                      required
-                    />
-                  </div>
+                    {/* Totais da Refeição */}
+                    {meal.foodItems && meal.foodItems.length > 0 && (
+                      <div className="bg-white border border-gray-300 rounded p-3">
+                        <p className="text-xs font-medium text-gray-700 mb-2">Totais da Refeição:</p>
+                        <div className="grid grid-cols-4 gap-2 text-center">
+                          <div>
+                            <p className="text-xs text-gray-600">Calorias</p>
+                            <p className="font-semibold text-sm">{Math.round(mealTotal.calories)}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-600">Proteína</p>
+                            <p className="font-semibold text-sm">{Math.round(mealTotal.protein)}g</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-600">Carbo</p>
+                            <p className="font-semibold text-sm">{Math.round(mealTotal.carbs)}g</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-gray-600">Gordura</p>
+                            <p className="font-semibold text-sm">{Math.round(mealTotal.fat)}g</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
-                  <textarea
-                    value={meal.foods}
-                    onChange={(e) => updateMeal(index, 'foods', e.target.value)}
-                    className="input-field"
-                    placeholder="Alimentos e quantidades..."
-                    rows="3"
-                    required
-                  />
-                </div>
-              ))}
+                    {/* Campo de texto livre (opcional/legado) */}
+                    <div>
+                      <label className="block text-xs text-gray-600 mb-1">
+                        Observações (opcional)
+                      </label>
+                      <textarea
+                        value={meal.foods}
+                        onChange={(e) => updateMeal(index, 'foods', e.target.value)}
+                        className="input-field text-sm"
+                        placeholder="Observações adicionais..."
+                        rows="2"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
