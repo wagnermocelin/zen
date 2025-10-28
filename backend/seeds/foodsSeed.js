@@ -1022,6 +1022,681 @@ const foods = [
     fiber: 0.2,
     sodium: 1,
     tags: ['suco', 'laranja', 'natural', 'bebida']
+  },
+
+  // MAIS PEIXES
+  {
+    name: 'Bacalhau (salgado, cru)',
+    category: 'proteina',
+    calories: 136,
+    protein: 29.3,
+    carbs: 0,
+    fat: 1.3,
+    fiber: 0,
+    sodium: 8640,
+    tags: ['bacalhau', 'peixe', 'salgado']
+  },
+  {
+    name: 'Camarão (rosa, cru)',
+    category: 'proteina',
+    calories: 83,
+    protein: 18.3,
+    carbs: 0.9,
+    fat: 0.6,
+    fiber: 0,
+    sodium: 148,
+    popular: true,
+    tags: ['camarao', 'frutos do mar']
+  },
+  {
+    name: 'Camarão (rosa, cozido)',
+    category: 'proteina',
+    calories: 99,
+    protein: 20.9,
+    carbs: 1.3,
+    fat: 1.0,
+    fiber: 0,
+    sodium: 191,
+    tags: ['camarao', 'frutos do mar', 'cozido']
+  },
+  {
+    name: 'Merluza (filé, cru)',
+    category: 'proteina',
+    calories: 76,
+    protein: 17.0,
+    carbs: 0,
+    fat: 0.8,
+    fiber: 0,
+    sodium: 86,
+    tags: ['merluza', 'peixe', 'file']
+  },
+  {
+    name: 'Pescada (filé, cru)',
+    category: 'proteina',
+    calories: 81,
+    protein: 17.7,
+    carbs: 0,
+    fat: 1.0,
+    fiber: 0,
+    sodium: 119,
+    tags: ['pescada', 'peixe', 'file']
+  },
+  {
+    name: 'Sardinha (inteira, crua)',
+    category: 'proteina',
+    calories: 124,
+    protein: 19.8,
+    carbs: 0,
+    fat: 4.8,
+    fiber: 0,
+    sodium: 100,
+    tags: ['sardinha', 'peixe']
+  },
+  {
+    name: 'Sardinha (em óleo, enlatada)',
+    category: 'proteina',
+    calories: 190,
+    protein: 20.9,
+    carbs: 0,
+    fat: 11.5,
+    fiber: 0,
+    sodium: 397,
+    tags: ['sardinha', 'peixe', 'enlatada']
+  },
+
+  // EMBUTIDOS
+  {
+    name: 'Linguiça (toscana, crua)',
+    category: 'proteina',
+    calories: 347,
+    protein: 15.0,
+    carbs: 1.6,
+    fat: 32.1,
+    fiber: 0,
+    sodium: 1056,
+    tags: ['linguica', 'toscana', 'embutido']
+  },
+  {
+    name: 'Linguiça (calabresa)',
+    category: 'proteina',
+    calories: 341,
+    protein: 19.5,
+    carbs: 1.5,
+    fat: 28.5,
+    fiber: 0,
+    sodium: 1380,
+    tags: ['linguica', 'calabresa', 'embutido']
+  },
+  {
+    name: 'Presunto (cozido)',
+    category: 'proteina',
+    calories: 122,
+    protein: 18.4,
+    carbs: 2.3,
+    fat: 4.3,
+    fiber: 0,
+    sodium: 1203,
+    tags: ['presunto', 'embutido']
+  },
+  {
+    name: 'Salsicha (hot dog)',
+    category: 'proteina',
+    calories: 244,
+    protein: 10.5,
+    carbs: 10.4,
+    fat: 18.6,
+    fiber: 0,
+    sodium: 1029,
+    tags: ['salsicha', 'hot dog', 'embutido']
+  },
+  {
+    name: 'Mortadela',
+    category: 'proteina',
+    calories: 268,
+    protein: 14.8,
+    carbs: 3.2,
+    fat: 22.3,
+    fiber: 0,
+    sodium: 1117,
+    tags: ['mortadela', 'embutido']
+  },
+  {
+    name: 'Peito de Peru (defumado)',
+    category: 'proteina',
+    calories: 104,
+    protein: 18.2,
+    carbs: 3.8,
+    fat: 1.5,
+    fiber: 0,
+    sodium: 1020,
+    tags: ['peru', 'peito', 'defumado', 'embutido']
+  },
+
+  // MAIS TUBÉRCULOS
+  {
+    name: 'Mandioca (crua)',
+    category: 'carboidrato',
+    calories: 125,
+    protein: 0.6,
+    carbs: 30.1,
+    fat: 0.3,
+    fiber: 1.6,
+    sodium: 14,
+    tags: ['mandioca', 'aipim', 'macaxeira']
+  },
+  {
+    name: 'Mandioca (cozida)',
+    category: 'carboidrato',
+    calories: 125,
+    protein: 0.8,
+    carbs: 29.3,
+    fat: 0.3,
+    fiber: 1.9,
+    sodium: 1,
+    popular: true,
+    tags: ['mandioca', 'aipim', 'macaxeira', 'cozida']
+  },
+  {
+    name: 'Inhame (cru)',
+    category: 'carboidrato',
+    calories: 97,
+    protein: 2.0,
+    carbs: 23.2,
+    fat: 0.2,
+    fiber: 0.7,
+    sodium: 9,
+    tags: ['inhame']
+  },
+  {
+    name: 'Batata Baroa (mandioquinha)',
+    category: 'carboidrato',
+    calories: 98,
+    protein: 0.8,
+    carbs: 24.3,
+    fat: 0.2,
+    fiber: 2.9,
+    sodium: 5,
+    tags: ['batata', 'baroa', 'mandioquinha']
+  },
+
+  // MAIS PÃES
+  {
+    name: 'Pão de Forma (branco)',
+    category: 'carboidrato',
+    calories: 269,
+    protein: 8.3,
+    carbs: 50.0,
+    fat: 4.0,
+    fiber: 2.3,
+    sodium: 513,
+    popular: true,
+    tags: ['pao', 'forma', 'branco']
+  },
+  {
+    name: 'Pão de Forma (integral)',
+    category: 'carboidrato',
+    calories: 253,
+    protein: 9.4,
+    carbs: 49.0,
+    fat: 3.0,
+    fiber: 6.9,
+    sodium: 489,
+    tags: ['pao', 'forma', 'integral']
+  },
+  {
+    name: 'Pão de Queijo',
+    category: 'carboidrato',
+    calories: 307,
+    protein: 6.5,
+    carbs: 42.8,
+    fat: 12.1,
+    fiber: 1.0,
+    sodium: 458,
+    popular: true,
+    tags: ['pao', 'queijo']
+  },
+  {
+    name: 'Bisnaga',
+    category: 'carboidrato',
+    calories: 300,
+    protein: 8.0,
+    carbs: 58.6,
+    fat: 3.1,
+    fiber: 2.3,
+    sodium: 648,
+    tags: ['bisnaga', 'pao']
+  },
+
+  // MAIS LEGUMINOSAS
+  {
+    name: 'Feijão Branco (cru)',
+    category: 'proteina',
+    calories: 324,
+    protein: 21.9,
+    carbs: 57.1,
+    fat: 1.6,
+    fiber: 24.4,
+    sodium: 16,
+    tags: ['feijao', 'branco', 'leguminosa']
+  },
+  {
+    name: 'Feijão Fradinho (cru)',
+    category: 'proteina',
+    calories: 339,
+    protein: 24.4,
+    carbs: 61.7,
+    fat: 1.4,
+    fiber: 7.5,
+    sodium: 3,
+    tags: ['feijao', 'fradinho', 'leguminosa']
+  },
+  {
+    name: 'Ervilha (em vagem, crua)',
+    category: 'proteina',
+    calories: 78,
+    protein: 6.7,
+    carbs: 13.3,
+    fat: 0.3,
+    fiber: 4.7,
+    sodium: 3,
+    tags: ['ervilha', 'vagem', 'leguminosa']
+  },
+  {
+    name: 'Ervilha (em conserva)',
+    category: 'proteina',
+    calories: 63,
+    protein: 3.6,
+    carbs: 10.6,
+    fat: 0.5,
+    fiber: 7.5,
+    sodium: 340,
+    tags: ['ervilha', 'conserva', 'leguminosa']
+  },
+
+  // PRODUTOS DE SOJA
+  {
+    name: 'Soja (grão, cru)',
+    category: 'proteina',
+    calories: 405,
+    protein: 36.0,
+    carbs: 30.2,
+    fat: 18.2,
+    fiber: 9.3,
+    sodium: 2,
+    tags: ['soja', 'grao', 'leguminosa']
+  },
+  {
+    name: 'Leite de Soja',
+    category: 'lacteo',
+    calories: 38,
+    protein: 3.3,
+    carbs: 2.9,
+    fat: 1.9,
+    fiber: 0.3,
+    sodium: 34,
+    popular: true,
+    tags: ['soja', 'leite', 'vegetal']
+  },
+  {
+    name: 'Tofu (queijo de soja)',
+    category: 'proteina',
+    calories: 76,
+    protein: 8.5,
+    carbs: 1.9,
+    fat: 4.7,
+    fiber: 0.4,
+    sodium: 7,
+    tags: ['tofu', 'soja', 'queijo']
+  },
+  {
+    name: 'Proteína Texturizada de Soja (PTS)',
+    category: 'proteina',
+    calories: 330,
+    protein: 52.0,
+    carbs: 33.0,
+    fat: 1.0,
+    fiber: 17.0,
+    sodium: 10,
+    tags: ['pts', 'soja', 'proteina', 'texturizada']
+  },
+
+  // MAIS FRUTAS
+  {
+    name: 'Açaí (polpa)',
+    category: 'fruta',
+    calories: 58,
+    protein: 0.8,
+    carbs: 6.2,
+    fat: 3.9,
+    fiber: 2.6,
+    sodium: 7,
+    popular: true,
+    tags: ['acai', 'polpa', 'fruta']
+  },
+  {
+    name: 'Coco (polpa)',
+    category: 'fruta',
+    calories: 406,
+    protein: 3.6,
+    carbs: 10.4,
+    fat: 40.0,
+    fiber: 5.4,
+    sodium: 23,
+    tags: ['coco', 'polpa', 'fruta']
+  },
+  {
+    name: 'Maracujá (polpa)',
+    category: 'fruta',
+    calories: 68,
+    protein: 1.8,
+    carbs: 16.5,
+    fat: 0.4,
+    fiber: 0.3,
+    sodium: 6,
+    tags: ['maracuja', 'polpa', 'fruta']
+  },
+  {
+    name: 'Ameixa (fresca)',
+    category: 'fruta',
+    calories: 53,
+    protein: 0.8,
+    carbs: 13.9,
+    fat: 0.2,
+    fiber: 2.4,
+    sodium: 1,
+    tags: ['ameixa', 'fresca', 'fruta']
+  },
+  {
+    name: 'Pêssego',
+    category: 'fruta',
+    calories: 36,
+    protein: 0.8,
+    carbs: 9.1,
+    fat: 0.1,
+    fiber: 1.4,
+    sodium: 1,
+    tags: ['pessego', 'fruta']
+  },
+  {
+    name: 'Caqui',
+    category: 'fruta',
+    calories: 71,
+    protein: 0.6,
+    carbs: 19.3,
+    fat: 0.1,
+    fiber: 6.5,
+    sodium: 1,
+    tags: ['caqui', 'fruta']
+  },
+  {
+    name: 'Figo',
+    category: 'fruta',
+    calories: 41,
+    protein: 0.9,
+    carbs: 10.2,
+    fat: 0.1,
+    fiber: 1.5,
+    sodium: 1,
+    tags: ['figo', 'fruta']
+  },
+  {
+    name: 'Framboesa',
+    category: 'fruta',
+    calories: 48,
+    protein: 1.0,
+    carbs: 11.7,
+    fat: 0.3,
+    fiber: 6.8,
+    sodium: 1,
+    tags: ['framboesa', 'berry', 'fruta']
+  },
+  {
+    name: 'Mirtilo (blueberry)',
+    category: 'fruta',
+    calories: 32,
+    protein: 0.7,
+    carbs: 8.2,
+    fat: 0.1,
+    fiber: 1.2,
+    sodium: 1,
+    tags: ['mirtilo', 'blueberry', 'berry', 'fruta']
+  },
+
+  // MAIS OLEAGINOSAS E SEMENTES
+  {
+    name: 'Avelã',
+    category: 'gordura',
+    calories: 633,
+    protein: 13.0,
+    carbs: 17.6,
+    fat: 60.5,
+    fiber: 6.5,
+    sodium: 3,
+    tags: ['avela', 'oleaginosa']
+  },
+  {
+    name: 'Pistache',
+    category: 'gordura',
+    calories: 571,
+    protein: 21.4,
+    carbs: 17.6,
+    fat: 45.8,
+    fiber: 10.3,
+    sodium: 6,
+    tags: ['pistache', 'oleaginosa']
+  },
+  {
+    name: 'Semente de Chia',
+    category: 'gordura',
+    calories: 436,
+    protein: 16.5,
+    carbs: 42.1,
+    fat: 30.7,
+    fiber: 34.4,
+    sodium: 16,
+    popular: true,
+    tags: ['chia', 'semente']
+  },
+  {
+    name: 'Semente de Linhaça',
+    category: 'gordura',
+    calories: 495,
+    protein: 14.1,
+    carbs: 43.3,
+    fat: 32.3,
+    fiber: 33.5,
+    sodium: 9,
+    popular: true,
+    tags: ['linhaca', 'semente']
+  },
+  {
+    name: 'Semente de Girassol',
+    category: 'gordura',
+    calories: 570,
+    protein: 19.3,
+    carbs: 18.8,
+    fat: 49.8,
+    fiber: 11.1,
+    sodium: 3,
+    tags: ['girassol', 'semente']
+  },
+  {
+    name: 'Semente de Abóbora',
+    category: 'gordura',
+    calories: 559,
+    protein: 30.2,
+    carbs: 10.7,
+    fat: 49.1,
+    fiber: 6.0,
+    sodium: 7,
+    tags: ['abobora', 'semente']
+  },
+  {
+    name: 'Gergelim',
+    category: 'gordura',
+    calories: 584,
+    protein: 21.2,
+    carbs: 11.7,
+    fat: 50.0,
+    fiber: 11.6,
+    sodium: 60,
+    tags: ['gergelim', 'semente']
+  },
+
+  // ÓLEOS
+  {
+    name: 'Óleo de Soja',
+    category: 'gordura',
+    calories: 884,
+    protein: 0,
+    carbs: 0,
+    fat: 100.0,
+    fiber: 0,
+    sodium: 0,
+    tags: ['oleo', 'soja']
+  },
+  {
+    name: 'Óleo de Canola',
+    category: 'gordura',
+    calories: 884,
+    protein: 0,
+    carbs: 0,
+    fat: 100.0,
+    fiber: 0,
+    sodium: 0,
+    tags: ['oleo', 'canola']
+  },
+  {
+    name: 'Óleo de Girassol',
+    category: 'gordura',
+    calories: 884,
+    protein: 0,
+    carbs: 0,
+    fat: 100.0,
+    fiber: 0,
+    sodium: 0,
+    tags: ['oleo', 'girassol']
+  },
+
+  // LATICÍNIOS ADICIONAIS
+  {
+    name: 'Iogurte Grego (natural)',
+    category: 'lacteo',
+    calories: 97,
+    protein: 9.0,
+    carbs: 3.9,
+    fat: 5.0,
+    fiber: 0,
+    sodium: 36,
+    popular: true,
+    tags: ['iogurte', 'grego', 'natural']
+  },
+  {
+    name: 'Creme de Leite',
+    category: 'lacteo',
+    calories: 292,
+    protein: 2.2,
+    carbs: 3.4,
+    fat: 30.9,
+    fiber: 0,
+    sodium: 38,
+    tags: ['creme', 'leite']
+  },
+  {
+    name: 'Manteiga (com sal)',
+    category: 'gordura',
+    calories: 760,
+    protein: 0.6,
+    carbs: 0.1,
+    fat: 84.0,
+    fiber: 0,
+    sodium: 584,
+    tags: ['manteiga']
+  },
+
+  // CEREAIS MATINAIS
+  {
+    name: 'Corn Flakes',
+    category: 'carboidrato',
+    calories: 378,
+    protein: 7.5,
+    carbs: 84.0,
+    fat: 0.4,
+    fiber: 3.0,
+    sodium: 660,
+    tags: ['corn', 'flakes', 'cereal', 'matinal']
+  },
+  {
+    name: 'Musli',
+    category: 'carboidrato',
+    calories: 340,
+    protein: 9.7,
+    carbs: 66.0,
+    fat: 5.5,
+    fiber: 7.3,
+    sodium: 120,
+    tags: ['musli', 'cereal', 'matinal']
+  },
+
+  // AÇÚCARES E ADOÇANTES
+  {
+    name: 'Açúcar Cristal',
+    category: 'carboidrato',
+    calories: 387,
+    protein: 0,
+    carbs: 99.9,
+    fat: 0,
+    fiber: 0,
+    sodium: 1,
+    tags: ['acucar', 'cristal']
+  },
+  {
+    name: 'Açúcar Mascavo',
+    category: 'carboidrato',
+    calories: 369,
+    protein: 0.1,
+    carbs: 95.0,
+    fat: 0,
+    fiber: 0,
+    sodium: 39,
+    tags: ['acucar', 'mascavo']
+  },
+  {
+    name: 'Mel',
+    category: 'carboidrato',
+    calories: 309,
+    protein: 0.3,
+    carbs: 84.0,
+    fat: 0,
+    fiber: 0.2,
+    sodium: 6,
+    popular: true,
+    tags: ['mel']
+  },
+
+  // MAIS BEBIDAS
+  {
+    name: 'Leite de Coco',
+    category: 'bebida',
+    calories: 154,
+    protein: 1.6,
+    carbs: 3.4,
+    fat: 15.6,
+    fiber: 0,
+    sodium: 13,
+    tags: ['leite', 'coco', 'bebida']
+  },
+  {
+    name: 'Água de Coco',
+    category: 'bebida',
+    calories: 22,
+    protein: 0.1,
+    carbs: 5.5,
+    fat: 0,
+    fiber: 0,
+    sodium: 105,
+    popular: true,
+    tags: ['agua', 'coco', 'bebida']
   }
 ];
 
