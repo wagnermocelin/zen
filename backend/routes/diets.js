@@ -18,8 +18,14 @@ router.get('/', async (req, res) => {
 router.post('/', authorize('trainer', 'professional'), async (req, res) => {
   try {
     const diet = await Diet.create({ ...req.body, trainer: req.user._id });
+    
+    // Calcular totais
+    diet.calculateTotals();
+    await diet.save();
+    
     res.status(201).json({ success: true, data: diet });
   } catch (error) {
+    console.error('Erro ao criar dieta:', error);
     res.status(400).json({ success: false, message: error.message });
   }
 });
@@ -27,8 +33,16 @@ router.post('/', authorize('trainer', 'professional'), async (req, res) => {
 router.put('/:id', authorize('trainer', 'professional'), async (req, res) => {
   try {
     const diet = await Diet.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    
+    // Calcular totais
+    if (diet) {
+      diet.calculateTotals();
+      await diet.save();
+    }
+    
     res.json({ success: true, data: diet });
   } catch (error) {
+    console.error('Erro ao atualizar dieta:', error);
     res.status(400).json({ success: false, message: error.message });
   }
 });

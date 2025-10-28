@@ -253,25 +253,75 @@ const Diets = () => {
                     </span>
                   </div>
 
-                  {/* Macros */}
-                  <div className="grid grid-cols-4 gap-2">
-                    <div className="bg-gray-50 p-2 rounded text-center">
-                      <p className="text-xs text-gray-600">Calorias</p>
-                      <p className="text-sm font-semibold">{diet.calories}</p>
+                  {/* Metas vs Totais */}
+                  {diet.goals && (
+                    <div className="space-y-2">
+                      <p className="text-xs font-medium text-gray-700">Metas Diárias:</p>
+                      <div className="grid grid-cols-4 gap-2">
+                        <div className="bg-gray-50 p-2 rounded text-center">
+                          <p className="text-xs text-gray-600">Calorias</p>
+                          <p className="text-sm font-semibold">{diet.goals.calories || 0}</p>
+                        </div>
+                        <div className="bg-blue-50 p-2 rounded text-center">
+                          <p className="text-xs text-gray-600">Proteína</p>
+                          <p className="text-sm font-semibold">{diet.goals.protein || 0}g</p>
+                        </div>
+                        <div className="bg-orange-50 p-2 rounded text-center">
+                          <p className="text-xs text-gray-600">Carbo</p>
+                          <p className="text-sm font-semibold">{diet.goals.carbs || 0}g</p>
+                        </div>
+                        <div className="bg-yellow-50 p-2 rounded text-center">
+                          <p className="text-xs text-gray-600">Gordura</p>
+                          <p className="text-sm font-semibold">{diet.goals.fat || 0}g</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="bg-blue-50 p-2 rounded text-center">
-                      <p className="text-xs text-gray-600">Proteína</p>
-                      <p className="text-sm font-semibold">{diet.protein}g</p>
+                  )}
+
+                  {/* Totais Calculados */}
+                  {diet.totals && (
+                    <div className="space-y-2">
+                      <p className="text-xs font-medium text-gray-700">Totais Calculados:</p>
+                      <div className="grid grid-cols-4 gap-2">
+                        <div className="bg-green-50 p-2 rounded text-center border border-green-200">
+                          <p className="text-xs text-green-700">Calorias</p>
+                          <p className="text-sm font-bold text-green-900">{Math.round(diet.totals.calories) || 0}</p>
+                          {diet.goals?.calories > 0 && (
+                            <p className="text-xs text-green-600">
+                              {Math.round((diet.totals.calories / diet.goals.calories) * 100)}%
+                            </p>
+                          )}
+                        </div>
+                        <div className="bg-blue-50 p-2 rounded text-center border border-blue-200">
+                          <p className="text-xs text-blue-700">Proteína</p>
+                          <p className="text-sm font-bold text-blue-900">{Math.round(diet.totals.protein) || 0}g</p>
+                          {diet.goals?.protein > 0 && (
+                            <p className="text-xs text-blue-600">
+                              {Math.round((diet.totals.protein / diet.goals.protein) * 100)}%
+                            </p>
+                          )}
+                        </div>
+                        <div className="bg-orange-50 p-2 rounded text-center border border-orange-200">
+                          <p className="text-xs text-orange-700">Carbo</p>
+                          <p className="text-sm font-bold text-orange-900">{Math.round(diet.totals.carbs) || 0}g</p>
+                          {diet.goals?.carbs > 0 && (
+                            <p className="text-xs text-orange-600">
+                              {Math.round((diet.totals.carbs / diet.goals.carbs) * 100)}%
+                            </p>
+                          )}
+                        </div>
+                        <div className="bg-yellow-50 p-2 rounded text-center border border-yellow-200">
+                          <p className="text-xs text-yellow-700">Gordura</p>
+                          <p className="text-sm font-bold text-yellow-900">{Math.round(diet.totals.fat) || 0}g</p>
+                          {diet.goals?.fat > 0 && (
+                            <p className="text-xs text-yellow-600">
+                              {Math.round((diet.totals.fat / diet.goals.fat) * 100)}%
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                    <div className="bg-orange-50 p-2 rounded text-center">
-                      <p className="text-xs text-gray-600">Carbo</p>
-                      <p className="text-sm font-semibold">{diet.carbs}g</p>
-                    </div>
-                    <div className="bg-yellow-50 p-2 rounded text-center">
-                      <p className="text-xs text-gray-600">Gordura</p>
-                      <p className="text-sm font-semibold">{diet.fat}g</p>
-                    </div>
-                  </div>
+                  )}
 
                   {/* Meals */}
                   <div>
