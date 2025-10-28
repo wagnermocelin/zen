@@ -9,7 +9,10 @@ router.use(authorize('trainer', 'professional'));
 
 router.get('/', async (req, res) => {
   try {
-    let config = await Config.findOne({ trainer: req.user._id });
+    // Incluir campos sensíveis com select para o próprio trainer poder ver/editar
+    let config = await Config.findOne({ trainer: req.user._id })
+      .select('+emailConfig.smtpUser +emailConfig.smtpPassword');
+    
     if (!config) {
       config = await Config.create({ trainer: req.user._id });
     }
