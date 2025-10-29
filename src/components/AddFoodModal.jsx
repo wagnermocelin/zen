@@ -38,6 +38,7 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('🍽️ AddFoodModal: Iniciando submissão...');
     setError('');
     setSuccess(false);
     setLoading(true);
@@ -56,10 +57,13 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
         tags: formData.name.toLowerCase().split(' ')
       };
 
+      console.log('📤 AddFoodModal: Enviando dados:', foodData);
       const response = await api.post('/foods', foodData);
+      console.log('✅ AddFoodModal: Resposta recebida:', response.data);
       
       if (response.data.success) {
         setSuccess(true);
+        console.log('🎉 AddFoodModal: Alimento criado com sucesso!');
         
         // Resetar formulário
         setFormData({
@@ -74,17 +78,21 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
         });
         
         // Notificar componente pai
+        console.log('📢 AddFoodModal: Notificando componente pai...');
         if (onFoodAdded) {
           onFoodAdded(response.data.data);
         }
         
         // Fechar após 1 segundo para mostrar mensagem de sucesso
         setTimeout(() => {
+          console.log('🚪 AddFoodModal: Fechando modal...');
           onClose();
           setSuccess(false);
         }, 1500);
       }
     } catch (err) {
+      console.error('❌ AddFoodModal: Erro ao adicionar:', err);
+      console.error('❌ Detalhes:', err.response?.data);
       setError(err.response?.data?.message || 'Erro ao adicionar alimento');
     } finally {
       setLoading(false);

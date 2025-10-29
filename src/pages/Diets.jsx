@@ -705,9 +705,14 @@ const Diets = () => {
         isOpen={isAddFoodModalOpen}
         onClose={() => setIsAddFoodModalOpen(false)}
         onFoodAdded={(newFood) => {
-          console.log('Novo alimento adicionado:', newFood);
+          console.log('🎯 Diets: Callback onFoodAdded chamado!');
+          console.log('📦 Diets: Novo alimento:', newFood);
+          console.log('🔑 Diets: FoodSearchKey antes:', foodSearchKey);
           // Forçar recarregamento do FoodSearch
-          setFoodSearchKey(prev => prev + 1);
+          setFoodSearchKey(prev => {
+            console.log('🔑 Diets: FoodSearchKey depois:', prev + 1);
+            return prev + 1;
+          });
         }}
       />
     </div>
