@@ -215,4 +215,23 @@ export const foodsService = {
   getPopular: () => foodsService.getAll({ popular: 'true' })
 };
 
+// Serviços de Exercícios
+export const exercisesService = {
+  getAll: (params = {}) => {
+    const queryString = new URLSearchParams(params).toString();
+    return api.get(`/exercises${queryString ? `?${queryString}` : ''}`);
+  },
+  getById: (id) => api.get(`/exercises/${id}`),
+  create: (data) => api.post('/exercises', data),
+  update: (id, data) => api.put(`/exercises/${id}`, data),
+  delete: (id) => api.delete(`/exercises/${id}`),
+  search: (search, category = null, muscleGroup = null) => {
+    const params = { search };
+    if (category) params.category = category;
+    if (muscleGroup) params.muscleGroup = muscleGroup;
+    return exercisesService.getAll(params);
+  },
+  getPopular: () => exercisesService.getAll({ popular: 'true' })
+};
+
 export default api;
