@@ -26,6 +26,7 @@ const Diets = () => {
   const [mealTotals, setMealTotals] = useState({});
   const [dietTotals, setDietTotals] = useState({ calories: 0, protein: 0, carbs: 0, fat: 0 });
   const [isAddFoodModalOpen, setIsAddFoodModalOpen] = useState(false);
+  const [foodSearchKey, setFoodSearchKey] = useState(0);
 
   const filteredDiets = diets.filter(diet => {
     const student = students.find(s => (s._id || s.id) === (diet.student?._id || diet.student || diet.studentId));
@@ -594,6 +595,7 @@ const Diets = () => {
                         </button>
                       </div>
                       <FoodSearch
+                        key={foodSearchKey}
                         onSelectFood={(food) => addFoodToMeal(index, food)}
                         selectedFoods={meal.foodItems || []}
                       />
@@ -704,7 +706,8 @@ const Diets = () => {
         onClose={() => setIsAddFoodModalOpen(false)}
         onFoodAdded={(newFood) => {
           console.log('Novo alimento adicionado:', newFood);
-          // O FoodSearch irá recarregar automaticamente
+          // Forçar recarregamento do FoodSearch
+          setFoodSearchKey(prev => prev + 1);
         }}
       />
     </div>

@@ -15,6 +15,7 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const categories = [
     { value: 'proteina', label: 'Proteína', icon: '🥩' },
@@ -38,6 +39,7 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess(false);
     setLoading(true);
 
     try {
@@ -57,6 +59,8 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
       const response = await api.post('/foods', foodData);
       
       if (response.data.success) {
+        setSuccess(true);
+        
         // Resetar formulário
         setFormData({
           name: '',
@@ -74,13 +78,33 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
           onFoodAdded(response.data.data);
         }
         
-        onClose();
+        // Fechar após 1 segundo para mostrar mensagem de sucesso
+        setTimeout(() => {
+          onClose();
+          setSuccess(false);
+        }, 1500);
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Erro ao adicionar alimento');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleClose = () => {
+    setError('');
+    setSuccess(false);
+    setFormData({
+      name: '',
+      category: 'proteina',
+      calories: '',
+      protein: '',
+      carbs: '',
+      fat: '',
+      fiber: '',
+      sodium: ''
+    });
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -91,7 +115,7 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
         <div className="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
           <h2 className="text-xl font-bold">Adicionar Alimento Customizado</h2>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="text-gray-400 hover:text-gray-600"
           >
             <X size={24} />
@@ -102,6 +126,12 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
               {error}
+            </div>
+          )}
+          
+          {success && (
+            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+              ✅ Alimento adicionado com sucesso!
             </div>
           )}
 
@@ -253,7 +283,7 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
           <div className="flex gap-3 pt-4">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
             >
               Cancelar
