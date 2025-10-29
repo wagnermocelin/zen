@@ -59,9 +59,11 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
 
       console.log('📤 AddFoodModal: Enviando dados:', foodData);
       const response = await api.post('/foods', foodData);
-      console.log('✅ AddFoodModal: Resposta recebida:', response.data);
+      console.log('✅ AddFoodModal: Resposta recebida:', response);
+      console.log('✅ AddFoodModal: response.success:', response.success);
+      console.log('✅ AddFoodModal: response.data:', response.data);
       
-      if (response.data.success) {
+      if (response.success) {
         setSuccess(true);
         console.log('🎉 AddFoodModal: Alimento criado com sucesso!');
         
@@ -79,8 +81,9 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
         
         // Notificar componente pai
         console.log('📢 AddFoodModal: Notificando componente pai...');
+        console.log('📢 AddFoodModal: Alimento a ser notificado:', response.data);
         if (onFoodAdded) {
-          onFoodAdded(response.data.data);
+          onFoodAdded(response.data);
         }
         
         // Fechar após 1 segundo para mostrar mensagem de sucesso
@@ -92,8 +95,7 @@ const AddFoodModal = ({ isOpen, onClose, onFoodAdded }) => {
       }
     } catch (err) {
       console.error('❌ AddFoodModal: Erro ao adicionar:', err);
-      console.error('❌ Detalhes:', err.response?.data);
-      setError(err.response?.data?.message || 'Erro ao adicionar alimento');
+      setError(err.message || 'Erro ao adicionar alimento');
     } finally {
       setLoading(false);
     }
