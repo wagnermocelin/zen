@@ -55,8 +55,14 @@ const Admin = () => {
       const config = response.data || response;
       console.log('📥 Configurações carregadas do servidor:', config);
       
-      if (config.gymName) setGymName(config.gymName);
-      if (config.logo) setLogo(config.logo);
+      if (config.gymName) {
+        setGymName(config.gymName);
+        localStorage.setItem('gymName', config.gymName);
+      }
+      if (config.logo) {
+        setLogo(config.logo);
+        localStorage.setItem('gymLogo', config.logo);
+      }
       
       if (config.emailConfig) {
         const loadedConfig = {
@@ -159,6 +165,7 @@ const Admin = () => {
         setLogo(base64String);
         try {
           await configService.update({ logo: base64String, gymName });
+          localStorage.setItem('gymLogo', base64String);
           alert('Logo salvo com sucesso!');
         } catch (error) {
           console.error('Erro ao salvar logo:', error);
@@ -172,6 +179,7 @@ const Admin = () => {
   const handleSaveGymName = async () => {
     try {
       await configService.update({ gymName, logo });
+      localStorage.setItem('gymName', gymName);
       alert('Nome da academia salvo com sucesso!');
     } catch (error) {
       console.error('Erro ao salvar nome:', error);
@@ -183,6 +191,7 @@ const Admin = () => {
     setLogo('');
     try {
       await configService.update({ logo: '', gymName });
+      localStorage.removeItem('gymLogo');
       alert('Logo removido com sucesso!');
     } catch (error) {
       console.error('Erro ao remover logo:', error);

@@ -13,7 +13,7 @@ const Layout = ({ children }) => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [logo, setLogo] = useState('');
-  const [gymName, setGymName] = useState('Zen');
+  const [gymName, setGymName] = useState('Power Training');
 
   React.useEffect(() => {
     const storedLogo = localStorage.getItem('gymLogo');
@@ -62,11 +62,12 @@ const Layout = ({ children }) => {
             >
               {menuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-            {logo ? (
-              <img src={logo} alt={gymName} className="h-10 object-contain" />
-            ) : (
+            <div className="flex items-center gap-3">
+              {logo && (
+                <img src={logo} alt={gymName} className="h-10 object-contain" />
+              )}
               <h1 className="text-xl font-bold text-primary-600">{gymName}</h1>
-            )}
+            </div>
           </div>
           
           <div className="flex items-center gap-3">
