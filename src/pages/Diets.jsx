@@ -3,6 +3,7 @@ import { useData } from '../contexts/DataContextAPI';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import FoodSearch from '../components/FoodSearch';
+import AddFoodModal from '../components/AddFoodModal';
 import { Plus, Search, Edit, Trash2, Salad, X, Calculator } from 'lucide-react';
 
 const Diets = () => {
@@ -24,6 +25,7 @@ const Diets = () => {
   });
   const [mealTotals, setMealTotals] = useState({});
   const [dietTotals, setDietTotals] = useState({ calories: 0, protein: 0, carbs: 0, fat: 0 });
+  const [isAddFoodModalOpen, setIsAddFoodModalOpen] = useState(false);
 
   const filteredDiets = diets.filter(diet => {
     const student = students.find(s => (s._id || s.id) === (diet.student?._id || diet.student || diet.studentId));
@@ -578,9 +580,19 @@ const Diets = () => {
 
                     {/* Busca de Alimentos */}
                     <div>
-                      <label className="block text-xs font-medium text-gray-700 mb-2">
-                        Adicionar Alimentos
-                      </label>
+                      <div className="flex items-center justify-between mb-2">
+                        <label className="block text-xs font-medium text-gray-700">
+                          Adicionar Alimentos
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => setIsAddFoodModalOpen(true)}
+                          className="text-xs text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                        >
+                          <Plus size={14} />
+                          Criar Alimento
+                        </button>
+                      </div>
                       <FoodSearch
                         onSelectFood={(food) => addFoodToMeal(index, food)}
                         selectedFoods={meal.foodItems || []}
@@ -685,6 +697,16 @@ const Diets = () => {
           </div>
         </form>
       </Modal>
+
+      {/* Modal de Adicionar Alimento Customizado */}
+      <AddFoodModal
+        isOpen={isAddFoodModalOpen}
+        onClose={() => setIsAddFoodModalOpen(false)}
+        onFoodAdded={(newFood) => {
+          console.log('Novo alimento adicionado:', newFood);
+          // O FoodSearch irá recarregar automaticamente
+        }}
+      />
     </div>
   );
 };
