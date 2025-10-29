@@ -34,8 +34,14 @@ const FoodSearch = ({ onSelectFood, selectedFoods = [] }) => {
       setLoading(true);
       const response = await foodsService.getAll();
       console.log('📦 FoodSearch: Resposta recebida:', response);
+      console.log('📦 FoodSearch: response.success:', response.success);
+      console.log('📦 FoodSearch: response.data:', response.data);
       console.log('🍽️ FoodSearch: Total de alimentos:', response.data?.length || 0);
-      setFoods(response.data || []);
+      
+      // API retorna {success: true, data: [...]}
+      const foodsList = response.data || [];
+      console.log('✅ FoodSearch: Alimentos carregados:', foodsList.length);
+      setFoods(foodsList);
     } catch (error) {
       console.error('❌ FoodSearch: Erro ao carregar alimentos:', error);
     } finally {

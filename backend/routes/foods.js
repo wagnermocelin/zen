@@ -41,8 +41,8 @@ router.get('/', async (req, res) => {
     console.log('Query final:', JSON.stringify(query));
     
     const foods = await Food.find(query)
-      .sort({ popular: -1, name: 1 })
-      .limit(100);
+      .sort({ isCustom: -1, popular: -1, name: 1 }) // Customizados primeiro, depois populares, depois alfabético
+      .limit(1000); // Aumentar limite para 1000
     
     console.log(`✅ ${foods.length} alimentos encontrados`);
     
