@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useData } from '../contexts/DataContextAPI';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
-import { Plus, Search, Edit, Trash2, Dumbbell } from 'lucide-react';
+import ExerciseSearch from '../components/ExerciseSearch';
+import AddExerciseModal from '../components/AddExerciseModal';
+import { Plus, Search, Edit, Trash2, Dumbbell, X } from 'lucide-react';
 
 const Workouts = () => {
   const { students, workouts, addWorkout, updateWorkout, deleteWorkout } = useData();
@@ -12,8 +14,10 @@ const Workouts = () => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    exercises: [{ name: '', sets: '', reps: '', rest: '', notes: '' }],
+    exercises: [],
   });
+  const [isAddExerciseModalOpen, setIsAddExerciseModalOpen] = useState(false);
+  const [exerciseSearchKey, setExerciseSearchKey] = useState(0);
 
   const filteredWorkouts = workouts.filter(workout => {
     return (
@@ -31,7 +35,7 @@ const Workouts = () => {
       setFormData({
         name: '',
         description: '',
-        exercises: [{ name: '', sets: '', reps: '', rest: '', notes: '' }],
+        exercises: [],
       });
     }
     setIsModalOpen(true);
@@ -69,10 +73,18 @@ const Workouts = () => {
     }
   };
 
-  const addExercise = () => {
+  const addExerciseFromSearch = (exercise) => {
+    const newExercise = {
+      exercise: exercise._id,
+      exerciseData: exercise,
+      sets: '3',
+      reps: '12',
+      rest: '60',
+      notes: ''
+    };
     setFormData({
       ...formData,
-      exercises: [...formData.exercises, { name: '', sets: '', reps: '', rest: '', notes: '' }],
+      exercises: [...formData.exercises, newExercise],
     });
   };
 
@@ -222,83 +234,106 @@ const Workouts = () => {
           </div>
 
           <div>
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-2">
               <label className="block text-sm font-medium text-gray-700">
-                Exercícios *
+                Adicionar Exercícios
               </label>
               <button
                 type="button"
-                onClick={addExercise}
-                className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                onClick={() => setIsAddExerciseModalOpen(true)}
+                className="text-xs text-blue-600 hover:text-blue-700 flex items-center gap-1"
               >
-                + Adicionar Exercício
+                <Plus size={14} />
+                Criar Exercício
               </button>
             </div>
+            
+            <ExerciseSearch
+              key={exerciseSearchKey}
+              onSelectExercise={addExerciseFromSearch}
+              selectedExercises={formData.exercises}
+            />
+          </div>
 
-            <div className="space-y-3 max-h-96 overflow-y-auto">
-              {formData.exercises.map((exercise, index) => (
-                <div key={index} className="p-4 bg-gray-50 rounded-lg space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-700">
-                      Exercício {index + 1}
-                    </span>
-                    {formData.exercises.length > 1 && (
+          {/* Lista de Exercícios Adicionados */}
+          {formData.exercises.length > 0 && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-3">
+                Exercícios do Treino ({formData.exercises.length})
+              </label>
+              <div className="space-y-3 max-h-96 overflow-y-auto">
+                {formData.exercises.map((exercise, index) => (
+                  <div key={index} className="p-4 bg-gray-50 rounded-lg space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <span className="text-sm font-medium text-gray-900">
+                          {exercise.exerciseData?.name || exercise.name}
+                        </span>
+                        {exercise.exerciseData && (
+                          <div className="text-xs text-gray-500 mt-1">
+                            {exercise.exerciseData.category} • {exercise.exerciseData.muscleGroup} • {exercise.exerciseData.equipment}
+                          </div>
+                        )}
+                      </div>
                       <button
                         type="button"
                         onClick={() => removeExercise(index)}
-                        className="text-red-600 hover:text-red-700 text-sm"
+                        className="text-red-600 hover:text-red-700 ml-2"
                       >
-                        Remover
+                        <X size={18} />
                       </button>
-                    )}
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-2">
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">Séries</label>
+                        <input
+                          type="text"
+                          value={exercise.sets}
+                          onChange={(e) => updateExercise(index, 'sets', e.target.value)}
+                          className="input-field text-sm"
+                          placeholder="3"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">Reps</label>
+                        <input
+                          type="text"
+                          value={exercise.reps}
+                          onChange={(e) => updateExercise(index, 'reps', e.target.value)}
+                          className="input-field text-sm"
+                          placeholder="12"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs text-gray-600 mb-1">Descanso (s)</label>
+                        <input
+                          type="text"
+                          value={exercise.rest}
+                          onChange={(e) => updateExercise(index, 'rest', e.target.value)}
+                          className="input-field text-sm"
+                          placeholder="60"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs text-gray-600 mb-1">Observações</label>
+                      <input
+                        type="text"
+                        value={exercise.notes}
+                        onChange={(e) => updateExercise(index, 'notes', e.target.value)}
+                        className="input-field text-sm"
+                        placeholder="Observações opcionais..."
+                      />
+                    </div>
                   </div>
-
-                  <input
-                    type="text"
-                    value={exercise.name}
-                    onChange={(e) => updateExercise(index, 'name', e.target.value)}
-                    className="input-field"
-                    placeholder="Nome do exercício"
-                    required
-                  />
-
-                  <div className="grid grid-cols-3 gap-2">
-                    <input
-                      type="text"
-                      value={exercise.sets}
-                      onChange={(e) => updateExercise(index, 'sets', e.target.value)}
-                      className="input-field"
-                      placeholder="Séries"
-                      required
-                    />
-                    <input
-                      type="text"
-                      value={exercise.reps}
-                      onChange={(e) => updateExercise(index, 'reps', e.target.value)}
-                      className="input-field"
-                      placeholder="Reps"
-                      required
-                    />
-                    <input
-                      type="text"
-                      value={exercise.rest}
-                      onChange={(e) => updateExercise(index, 'rest', e.target.value)}
-                      className="input-field"
-                      placeholder="Descanso (s)"
-                    />
-                  </div>
-
-                  <input
-                    type="text"
-                    value={exercise.notes}
-                    onChange={(e) => updateExercise(index, 'notes', e.target.value)}
-                    className="input-field"
-                    placeholder="Observações (opcional)"
-                  />
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="flex gap-3 pt-4">
             <button type="button" onClick={handleCloseModal} className="flex-1 btn-secondary">
@@ -310,6 +345,17 @@ const Workouts = () => {
           </div>
         </form>
       </Modal>
+
+      {/* Modal de Adicionar Exercício Customizado */}
+      <AddExerciseModal
+        isOpen={isAddExerciseModalOpen}
+        onClose={() => setIsAddExerciseModalOpen(false)}
+        onExerciseAdded={(newExercise) => {
+          console.log('Novo exercício adicionado:', newExercise);
+          // Forçar recarregamento do ExerciseSearch
+          setExerciseSearchKey(prev => prev + 1);
+        }}
+      />
     </div>
   );
 };
