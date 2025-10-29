@@ -452,7 +452,103 @@ Whey protein|proteina|375|75.0|8.5|5.2|2.1|280|true
 Creatina|proteina|0|0|0|0|0|0
 BCAA|proteina|0|0|0|0|0|0
 Maltodextrina|carboidrato|380|0|95.0|0|0|5
-Dextrose|carboidrato|387|0|99.9|0|0|0`;
+Dextrose|carboidrato|387|0|99.9|0|0|0
+Sushi salmão|proteina|142|9.8|18.5|3.2|0.5|420
+Sushi atum|proteina|138|11.2|17.8|2.8|0.5|385
+Sashimi salmão|proteina|176|19.9|0|10.4|0|59
+Sashimi atum|proteina|118|25.4|0|1.0|0|37
+Temaki salmão|proteina|185|10.5|22.8|5.8|1.2|520
+Temaki atum|proteina|178|12.2|21.5|5.2|1.1|485
+Hot roll|proteina|245|11.8|28.5|8.9|1.5|680
+Yakisoba|carboidrato|142|8.5|18.5|3.8|2.1|820
+Guioza|proteina|198|9.5|22.8|7.2|1.5|580
+Harumaki|carboidrato|185|6.8|24.5|6.5|1.8|420
+Missoshiru|bebida|35|2.8|4.2|0.8|0.5|820
+Shoyu ramen|carboidrato|385|15.8|52.5|12.8|2.8|1850
+Udon|carboidrato|95|2.8|19.5|0.5|0.8|280
+Soba|carboidrato|99|5.1|21.2|0.4|2.1|68
+Tempurá de camarão|proteina|285|12.5|28.5|13.2|1.2|520
+Tempurá de legumes|vegetal|198|3.8|24.5|9.5|2.5|385
+Edamame|proteina|122|11.2|10.0|5.2|5.2|5
+Sunomono|vegetal|28|0.8|6.5|0.2|0.8|285
+Carpaccio de salmão|proteina|142|18.5|0.5|7.2|0|385
+Tartar de atum|proteina|158|22.5|1.2|6.8|0|420
+Risoto de funghi|carboidrato|168|5.8|24.5|5.2|1.8|520
+Risoto de camarão|carboidrato|185|8.5|25.8|5.8|1.5|580
+Polenta com ragu|carboidrato|198|9.5|28.5|5.2|2.1|680
+Gnocchi ao sugo|carboidrato|142|4.8|26.5|2.1|1.5|420
+Cannelloni|carboidrato|212|10.5|24.8|8.2|1.8|580
+Penne ao molho branco|carboidrato|198|7.8|28.5|6.2|1.5|520
+Fettuccine alfredo|carboidrato|285|9.8|32.5|12.8|1.8|680
+Carbonara|carboidrato|312|12.5|35.8|13.2|1.5|820
+Amatriciana|carboidrato|245|10.2|32.5|8.9|2.1|720
+Puttanesca|carboidrato|198|7.5|28.5|6.2|2.5|980
+Bruschetta|carboidrato|142|4.2|18.5|5.8|1.8|385
+Caprese|vegetal|158|8.5|3.2|12.5|0.8|420
+Antipasto|vegetal|198|6.8|12.5|14.2|2.5|980
+Paella|carboidrato|212|12.8|28.5|5.8|1.8|820
+Gazpacho|vegetal|58|1.8|10.5|1.2|2.1|420
+Tortilla espanhola|proteina|198|9.5|18.5|9.8|1.5|520
+Patatas bravas|carboidrato|245|3.8|32.5|11.2|2.8|680
+Churros espanhol|carboidrato|312|5.5|42.8|13.2|1.8|220
+Panetone|carboidrato|368|7.5|58.2|11.8|2.1|285
+Chocotone|carboidrato|385|7.2|59.5|13.2|2.5|295
+Colomba pascal|carboidrato|358|7.8|56.5|11.5|1.8|275
+Stollen|carboidrato|398|8.2|62.5|13.8|2.8|320
+Bolo rei|carboidrato|375|7.5|58.8|12.5|2.1|295
+Rabanada|carboidrato|285|8.5|42.5|8.9|1.5|285
+Sonho de natal|carboidrato|342|6.8|48.5|13.5|1.5|285
+Torrone|carboidrato|458|9.8|68.5|16.2|2.8|85
+Nougat|carboidrato|442|8.5|65.8|15.8|2.5|78
+Marshmallow|carboidrato|318|1.8|81.2|0.2|0|80
+Jujuba|carboidrato|321|0|80.5|0|0|35
+Bala de goma|carboidrato|325|0.5|81.8|0.1|0|42
+Pirulito|carboidrato|387|0|99.8|0|0|8
+Chiclete|carboidrato|360|0|90.0|0.5|0|12
+Drops|carboidrato|385|0|96.5|0|0|15
+Halls|carboidrato|395|0|98.8|0|0|5
+Tic tac|carboidrato|392|0|98.0|0|0|0
+Pão de mel|carboidrato|387|5.8|70.5|9.5|2.2|285
+Alfajor|carboidrato|458|6.5|68.5|17.2|1.8|185
+Brownie|carboidrato|466|5.8|58.5|23.5|2.8|285
+Muffin|carboidrato|385|6.2|52.5|16.8|1.5|420
+Cupcake|carboidrato|398|5.5|58.8|15.2|1.2|385
+Donuts|carboidrato|452|5.2|51.8|24.5|1.5|320
+Cronut|carboidrato|485|6.8|48.5|29.5|1.8|385
+Macaron|carboidrato|398|5.8|52.5|18.5|1.2|85
+Éclair|carboidrato|285|6.2|32.5|14.2|0.8|185
+Profiterole|carboidrato|298|6.5|28.5|17.2|0.5|125
+Mil folhas|carboidrato|385|5.8|42.5|21.5|1.2|285
+Torta de limão|carboidrato|312|5.2|45.8|12.5|0.8|285
+Torta de maçã|carboidrato|265|3.8|42.5|8.9|1.8|220
+Cheesecake|carboidrato|321|6.8|28.5|20.5|0.5|285
+Tiramisu|carboidrato|285|5.5|32.5|14.8|0.8|185
+Pavlova|carboidrato|245|3.2|48.5|4.2|0.5|85
+Merengue|carboidrato|385|2.8|98.5|0.2|0|125
+Suspiro|carboidrato|398|3.2|99.2|0.5|0|95
+Bem casado|carboidrato|368|6.5|58.5|12.2|1.2|220
+Casadinho|carboidrato|385|6.8|59.8|12.8|1.5|225
+Olho de sogra|carboidrato|420|8.5|52.5|19.5|2.8|65
+Camafeu|carboidrato|398|7.2|54.5|17.2|2.1|75
+Bombom|carboidrato|485|5.8|58.5|24.5|2.1|85
+Trufa|carboidrato|512|6.5|52.5|31.2|3.5|95
+Ferrero rocher|carboidrato|598|8.5|42.5|44.5|4.2|125
+Bis|carboidrato|528|6.8|62.5|27.5|2.8|185
+Suflair|carboidrato|545|7.2|58.5|30.5|2.5|125
+Laka|carboidrato|558|7.5|56.8|32.5|2.1|145
+Charge|carboidrato|485|9.8|58.5|22.5|2.8|285
+Twix|carboidrato|502|4.8|64.5|24.5|1.5|185
+Snickers|carboidrato|488|9.2|60.5|23.8|2.8|185
+M&M's|carboidrato|492|5.2|68.5|21.5|2.1|85
+Prestígio|carboidrato|465|3.8|58.5|23.5|3.2|85
+Serenata de amor|carboidrato|512|8.5|58.5|27.5|3.5|125
+Ouro branco|carboidrato|545|6.8|58.5|30.5|1.8|145
+Diamante negro|carboidrato|528|6.5|59.5|29.5|2.5|135
+Talento|carboidrato|535|7.2|57.5|30.8|2.8|125
+Lacta|carboidrato|533|7.3|59.7|30.0|2.8|79
+Garoto|carboidrato|538|7.5|58.8|30.5|2.5|82
+Nestlé|carboidrato|535|7.2|59.2|30.2|2.8|85
+Hershey's|carboidrato|531|6.8|60.5|29.5|2.5|95`;
 
 const foods = tacoFoods.split('\n').map(line => {
   const [name, category, calories, protein, carbs, fat, fiber, sodium, popular] = line.split('|');
