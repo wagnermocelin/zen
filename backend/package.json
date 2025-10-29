@@ -1,7 +1,7 @@
 {
-  "name": "zen-backend",
+  "name": "power-training-backend",
   "version": "1.0.0",
-  "description": "Backend API para sistema Zen Personal Trainer",
+  "description": "Backend API para sistema Power Training",
   "main": "server.js",
   "type": "module",
   "scripts": {

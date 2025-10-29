@@ -19,11 +19,11 @@ const Admin = () => {
     smtpSecure: false,
     smtpUser: '',
     smtpPassword: '',
-    fromEmail: 'noreply@zen.com',
-    fromName: 'Zen Personal Trainer',
+    fromEmail: 'noreply@powertraining.com',
+    fromName: 'Power Training',
     emailTemplates: {
-      welcomeSubject: 'Bem-vindo ao Zen - Ative sua conta',
-      resetPasswordSubject: 'Redefinir Senha - Zen Personal Trainer'
+      welcomeSubject: 'Bem-vindo ao Power Training - Ative sua conta',
+      resetPasswordSubject: 'Redefinir Senha - Power Training'
     }
   });
   const [formData, setFormData] = useState({
@@ -67,11 +67,11 @@ const Admin = () => {
           smtpSecure: config.emailConfig.smtpSecure || false,
           smtpUser: config.emailConfig.smtpUser || '',
           smtpPassword: config.emailConfig.smtpPassword || '',
-          fromEmail: config.emailConfig.fromEmail || 'noreply@zen.com',
-          fromName: config.emailConfig.fromName || 'Zen Personal Trainer',
+          fromEmail: config.emailConfig.fromEmail || 'noreply@powertraining.com',
+          fromName: config.emailConfig.fromName || 'Power Training',
           emailTemplates: {
-            welcomeSubject: config.emailConfig.emailTemplates?.welcomeSubject || 'Bem-vindo ao Zen - Ative sua conta',
-            resetPasswordSubject: config.emailConfig.emailTemplates?.resetPasswordSubject || 'Redefinir Senha - Zen Personal Trainer'
+            welcomeSubject: config.emailConfig.emailTemplates?.welcomeSubject || 'Bem-vindo ao Power Training - Ative sua conta',
+            resetPasswordSubject: config.emailConfig.emailTemplates?.resetPasswordSubject || 'Redefinir Senha - Power Training'
           }
         };
         console.log('📧 EmailConfig carregado:', loadedConfig);
@@ -258,7 +258,7 @@ const Admin = () => {
                 value={gymName}
                 onChange={(e) => setGymName(e.target.value)}
                 className="input-field flex-1"
-                placeholder="Ex: Zen Personal Training"
+                placeholder="Ex: Power Training"
               />
               <button onClick={handleSaveGymName} className="btn-primary">
                 Salvar
@@ -477,7 +477,7 @@ const Admin = () => {
                   }
                 })}
                 className="input-field"
-                placeholder="Bem-vindo ao Zen - Ative sua conta"
+                placeholder="Bem-vindo ao Power Training - Ative sua conta"
               />
             </div>
 
@@ -496,7 +496,7 @@ const Admin = () => {
                   }
                 })}
                 className="input-field"
-                placeholder="Redefinir Senha - Zen Personal Trainer"
+                placeholder="Redefinir Senha - Power Training"
               />
             </div>
           </div>

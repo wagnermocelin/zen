@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const configSchema = new mongoose.Schema({
   gymName: {
     type: String,
-    default: 'Zen'
+    default: 'Power Training'
   },
   logo: {
     type: String
@@ -53,13 +53,13 @@ const configSchema = new mongoose.Schema({
     },
     fromName: {
       type: String,
-      default: 'Zen Personal Trainer'
+      default: 'Power Training'
     },
     // Templates de Email
     emailTemplates: {
       welcomeSubject: {
         type: String,
-        default: 'Bem-vindo ao Zen - Ative sua conta'
+        default: 'Bem-vindo ao Power Training - Ative sua conta'
       },
       welcomeEnabled: {
         type: Boolean,
@@ -67,7 +67,7 @@ const configSchema = new mongoose.Schema({
       },
       resetPasswordSubject: {
         type: String,
-        default: 'Redefinir Senha - Zen Personal Trainer'
+        default: 'Redefinir Senha - Power Training'
       },
       resetPasswordEnabled: {
         type: Boolean,

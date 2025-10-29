@@ -52,7 +52,7 @@ app.use('/api/exercises', exerciseRoutes);
 // Rota de teste
 app.get('/', (req, res) => {
   res.json({ 
-    message: 'API Zen Personal Trainer',
+    message: 'API Power Training',
     version: '1.0.0',
     status: 'online'
   });

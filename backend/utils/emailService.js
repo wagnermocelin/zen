@@ -99,9 +99,9 @@ export const sendVerificationEmail = async (student, token, trainerId) => {
     const transporter = await createTransporter(trainerId);
     const verificationUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/activate-account?token=${token}&email=${student.email}`;
 
-    const fromName = emailConfig.fromName || 'Zen Personal Trainer';
-    const fromEmail = emailConfig.fromEmail || 'noreply@zen.com';
-    const subject = emailConfig.emailTemplates?.welcomeSubject || 'Bem-vindo ao Zen - Ative sua conta';
+    const fromName = emailConfig.fromName || 'Power Training';
+    const fromEmail = emailConfig.fromEmail || 'noreply@powertraining.com';
+    const subject = emailConfig.emailTemplates?.welcomeSubject || 'Bem-vindo ao Power Training - Ative sua conta';
 
     const mailOptions = {
       from: `"${fromName}" <${fromEmail}>`,
@@ -163,7 +163,7 @@ export const sendVerificationEmail = async (student, token, trainerId) => {
           </div>
           <div class="content">
             <h2>Olá, ${student.name}!</h2>
-            <p>Sua conta foi criada com sucesso no sistema Zen Personal Trainer.</p>
+            <p>Sua conta foi criada com sucesso no sistema Power Training.</p>
             
             <p>Para começar a usar a plataforma, você precisa ativar sua conta e criar sua senha de acesso.</p>
             
@@ -186,7 +186,7 @@ export const sendVerificationEmail = async (student, token, trainerId) => {
             <p style="word-break: break-all; color: #667eea; font-size: 12px;">${verificationUrl}</p>
           </div>
           <div class="footer">
-            <p>© ${new Date().getFullYear()} Zen Personal Trainer. Todos os direitos reservados.</p>
+            <p>© ${new Date().getFullYear()} Power Training. Todos os direitos reservados.</p>
             <p>Este é um email automático, por favor não responda.</p>
           </div>
         </body>
@@ -224,9 +224,9 @@ export const sendPasswordResetEmail = async (student, token, trainerId) => {
     const transporter = await createTransporter(trainerId);
     const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/reset-password?token=${token}&email=${student.email}`;
 
-    const fromName = emailConfig.fromName || 'Zen Personal Trainer';
-    const fromEmail = emailConfig.fromEmail || 'noreply@zen.com';
-    const subject = emailConfig.emailTemplates?.resetPasswordSubject || 'Redefinir Senha - Zen Personal Trainer';
+    const fromName = emailConfig.fromName || 'Power Training';
+    const fromEmail = emailConfig.fromEmail || 'noreply@powertraining.com';
+    const subject = emailConfig.emailTemplates?.resetPasswordSubject || 'Redefinir Senha - Power Training';
 
     const mailOptions = {
       from: `"${fromName}" <${fromEmail}>`,
@@ -307,7 +307,7 @@ export const sendPasswordResetEmail = async (student, token, trainerId) => {
             <p style="word-break: break-all; color: #667eea; font-size: 12px;">${resetUrl}</p>
           </div>
           <div class="footer">
-            <p>© ${new Date().getFullYear()} Zen Personal Trainer. Todos os direitos reservados.</p>
+            <p>© ${new Date().getFullYear()} Power Training. Todos os direitos reservados.</p>
             <p>Este é um email automático, por favor não responda.</p>
           </div>
         </body>
