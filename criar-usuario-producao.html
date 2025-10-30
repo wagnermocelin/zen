@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Criar Usuário - Produção</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            background: #4F46E5;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        button:hover {
+            background: #4338CA;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>🚀 Criar Usuário em Produção</h1>
+    
+    <p><strong>Backend:</strong> https://zen-u03e.onrender.com</p>
+    
+    <button onclick="criarUsuario()">Criar Usuário Wagner</button>
+    
+    <h2>Resultado:</h2>
+    <pre id="resultado"></pre>
+
+    <script>
+        async function criarUsuario() {
+            const resultado = document.getElementById('resultado');
+            resultado.textContent = '⏳ Criando usuário...';
+            
+            try {
+                const response = await fetch('https://zen-u03e.onrender.com/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: 'Wagner Mocelin',
+                        email: 'wagner@zen.com',
+                        password: 'senha123',
+                        role: 'trainer'
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    resultado.className = 'success';
+                    resultado.textContent = '✅ Usuário criado com sucesso!\n\n' +
+                        'Email: wagner@zen.com\n' +
+                        'Senha: senha123\n\n' +
+                        'Token: ' + data.token.substring(0, 50) + '...';
+                } else {
+                    resultado.className = 'error';
+                    resultado.textContent = '❌ Erro: ' + (data.message || JSON.stringify(data));
+                }
+            } catch (error) {
+                resultado.className = 'error';
+                resultado.textContent = '❌ Erro: ' + error.message;
+                console.error('Erro completo:', error);
+            }
+        }
+    </script>
+</body>
+</html>

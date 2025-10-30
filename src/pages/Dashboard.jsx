@@ -40,17 +40,28 @@ const Dashboard = () => {
       paymentDate: p.paymentDate
     });
     
-    // Se tem paymentDate, usar ela para calcular receita do mês
-    if (p.status === 'paid' && p.paymentDate) {
+    if (p.status !== 'paid') return false;
+    
+    // Prioridade 1: Se tem paymentDate, usar ela
+    if (p.paymentDate) {
       const receivedDate = new Date(p.paymentDate);
       return receivedDate.getMonth() === currentMonth && 
              receivedDate.getFullYear() === currentYear;
     }
     
-    // Fallback: se não tem paymentDate, usar month/year do vencimento
-    return p.status === 'paid' && 
-           p.month === currentMonthName && 
-           p.year === currentYear;
+    // Prioridade 2: Se tem month/year, usar eles
+    if (p.month && p.year) {
+      return p.month === currentMonthName && p.year === currentYear;
+    }
+    
+    // Prioridade 3: Usar dueDate como fallback
+    if (p.dueDate) {
+      const dueDate = new Date(p.dueDate);
+      return dueDate.getMonth() === currentMonth && 
+             dueDate.getFullYear() === currentYear;
+    }
+    
+    return false;
   });
   
   console.log('💰 Pagamentos recebidos este mês:', paidThisMonth.length, paidThisMonth);

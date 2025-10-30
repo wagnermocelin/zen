@@ -1,0 +1,31 @@
+========================================
+STRING DE CONEXÃO CORRETA PARA O RENDER
+========================================
+
+COPIE ESTA STRING COMPLETA:
+
+mongodb+srv://wagnermocelin_db_user:4y9r8MGYUucNF9RW@ac-krlsmgn.iujtjjc.mongodb.net/zen-personal-trainer?retryWrites=true&w=majority
+
+========================================
+COMO USAR:
+========================================
+
+1. Acesse: https://dashboard.render.com
+2. Clique no seu serviço backend
+3. Vá em "Environment" (menu lateral)
+4. Encontre a variável: MONGODB_URI
+5. Clique em "Edit"
+6. COLE a string acima
+7. Clique em "Save Changes"
+8. Aguarde o redeploy (5-10 minutos)
+
+========================================
+VERIFICAR SE FUNCIONOU:
+========================================
+
+Após o redeploy, vá em "Logs" e procure por:
+📦 Database: zen-personal-trainer
+
+Se aparecer isso, está correto!
+
+========================================
