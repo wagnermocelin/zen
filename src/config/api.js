@@ -1,10 +1,13 @@
 // Configuração da URL da API
-// SEMPRE usa o backend do Render (MongoDB Atlas)
-// Para usar backend local, altere para: 'http://localhost:5000/api'
+// Em produção: usa backend do Render (MongoDB Atlas)
+// Em desenvolvimento: usa localhost
 
-const API_URL = 'http://localhost:5000/api';  // TEMPORÁRIO - TESTANDO LOCAL
+const API_URL = import.meta.env.PROD 
+  ? 'https://zen-u03e.onrender.com/api'  // Produção - Render
+  : 'http://localhost:5000/api';          // Desenvolvimento - Local
 
 export default API_URL;
 
-// ⚠️ ATENÇÃO: Usando backend LOCAL para testes
-// Antes de fazer deploy, volte para: https://zen-u03e.onrender.com/api
+// ✅ Configuração automática:
+// - npm run dev → localhost:5000
+// - npm run build → zen-u03e.onrender.com
