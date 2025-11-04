@@ -137,7 +137,11 @@ const ExerciseSearch = ({ onSelectExercise, selectedExercises = [] }) => {
         {categories.map(cat => (
           <button
             key={cat.value}
-            onClick={() => setSelectedCategory(cat.value)}
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              setSelectedCategory(cat.value);
+            }}
             className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-colors ${
               selectedCategory === cat.value
                 ? 'bg-primary-600 text-white'
@@ -181,7 +185,9 @@ const ExerciseSearch = ({ onSelectExercise, selectedExercises = [] }) => {
         />
         {searchTerm && (
           <button
-            onClick={() => {
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
               setSearchTerm('');
               setShowResults(false);
             }}
@@ -208,7 +214,11 @@ const ExerciseSearch = ({ onSelectExercise, selectedExercises = [] }) => {
               {filteredExercises.map(exercise => (
                 <button
                   key={exercise._id}
-                  onClick={() => handleSelectExercise(exercise)}
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleSelectExercise(exercise);
+                  }}
                   disabled={isSelected(exercise._id)}
                   className={`w-full p-3 text-left hover:bg-gray-50 transition-colors ${
                     isSelected(exercise._id) ? 'opacity-50 cursor-not-allowed' : ''
