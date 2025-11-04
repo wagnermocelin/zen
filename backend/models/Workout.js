@@ -1,9 +1,18 @@
 import mongoose from 'mongoose';
 
 const exerciseSchema = new mongoose.Schema({
+  // Referência ao exercício (novo formato)
+  exercise: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Exercise'
+  },
+  // Dados do exercício (para compatibilidade)
+  exerciseData: {
+    type: mongoose.Schema.Types.Mixed
+  },
+  // Nome do exercício (formato antigo - ainda aceito)
   name: {
-    type: String,
-    required: true
+    type: String
   },
   sets: String,
   reps: String,
