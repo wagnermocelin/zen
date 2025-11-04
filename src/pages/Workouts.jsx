@@ -77,9 +77,9 @@ const Workouts = () => {
     const newExercise = {
       exercise: exercise._id,
       exerciseData: exercise,
-      sets: '3',
-      reps: '12',
-      rest: '60',
+      sets: [
+        { reps: '12', weight: '', rest: '60' }
+      ],
       notes: ''
     };
     setFormData({
@@ -98,6 +98,26 @@ const Workouts = () => {
   const updateExercise = (index, field, value) => {
     const newExercises = [...formData.exercises];
     newExercises[index][field] = value;
+    setFormData({ ...formData, exercises: newExercises });
+  };
+
+  const addSet = (exerciseIndex) => {
+    const newExercises = [...formData.exercises];
+    newExercises[exerciseIndex].sets.push({ reps: '12', weight: '', rest: '60' });
+    setFormData({ ...formData, exercises: newExercises });
+  };
+
+  const removeSet = (exerciseIndex, setIndex) => {
+    const newExercises = [...formData.exercises];
+    if (newExercises[exerciseIndex].sets.length > 1) {
+      newExercises[exerciseIndex].sets.splice(setIndex, 1);
+      setFormData({ ...formData, exercises: newExercises });
+    }
+  };
+
+  const updateSet = (exerciseIndex, setIndex, field, value) => {
+    const newExercises = [...formData.exercises];
+    newExercises[exerciseIndex].sets[setIndex][field] = value;
     setFormData({ ...formData, exercises: newExercises });
   };
 
@@ -168,8 +188,11 @@ const Workouts = () => {
                         <div key={index} className="text-sm text-gray-600 bg-gray-50 p-2 rounded">
                           <p className="font-medium">{exercise.name}</p>
                           <p className="text-xs">
-                            {exercise.sets} séries × {exercise.reps} reps
-                            {exercise.rest && ` • ${exercise.rest}s descanso`}
+                            {Array.isArray(exercise.sets) 
+                              ? `${exercise.sets.length} séries`
+                              : `${exercise.sets} séries × ${exercise.reps} reps`
+                            }
+                            {exercise.rest && !Array.isArray(exercise.sets) && ` • ${exercise.rest}s descanso`}
                           </p>
                         </div>
                       ))}
@@ -284,38 +307,71 @@ const Workouts = () => {
                       </button>
                     </div>
 
-                    <div className="grid grid-cols-3 gap-2">
-                      <div>
-                        <label className="block text-xs text-gray-600 mb-1">Séries</label>
-                        <input
-                          type="text"
-                          value={exercise.sets}
-                          onChange={(e) => updateExercise(index, 'sets', e.target.value)}
-                          className="input-field text-sm"
-                          placeholder="3"
-                          required
-                        />
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <label className="block text-xs font-medium text-gray-700">
+                          Séries ({exercise.sets?.length || 0})
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => addSet(index)}
+                          className="text-xs text-green-600 hover:text-green-700 flex items-center gap-1"
+                        >
+                          <Plus size={14} />
+                          Adicionar Série
+                        </button>
                       </div>
-                      <div>
-                        <label className="block text-xs text-gray-600 mb-1">Reps</label>
-                        <input
-                          type="text"
-                          value={exercise.reps}
-                          onChange={(e) => updateExercise(index, 'reps', e.target.value)}
-                          className="input-field text-sm"
-                          placeholder="12"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs text-gray-600 mb-1">Descanso (s)</label>
-                        <input
-                          type="text"
-                          value={exercise.rest}
-                          onChange={(e) => updateExercise(index, 'rest', e.target.value)}
-                          className="input-field text-sm"
-                          placeholder="60"
-                        />
+                      
+                      <div className="space-y-2 max-h-48 overflow-y-auto">
+                        {(exercise.sets || []).map((set, setIndex) => (
+                          <div key={setIndex} className="flex items-center gap-2 p-2 bg-white rounded border border-gray-200">
+                            <span className="text-xs font-medium text-gray-500 w-6">
+                              {setIndex + 1}ª
+                            </span>
+                            <div className="flex-1 grid grid-cols-3 gap-2">
+                              <div>
+                                <input
+                                  type="text"
+                                  value={set.reps}
+                                  onChange={(e) => updateSet(index, setIndex, 'reps', e.target.value)}
+                                  className="input-field text-sm"
+                                  placeholder="Reps"
+                                  required
+                                />
+                                <label className="block text-[10px] text-gray-500 mt-0.5">Reps</label>
+                              </div>
+                              <div>
+                                <input
+                                  type="text"
+                                  value={set.weight}
+                                  onChange={(e) => updateSet(index, setIndex, 'weight', e.target.value)}
+                                  className="input-field text-sm"
+                                  placeholder="Peso"
+                                />
+                                <label className="block text-[10px] text-gray-500 mt-0.5">Peso (kg)</label>
+                              </div>
+                              <div>
+                                <input
+                                  type="text"
+                                  value={set.rest}
+                                  onChange={(e) => updateSet(index, setIndex, 'rest', e.target.value)}
+                                  className="input-field text-sm"
+                                  placeholder="60"
+                                />
+                                <label className="block text-[10px] text-gray-500 mt-0.5">Descanso (s)</label>
+                              </div>
+                            </div>
+                            {exercise.sets.length > 1 && (
+                              <button
+                                type="button"
+                                onClick={() => removeSet(index, setIndex)}
+                                className="text-red-500 hover:text-red-700"
+                              >
+                                <X size={14} />
+                              </button>
+                            )}
+                          </div>
+                        ))}
                       </div>
                     </div>
 
