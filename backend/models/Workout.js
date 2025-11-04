@@ -1,5 +1,12 @@
 import mongoose from 'mongoose';
 
+// Schema para cada série individual
+const setSchema = new mongoose.Schema({
+  reps: String,
+  weight: String,
+  rest: String
+}, { _id: false });
+
 const exerciseSchema = new mongoose.Schema({
   // Referência ao exercício (novo formato)
   exercise: {
@@ -14,7 +21,12 @@ const exerciseSchema = new mongoose.Schema({
   name: {
     type: String
   },
-  sets: String,
+  // Sets pode ser array de objetos (novo) ou string (antigo)
+  sets: {
+    type: mongoose.Schema.Types.Mixed,
+    default: []
+  },
+  // Campos antigos (ainda aceitos)
   reps: String,
   rest: String,
   notes: String
