@@ -18,6 +18,7 @@ const Students = () => {
     phone: '',
     birthDate: '',
     gender: 'Masculino',
+    serviceType: 'personal',
   });
 
   const filteredStudents = students.filter(student =>
@@ -35,6 +36,7 @@ const Students = () => {
         phone: student.phone,
         birthDate: student.birthDate,
         gender: student.gender,
+        serviceType: student.serviceType || 'personal',
       });
     } else {
       setEditingStudent(null);
@@ -45,6 +47,7 @@ const Students = () => {
         phone: '',
         birthDate: '',
         gender: 'Masculino',
+        serviceType: 'personal',
       });
     }
     setIsModalOpen(true);
@@ -182,13 +185,20 @@ const Students = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">{student.name}</h3>
-                      <div className="flex gap-2 mt-1">
+                      <div className="flex gap-2 mt-1 flex-wrap">
                         <span className={`inline-block px-2 py-1 text-xs rounded-full ${
                           student.status === 'active' 
                             ? 'bg-green-100 text-green-700' 
                             : 'bg-gray-100 text-gray-700'
                         }`}>
                           {student.status === 'active' ? 'Ativo' : 'Inativo'}
+                        </span>
+                        <span className={`inline-block px-2 py-1 text-xs rounded-full ${
+                          student.serviceType === 'personal'
+                            ? 'bg-blue-100 text-blue-700'
+                            : 'bg-purple-100 text-purple-700'
+                        }`}>
+                          {student.serviceType === 'personal' ? '💪 Personal' : '📋 Consultoria'}
                         </span>
                         {student.blocked && (
                           <span className="inline-block px-2 py-1 text-xs rounded-full bg-red-100 text-red-700 flex items-center gap-1">
@@ -344,6 +354,20 @@ const Students = () => {
               <option value="Masculino">Masculino</option>
               <option value="Feminino">Feminino</option>
               <option value="Outro">Outro</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Tipo de Serviço
+            </label>
+            <select
+              value={formData.serviceType}
+              onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
+              className="input-field"
+            >
+              <option value="personal">Personal</option>
+              <option value="consultoria">Consultoria</option>
             </select>
           </div>
 

@@ -60,6 +60,11 @@ const studentSchema = new mongoose.Schema({
     enum: ['active', 'inactive'],
     default: 'active'
   },
+  serviceType: {
+    type: String,
+    enum: ['personal', 'consultoria'],
+    default: 'personal'
+  },
   blocked: {
     type: Boolean,
     default: false
