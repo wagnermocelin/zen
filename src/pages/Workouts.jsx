@@ -377,12 +377,12 @@ const Workouts = () => {
 
                     <div>
                       <label className="block text-xs text-gray-600 mb-1">Observações</label>
-                      <input
-                        type="text"
+                      <textarea
                         value={exercise.notes}
                         onChange={(e) => updateExercise(index, 'notes', e.target.value)}
-                        className="input-field text-sm"
+                        className="input-field text-sm resize-y min-h-[60px]"
                         placeholder="Observações opcionais..."
+                        rows="2"
                       />
                     </div>
                   </div>
