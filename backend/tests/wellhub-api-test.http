@@ -1,0 +1,125 @@
+### Testes da API Wellhub
+### Use a extensão REST Client no VS Code ou Postman/Insomnia
+
+### Variáveis
+@baseUrl = http://localhost:5000/api
+@wellhubApiKey = sua_api_key_do_wellhub
+@jwtToken = seu_jwt_token_aqui
+@gympassUserId = gpw-test-123456
+
+###############################################
+### 1. OBTER ACCESS TOKEN (Wellhub solicita)
+###############################################
+
+GET {{baseUrl}}/wellhub/auth
+X-Api-Key: {{wellhubApiKey}}
+Content-Type: application/json
+
+###############################################
+### 2. REGISTRAR USUÁRIO (Wellhub solicita)
+###############################################
+
+POST {{baseUrl}}/wellhub/register
+Authorization: Bearer eyJhbGciO...
+Content-Type: application/json
+
+{
+  "gympass_user_id": "{{gympassUserId}}",
+  "email": "teste@wellhub.com",
+  "first_name": "João",
+  "last_name": "Silva",
+  "origin": "web",
+  "user_status": "1",
+  "country_code": "br"
+}
+
+###############################################
+### 3. LISTAR USUÁRIOS WELLHUB
+###############################################
+
+GET {{baseUrl}}/wellhub/users
+Authorization: Bearer {{jwtToken}}
+
+###############################################
+### 4. OBTER DETALHES DE UM USUÁRIO
+###############################################
+
+GET {{baseUrl}}/wellhub/users/{{gympassUserId}}
+Authorization: Bearer {{jwtToken}}
+
+###############################################
+### 5. REGISTRAR CHECK-IN
+###############################################
+
+POST {{baseUrl}}/wellhub/checkin
+Authorization: Bearer {{jwtToken}}
+Content-Type: application/json
+
+{
+  "gympass_user_id": "{{gympassUserId}}",
+  "origin": "web",
+  "notes": "Check-in via teste"
+}
+
+###############################################
+### 6. VINCULAR A ALUNO EXISTENTE
+###############################################
+
+POST {{baseUrl}}/wellhub/link-student
+Authorization: Bearer {{jwtToken}}
+Content-Type: application/json
+
+{
+  "gympass_user_id": "{{gympassUserId}}",
+  "student_id": "507f1f77bcf86cd799439011"
+}
+
+###############################################
+### 7. OBTER ESTATÍSTICAS
+###############################################
+
+GET {{baseUrl}}/wellhub/stats
+Authorization: Bearer {{jwtToken}}
+
+###############################################
+### 8. OBTER ESTATÍSTICAS COM FILTRO DE DATA
+###############################################
+
+GET {{baseUrl}}/wellhub/stats?start_date=2025-11-01&end_date=2025-11-30
+Authorization: Bearer {{jwtToken}}
+
+###############################################
+### TESTES DE ERRO
+###############################################
+
+### Erro: API Key inválida
+GET {{baseUrl}}/wellhub/auth
+X-Api-Key: chave_invalida
+Content-Type: application/json
+
+###
+
+### Erro: Token ausente
+POST {{baseUrl}}/wellhub/register
+Content-Type: application/json
+
+{
+  "gympass_user_id": "gpw-test"
+}
+
+###
+
+### Erro: gympass_user_id ausente
+POST {{baseUrl}}/wellhub/checkin
+Authorization: Bearer {{jwtToken}}
+Content-Type: application/json
+
+{
+  "origin": "web"
+}
+
+###
+
+### Erro: Usuário não encontrado
+GET {{baseUrl}}/wellhub/users/gpw-nao-existe
+Authorization: Bearer {{jwtToken}}
