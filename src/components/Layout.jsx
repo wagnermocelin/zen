@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   Home, Users, Dumbbell, Ruler, Calendar, 
-  Salad, DollarSign, LogOut, Menu, X, Settings 
+  Salad, DollarSign, LogOut, Menu, X, Settings, CheckCircle, UserCheck 
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -36,6 +36,8 @@ const Layout = ({ children }) => {
     { icon: Calendar, label: 'Fichas', path: '/schedules' },
     { icon: Salad, label: 'Dietas', path: '/diets' },
     { icon: DollarSign, label: 'Financeiro', path: '/payments' },
+    { icon: CheckCircle, label: 'Wellhub Check-in', path: '/wellhub/checkin' },
+    { icon: UserCheck, label: 'Usuários Wellhub', path: '/wellhub/users' },
     { icon: Settings, label: 'Administração', path: '/admin' },
   ];
 

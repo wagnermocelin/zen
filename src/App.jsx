@@ -20,6 +20,8 @@ import StudentPayments from './pages/student/StudentPayments';
 import Admin from './pages/Admin';
 import ActivateAccount from './pages/ActivateAccount';
 import ResetPassword from './pages/ResetPassword';
+import WellhubCheckIn from './pages/WellhubCheckIn';
+import WellhubUsers from './pages/WellhubUsers';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, requireTrainer = false, requireStudent = false }) => {
@@ -72,6 +74,8 @@ const AppRoutes = () => {
       <Route path="/diets" element={<ProtectedRoute requireTrainer><Layout><Diets /></Layout></ProtectedRoute>} />
       <Route path="/payments" element={<ProtectedRoute requireTrainer><Layout><Payments /></Layout></ProtectedRoute>} />
       <Route path="/admin" element={<ProtectedRoute requireTrainer><Layout><Admin /></Layout></ProtectedRoute>} />
+      <Route path="/wellhub/checkin" element={<ProtectedRoute requireTrainer><Layout><WellhubCheckIn /></Layout></ProtectedRoute>} />
+      <Route path="/wellhub/users" element={<ProtectedRoute requireTrainer><Layout><WellhubUsers /></Layout></ProtectedRoute>} />
 
       {/* Student Routes */}
       <Route path="/student/dashboard" element={<ProtectedRoute requireStudent><Layout><StudentDashboard /></Layout></ProtectedRoute>} />
