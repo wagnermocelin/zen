@@ -26,12 +26,20 @@ connectDB();
 
 const app = express();
 
-// Middleware - CORS totalmente aberto para desenvolvimento
+// Middleware - CORS configurado para desenvolvimento e produção
 app.use(cors({
-  origin: '*',
-  credentials: false,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'https://zem.wuaze.com',
+    'https://power-training.netlify.app',
+    /\.netlify\.app$/,
+    /\.vercel\.app$/
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Api-Key'],
+  exposedHeaders: ['Content-Length', 'X-Request-Id']
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
